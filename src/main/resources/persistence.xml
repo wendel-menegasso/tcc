@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <persistence-unit name="tcc" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>br.com.mba.engenharia.de.software.negocio.despesas.Despesa</class>
+        <class>br.com.mba.engenharia.de.software.negocio.despesas.Tipodespesa</class>
+        <class>br.com.mba.engenharia.de.software.negocio.veiculos.Fabricante</class>
+        <class>br.com.mba.engenharia.de.software.negocio.veiculos.Modelo</class>
+        <class>br.com.mba.engenharia.de.software.negocio.veiculos.Tipoveiculo</class>
+        <class>br.com.mba.engenharia.de.software.negocio.veiculos.Veiculo</class>
+        <class>br.com.mba.engenharia.de.software.negocio.usuarios.Usuario</class>
+        <class>br.com.mba.engenharia.de.software.negocio.repeticao.Repeticao</class>
+        <class>br.com.mba.engenharia.de.software.negocio.rendas.Renda</class>
+        <class>br.com.mba.engenharia.de.software.negocio.rendas.Tiporenda</class>
+        <class>br.com.mba.engenharia.de.software.negocio.imoveis.Cidade</class>
+        <class>br.com.mba.engenharia.de.software.negocio.imoveis.Estado</class>
+        <class>br.com.mba.engenharia.de.software.negocio.imoveis.Imovei</class>
+        <class>br.com.mba.engenharia.de.software.negocio.imoveis.Tipoimovel</class>
+        <class>br.com.mba.engenharia.de.software.negocio.empresas.Empresa</class>
+        <class>br.com.mba.engenharia.de.software.negocio.contas.Tipoconta</class>
+        <class>br.com.mba.engenharia.de.software.negocio.contas.Banco</class>
+        <class>br.com.mba.engenharia.de.software.negocio.contas.Conta</class>
+        <class>br.com.mba.engenharia.de.software.negocio.contas.User</class>
+        <class>br.com.mba.engenharia.de.software.negocio.contas.Role</class>
+        <class>br.com.mba.engenharia.de.software.negocio.usuarios.Usuario</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://root:fsa41306@localhost:3306/tcc" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="fsa41306" />
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+        </properties>
+    </persistence-unit>
+</persistence>
