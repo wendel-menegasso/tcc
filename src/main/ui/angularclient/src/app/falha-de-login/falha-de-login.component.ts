@@ -4,14 +4,13 @@ import { UserService } from '../service/user.service';
 import { User } from '../model/user';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.css']
+  selector: 'app-falhaDeLogin',
+  templateUrl: './falha-de-login.component.html',
+  styleUrls: ['./falha-de-login.component.css']
 })
-export class UserFormComponent {
+export class FalhaDeLoginComponent {
 
   user: User;
-    users: User;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,15 +20,7 @@ export class UserFormComponent {
   }
 
   onSubmit() {
-    this.userService.authenticate(this.user).subscribe(data => {
-      this.users = data;
-      if (this.users != null){
-          this.gotoUserList();
-      }
-      else{
-        this.router.navigate(['falhaDeLogin']);
-      }
-      });
+    this.userService.authenticate(this.user).subscribe(result => this.gotoUserList());
   }
 
   gotoUserList() {

@@ -7,12 +7,16 @@ import { AppComponent } from './app.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserService } from './service/user.service';
+import { MenuComponent } from './menu/menu.component';
+import { FalhaDeLoginComponent } from './falha-de-login/falha-de-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
-    UserFormComponent
+    UserFormComponent,
+    MenuComponent,
+    FalhaDeLoginComponent
   ],
   imports: [
     BrowserModule,
