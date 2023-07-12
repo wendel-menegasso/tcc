@@ -9,6 +9,7 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { UserService } from './service/user.service';
 import { MenuComponent } from './menu/menu.component';
 import { FalhaDeLoginComponent } from './falha-de-login/falha-de-login.component';
+import { MasterComponent } from './master/master.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FalhaDeLoginComponent } from './falha-de-login/falha-de-login.component
     UserListComponent,
     UserFormComponent,
     MenuComponent,
-    FalhaDeLoginComponent
+    FalhaDeLoginComponent,
+    MasterComponent
   ],
   imports: [
     BrowserModule,
