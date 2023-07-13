@@ -10,6 +10,7 @@ import { UserService } from './service/user.service';
 import { MenuComponent } from './menu/menu.component';
 import { FalhaDeLoginComponent } from './falha-de-login/falha-de-login.component';
 import { MasterComponent } from './master/master.component';
+import { NgbdAccordionConfig } from './accordion-config/accordion-config.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MasterComponent } from './master/master.component';
     UserFormComponent,
     MenuComponent,
     FalhaDeLoginComponent,
-    MasterComponent
+    MasterComponent,
+    NgbdAccordionConfig
   ],
   imports: [
     BrowserModule,
