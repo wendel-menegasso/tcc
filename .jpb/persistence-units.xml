@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit name="tcc" persistenceXmlPath="src/main/resources/persistence.xml">
+        <packages>
+          <package value="br.com.mba.engenharia.de.software.negocio.contas" />
+          <package value="br.com.mba.engenharia.de.software.negocio.despesas" />
+          <package value="br.com.mba.engenharia.de.software.negocio.empresas" />
+          <package value="br.com.mba.engenharia.de.software.negocio.imoveis" />
+          <package value="br.com.mba.engenharia.de.software.negocio.rendas" />
+          <package value="br.com.mba.engenharia.de.software.negocio.repeticao" />
+          <package value="br.com.mba.engenharia.de.software.negocio.usuarios" />
+          <package value="br.com.mba.engenharia.de.software.negocio.veiculos" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+</project>
