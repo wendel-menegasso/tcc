@@ -1,26 +1,96 @@
-<ngb-accordion #acc="ngbAccordion" activeIds="config-panel-one">
-  <ngb-panel title="Contas" id="config-panel-one">
+<div class="accordion">
+<ngb-accordion #acc="ngbAccordion">
+  <ngb-panel title="Contas">
     <ng-template ngbPanelContent>
-      <a routerLink="/contas/adiconar">Adicionar</a><br>
-      <a routerLink="/contas/procurar">Procurar</a><br>
-      <a routerLink="/contas/alterar">Alterar</a><br>
-      <a routerLink="/contas/deletar">Deletar</a><br>
-    </ng-template>
-  </ngb-panel>
-  <ngb-panel title="Gastos">
-    <ng-template ngbPanelContent>
-      <a routerLink="/gastos/adiconar">Adicionar</a><br>
-      <a routerLink="/gastos/procurar">Procurar</a><br>
-      <a routerLink="/gastos/alterar">Alterar</a><br>
-      <a routerLink="/gastos/deletar">Deletar</a><br>
-    </ng-template>
-  </ngb-panel>
-  <ngb-panel title="Ganhos">
-    <ng-template ngbPanelContent>
-      <a routerLink="/ganhos/adiconar">Adicionar</a><br>
-      <a routerLink="/ganhos/procurar">Procurar</a><br>
-      <a routerLink="/ganhos/alterar">Alterar</a><br>
-      <a routerLink="/ganhos/deletar">Deletar</a><br>
+      <a routerLink="/contas/adiconar">Adicionar Contas</a><br>
+      <a routerLink="/contas/procurar">Procurar Contas</a><br>
+      <a routerLink="/contas/alterar">Alterar Contas</a><br>
+      <a routerLink="/contas/deletar">Deletar Contas</a><br>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
+</div>
+<div class="accordion">
+<ngb-accordion  #acc="ngbAccordion">
+    <ngb-panel title="Gastos">
+      <ng-template ngbPanelContent>
+        <a routerLink="/gastos/adiconar">Adicionar Gastos</a><br>
+        <a routerLink="/gastos/procurar">Procurar Gastos</a><br>
+        <a routerLink="/gastos/alterar">Alterar Gastos</a><br>
+        <a routerLink="/gastos/deletar">Deletar Gastos</a><br>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+<div class="accordion">
+  <ngb-accordion #acc="ngbAccordion">
+  <ngb-panel title="Ganhos">
+    <ng-template ngbPanelContent>
+      <a routerLink="/ganhos/adiconar">Adicionar Ganhos</a><br>
+      <a routerLink="/ganhos/procurar">Procurar Ganhos</a><br>
+      <a routerLink="/ganhos/alterar">Alterar Ganhos</a><br>
+      <a routerLink="/ganhos/deletar">Deletar Ganhos</a><br>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+</div>
+<div class="accordion">
+  <ngb-accordion #acc="ngbAccordion">
+    <ngb-panel title="Veículos" id="config-panel-one">
+      <ng-template ngbPanelContent>
+        <a routerLink="/contas/veiculos">Adicionar Veículos</a><br>
+        <a routerLink="/contas/veiculos">Procurar Veículos</a><br>
+        <a routerLink="/contas/veiculos">Alterar Veículos</a><br>
+        <a routerLink="/contas/veiculos">Deletar Veículos</a><br>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+<div class="accordion">
+  <ngb-accordion #acc="ngbAccordion">
+    <ngb-panel title="Imóveis">
+      <ng-template ngbPanelContent>
+        <a routerLink="/gastos/imoveis">Adicionar Imóveis</a><br>
+        <a routerLink="/gastos/imoveis">Procurar Imóveis</a><br>
+        <a routerLink="/gastos/imoveis">Alterar Imóveis</a><br>
+        <a routerLink="/gastos/imoveis">Deletar Imóveis</a><br>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+<div class="accordion">
+  <ngb-accordion #acc="ngbAccordion">
+    <ngb-panel title="Empresas">
+      <ng-template ngbPanelContent>
+        <a routerLink="/ganhos/empresas">Adicionar Empresas</a><br>
+        <a routerLink="/ganhos/empresas">Procurar Empresas</a><br>
+        <a routerLink="/ganhos/empresas">Alterar Empresas</a><br>
+        <a routerLink="/ganhos/empresas">Deletar Empresas</a><br>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+<div class="accordion">
+  <ngb-accordion #acc="ngbAccordion">
+    <ngb-panel title="Tesouro Direto">
+      <ng-template ngbPanelContent>
+        <a routerLink="/contas/tesouro">Adicionar Tesouro Direto</a><br>
+        <a routerLink="/contas/tesouro">Procurar Tesouro Direto</a><br>
+        <a routerLink="/contas/tesouro">Alterar Tesouro Direto</a><br>
+        <a routerLink="/contas/tesouro">Deletar Tesouro Direto</a><br>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+<div class="accordion">
+  <ngb-accordion #acc="ngbAccordion">
+    <ngb-panel title="Ações">
+      <ng-template ngbPanelContent>
+        <a routerLink="/gastos/acoes">Adicionar Ações</a><br>
+        <a routerLink="/gastos/acoes">Procurar Ações</a><br>
+        <a routerLink="/gastos/acoes">Alterar Ações</a><br>
+        <a routerLink="/gastos/acoes">Deletar Ações</a><br>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

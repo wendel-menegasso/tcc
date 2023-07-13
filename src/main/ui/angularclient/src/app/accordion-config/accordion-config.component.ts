@@ -4,6 +4,7 @@ import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 @Component({
 	selector: 'ngbd-accordion-config',
 	templateUrl: './accordion-config.component.html',
+	styleUrls: ['./accordion-config.component.css'],
 	providers: [NgbAccordionConfig], // add the NgbAccordionConfig to the component providers
 })
 export class NgbdAccordionConfig {
