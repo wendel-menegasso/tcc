@@ -12,6 +12,8 @@ import { FalhaDeLoginComponent } from './falha-de-login/falha-de-login.component
 import { MasterComponent } from './master/master.component';
 import { NgbdAccordionConfig } from './accordion-config/accordion-config.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { CriarUsuarioComponent } from './criar-usuario/criar-usuario.component';
+import { UsuarioService } from './service/usuario-service.service';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MenuComponent,
     FalhaDeLoginComponent,
     MasterComponent,
-    NgbdAccordionConfig
+    NgbdAccordionConfig,
+    CriarUsuarioComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     FormsModule
   ],
-  providers: [UserService],
+  providers: [UserService,UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,39 @@
+<main class="form-signin w-100 m-auto">
+  <form action="/enviarCadastro" method="get">
+    <h1 class="h3 mb-3 fw-normal">Digite seu usuário e sua senha:</h1>
+
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" name="username" placeholder="name@example.com">
+      <label for="floatingInput">Usuario</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" name="nome" placeholder="Nome">
+      <label for="floatingInput">Nome</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" name="sobrenome" placeholder="Sobrenome">
+      <label for="floatingPassword">Sobrenome</label>
+    </div>
+
+    <div class="form-floating">
+      <input type="email" class="form-control" name="email" placeholder="name@example.com">
+      <label for="floatingInput">E-mail</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" name="dataDeNascimento" placeholder="00-00-0000">
+      <label for="floatingPassword">Data de nascimento</label>
+    </div>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" name="cpf" placeholder="000.000.000-00">
+      <label for="floatingInput">CPF</label>
+    </div>
+
+    <button (click)="onSubmit()">Cadastrar</button>
+  </form>
+</main>

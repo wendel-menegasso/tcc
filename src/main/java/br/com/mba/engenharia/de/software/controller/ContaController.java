@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class ContaController{
     private static final Logger logger = LoggerFactory.getLogger(Conta.class);
 
-    @GetMapping("/testConta")
+    @GetMapping("/criarConta")
     public String testConta(@RequestParam(name="conta") String numeroConta, @RequestParam(name="agencia") String agencia,
                             @RequestParam(name="tipoConta") String tipoConta, @RequestParam(name="banco") String bancoValue,
                             @RequestParam(name="saldo") String valor, HttpServletResponse response) throws IOException {

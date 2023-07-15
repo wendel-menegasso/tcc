@@ -6,6 +6,7 @@ import { MenuComponent } from './menu/menu.component';
 import { MasterComponent } from './master/master.component';
 import { FalhaDeLoginComponent} from './falha-de-login/falha-de-login.component';
 import { AppComponent } from './app.component';
+import { CriarUsuarioComponent } from './criar-usuario/criar-usuario.component';
 
 const routes: Routes = [
     { path: 'login', component: AppComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
         { path: 'users', component: UserListComponent },
         { path: 'home', component: MenuComponent},
         { path: 'falhaDeLogin', component: FalhaDeLoginComponent},
+        { path: 'cadastrarUsuario', component: CriarUsuarioComponent}
         ],
     },
 ];
