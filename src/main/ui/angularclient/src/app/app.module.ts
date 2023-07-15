@@ -14,6 +14,7 @@ import { NgbdAccordionConfig } from './accordion-config/accordion-config.compone
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CriarUsuarioComponent } from './criar-usuario/criar-usuario.component';
 import { UsuarioService } from './service/usuario-service.service';
+import { DesbloquearUsuarioComponent } from './desbloquear-usuario/desbloquear-usuario.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { UsuarioService } from './service/usuario-service.service';
     FalhaDeLoginComponent,
     MasterComponent,
     NgbdAccordionConfig,
-    CriarUsuarioComponent
+    CriarUsuarioComponent,
+    DesbloquearUsuarioComponent
   ],
   imports: [
     BrowserModule,

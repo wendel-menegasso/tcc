@@ -1,39 +1,71 @@
 <main class="form-signin w-100 m-auto">
-  <form action="/enviarCadastro" method="get">
-    <h1 class="h3 mb-3 fw-normal">Digite seu usuário e sua senha:</h1>
 
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" name="username" placeholder="name@example.com">
-      <label for="floatingInput">Usuario</label>
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <div class="form-group">
+      <label for="username">Usuario</label><br>
+      <input type="text" [(ngModel)]="usuario.username"
+             class="form-control"
+             id="username"
+             name="username"
+             placeholder="Usuario"
+             required #name="ngModel">
     </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
-      <label for="floatingPassword">Password</label>
+    <div class="form-group">
+      <label for="password">Senha</label><br>
+      <input type="password" [(ngModel)]="usuario.senha"
+             class="form-control"
+             id="password"
+             name="password"
+             placeholder="Senha"
+             required #email="ngModel">
     </div>
-
-    <div class="form-floating">
-      <input type="text" class="form-control" name="nome" placeholder="Nome">
-      <label for="floatingInput">Nome</label>
+    <div class="form-group">
+      <label for="nome">Nome</label><br>
+      <input type="text" [(ngModel)]="usuario.nome"
+             class="form-control"
+             id="nome"
+             name="nome"
+             placeholder="Nome"
+             required #name="ngModel">
     </div>
-    <div class="form-floating">
-      <input type="text" class="form-control" name="sobrenome" placeholder="Sobrenome">
-      <label for="floatingPassword">Sobrenome</label>
+    <div class="form-group">
+      <label for="sobrenome">Sobrenome</label><br>
+      <input type="text" [(ngModel)]="usuario.sobrenome"
+             class="form-control"
+             id="sobrenome"
+             name="sobrenome"
+             placeholder="Sobrenome"
+             required #name="ngModel">
     </div>
-
-    <div class="form-floating">
-      <input type="email" class="form-control" name="email" placeholder="name@example.com">
-      <label for="floatingInput">E-mail</label>
+    <div class="form-group">
+      <label for="email">E-mail</label><br>
+      <input type="email" [(ngModel)]="usuario.email"
+             class="form-control"
+             id="email"
+             name="email"
+             placeholder="xxxxxxxxxxxxxx@xxxx.xxx.xx"
+             required #name="ngModel">
     </div>
-    <div class="form-floating">
-      <input type="text" class="form-control" name="dataDeNascimento" placeholder="00-00-0000">
-      <label for="floatingPassword">Data de nascimento</label>
+    <div class="form-group">
+      <label for="dataNascimento">Data de nascimento</label><br>
+      <input type="text" [(ngModel)]="usuario.dataNascimento"
+             class="form-control"
+             id="dataNascimento"
+             name="dataNascmimento"
+             placeholder="00/00/0000"
+             required #name="ngModel">
     </div>
-
-    <div class="form-floating">
-      <input type="text" class="form-control" name="cpf" placeholder="000.000.000-00">
-      <label for="floatingInput">CPF</label>
+    <div class="form-group">
+      <label for="cpf">CPF</label><br>
+      <input type="text" [(ngModel)]="usuario.cpf"
+             class="form-control"
+             id="cpf"
+             name="cpf"
+             placeholder="00000000000"
+             required #name="ngModel">
     </div>
-
-    <button (click)="onSubmit()">Cadastrar</button>
+    <button type="submit" [disabled]="!userForm.form.valid"
+            class="btn btn-info">Submit
+    </button>
   </form>
 </main>

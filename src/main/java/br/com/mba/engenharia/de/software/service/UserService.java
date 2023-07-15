@@ -49,18 +49,14 @@ public class UserService{
         return hibernatePersistenceProvider.getPersistenceProvider().createContainerEntityManagerFactory(pui, properties);
     }
 
+    @Transactional
     public boolean salvarUsuario(Usuario user) {
-        entityManagerFactory();
-        entityManager.getTransaction().begin();
-        List list = entityManager.createNativeQuery("select id from usuarios").getResultList();
-        if (list.size() > 0) {
-            int id = (int) list.get(list.size() - 1) + 1;
-            user.setId(id);
-        } else {
-            user.setId(1);
-        }
         try {
             if (listarUsuario(user).size()==0){
+                int id = ultimoId() + 1;
+                user.setId(id);
+                entityManagerFactory();
+                entityManager.getTransaction().begin();
                 entityManager.persist(user);
             }
             else{
@@ -84,53 +80,46 @@ public class UserService{
     }
 
 
+    @Transactional
     public boolean habilitarUsuario(Usuario user){
         entityManagerFactory();
         entityManager.getTransaction().begin();
-        Usuario usuario = null;
-        usuario = findByUsernameAndSenhaAndToken(user.getUsername(), user.getSenha(), user.getToken());
-        updateTokenById(usuario);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        return true;
-    }
-
-    @Transactional
-    public Usuario findByUsernameAndSenhaAndToken(String username, String senha, String token) {
-        entityManagerFactory();
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Usuario> cQuery = builder.createQuery(Usuario.class);
         Root<Usuario> root = cQuery.from(Usuario.class);
-        Usuario user = new Usuario();
-        user.setUsername(username);
-        user.setToken(token);
-        user.setSenha(senha);
+        Usuario usuario = new Usuario();
+        usuario.setUsername(user.getUsername());
+        usuario.setToken(user.getToken());
+        usuario.setSenha(user.getSenha());
         cQuery
                 .select(root)
                 .where(builder
-                        .like(root.<String>get("username"), username))
+                        .like(root.<String>get("username"), user.getUsername()))
                 .where(builder
-                        .like(root.<String>get("senha"), senha))
+                        .like(root.<String>get("senha"), user.getSenha()))
                 .where(builder
-                        .like(root.<String>get("token"), token));
+                        .like(root.<String>get("token"), user.getToken()));
 
         TypedQuery<Usuario> query = entityManager.createQuery(cQuery);
-        return query.getResultList().get(0);
-    }
-
-
-
-    @Transactional
-    public int updateTokenById(Usuario usuario){
-        entityManagerFactory();
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaUpdate<Usuario> cQuery = builder.createCriteriaUpdate(Usuario.class);
-        Root<Usuario> root = cQuery.from(Usuario.class);
-        cQuery
+        Usuario usuario2 = query.getResultList().get(0);
+        CriteriaBuilder builder2 = entityManager.getCriteriaBuilder();
+        CriteriaUpdate<Usuario> cQuery2 = builder.createCriteriaUpdate(Usuario.class);
+        Root<Usuario> root2 = cQuery2.from(Usuario.class);
+        cQuery2
                 .set("token", "1")
-                .where(builder.equal(root.get("id"), usuario.getId()));
-        Query query = entityManager.createQuery(cQuery);
-        return query.executeUpdate();
+                .where(builder2.equal(root2.get("id"), usuario2.getId()));
+        Query query2 = entityManager.createQuery(cQuery2);
+
+        int result = query2.executeUpdate();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        if (result == 1){
+            return true;
+        }
+        else if (result == 0){
+            return false;
+        }
+        return false;
     }
 
     @Transactional
@@ -158,6 +147,19 @@ public class UserService{
                 .where(builder.equal(root.get("senha"),user.getSenha()));
         TypedQuery<Usuario> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
+    }
+
+    @Transactional
+    public int ultimoId(){
+        entityManagerFactory();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Usuario> criteriaQuery = builder.createQuery(Usuario.class);
+        Root<Usuario> root = criteriaQuery.from(Usuario.class);
+        criteriaQuery
+                .select(root);
+        TypedQuery<Usuario> query = entityManager.createQuery(criteriaQuery);
+        int size = query.getResultList().size();
+        return query.getResultList().get(size - 1).getId();
     }
 
 }
