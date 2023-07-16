@@ -6,19 +6,18 @@ import br.com.mba.engenharia.de.software.negocio.usuarios.UsuarioRepository;
 import br.com.mba.engenharia.de.software.security.GerarToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ContaController{
     private static final Logger logger = LoggerFactory.getLogger(Conta.class);
 
-    @GetMapping("/criarConta")
+    @PostMapping("/criarConta")
     public String testConta(@RequestParam(name="conta") String numeroConta, @RequestParam(name="agencia") String agencia,
                             @RequestParam(name="tipoConta") String tipoConta, @RequestParam(name="banco") String bancoValue,
                             @RequestParam(name="saldo") String valor, HttpServletResponse response) throws IOException {
@@ -56,7 +55,7 @@ public class ContaController{
             return "Erro na conexao";
         }
     }
-    @GetMapping("/listarConta")
+    @PostMapping("/listarConta")
     public void listarConta(@RequestParam(name="conta") String numeroConta, @RequestParam(name="agencia") String agencia,
                             @RequestParam(name="tipoConta") String tipoConta, @RequestParam(name="banco") String bancoValue,
                             HttpServletResponse response) throws IOException {

@@ -8,6 +8,8 @@ import { FalhaDeLoginComponent} from './falha-de-login/falha-de-login.component'
 import { AppComponent } from './app.component';
 import { CriarUsuarioComponent } from './criar-usuario/criar-usuario.component';
 import { DesbloquearUsuarioComponent } from  './desbloquear-usuario/desbloquear-usuario.component';
+import { ContasBancariasComponent } from './contas-bancarias/contas-bancarias.component';
+import { ContasComponent } from './contas/contas.component';
 
 const routes: Routes = [
     { path: 'login', component: AppComponent },
@@ -20,7 +22,9 @@ const routes: Routes = [
         { path: 'home', component: MenuComponent},
         { path: 'falhaDeLogin', component: FalhaDeLoginComponent},
         { path: 'cadastrarUsuario', component: CriarUsuarioComponent},
-        { path: 'desbloquearUsuario', component: DesbloquearUsuarioComponent}
+        { path: 'desbloquearUsuario', component: DesbloquearUsuarioComponent},
+        { path: 'contasBancarias', component: ContasComponent},
+        { path: 'contas', component: ContasBancariasComponent}
         ],
     },
 ];

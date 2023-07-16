@@ -94,16 +94,18 @@ public class UserService{
         cQuery
                 .select(root)
                 .where(builder
-                        .like(root.<String>get("username"), user.getUsername()))
+                        .like(root.<String>get("username"), user.getUsername()));
+        cQuery
                 .where(builder
-                        .like(root.<String>get("senha"), user.getSenha()))
+                        .like(root.<String>get("senha"), user.getSenha()));
+        cQuery
                 .where(builder
                         .like(root.<String>get("token"), user.getToken()));
 
         TypedQuery<Usuario> query = entityManager.createQuery(cQuery);
         Usuario usuario2 = query.getResultList().get(0);
         CriteriaBuilder builder2 = entityManager.getCriteriaBuilder();
-        CriteriaUpdate<Usuario> cQuery2 = builder.createCriteriaUpdate(Usuario.class);
+        CriteriaUpdate<Usuario> cQuery2 = builder2.createCriteriaUpdate(Usuario.class);
         Root<Usuario> root2 = cQuery2.from(Usuario.class);
         cQuery2
                 .set("token", "1")
@@ -143,8 +145,7 @@ public class UserService{
         Root<Usuario> root = criteriaQuery.from(Usuario.class);
         criteriaQuery
                 .select(root)
-                .where(builder.equal(root.get("username"),user.getUsername()))
-                .where(builder.equal(root.get("senha"),user.getSenha()));
+                .where(builder.and(builder.like(root.get("username"), user.getUsername()), builder.like(root.get("senha"), user.getSenha())));
         TypedQuery<Usuario> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
     }
