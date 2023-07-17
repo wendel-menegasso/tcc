@@ -55,7 +55,7 @@
 </form>
 <div class="container">
   <h2>Contas</h2>
-  <table class="table table-bordered">
+  <table class="table table-bordered" border="1px">
     <thead>
     <tr>
       <th>Agência</th>
@@ -63,6 +63,8 @@
       <th>Tipo</th>
       <th>Banco</th>
       <th>Saldo</th>
+      <th>Excluir</th>
+      <th>Editar</th>
     </tr>
     </thead>
     <tbody>
@@ -72,6 +74,8 @@
       <td>{{conta.tipo}}</td>
       <td>{{conta.banco}}</td>
       <td>{{conta.saldo}}</td>
+      <td><button>-</button></td>
+      <td><button>@</button></td>
     </tr>
     </tbody>
   </table>
