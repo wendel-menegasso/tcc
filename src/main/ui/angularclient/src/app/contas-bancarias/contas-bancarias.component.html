@@ -53,3 +53,26 @@
           class="btn btn-info">Submit
   </button>
 </form>
+<div class="container">
+  <h2>Contas</h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Agência</th>
+      <th>Conta</th>
+      <th>Tipo</th>
+      <th>Banco</th>
+      <th>Saldo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let conta of contasBancarias; let i = index">
+      <td>{{conta.agencia}}</td>
+      <td>{{conta.conta}}</td>
+      <td>{{conta.tipo}}</td>
+      <td>{{conta.banco}}</td>
+      <td>{{conta.saldo}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

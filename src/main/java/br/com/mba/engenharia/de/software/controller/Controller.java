@@ -43,6 +43,11 @@ public class Controller{
         return contaService.listarConta(conta);
     }
 
+    public List<Conta> listarTodasContas(){
+        ContaService contaService = new ContaService();
+        return contaService.listarTodasContas();
+    }
+
     public boolean desbloquearUsuario() throws InstantiationException, IllegalAccessException {
         UserService userService = new UserService();
         return userService.habilitarUsuario(usuario);

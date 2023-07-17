@@ -124,6 +124,7 @@ public class ContaService {
 
     @Transactional
     public List<Conta> listarTodasContas(){
+        entityManagerFactory();
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Conta> cQuery = builder.createQuery(Conta.class);
         Root<Conta> root = cQuery.from(Conta.class);
