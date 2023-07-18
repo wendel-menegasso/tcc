@@ -27,18 +27,6 @@ export class ContasBancariasComponent implements OnInit {
   ngOnInit(): void {
     this.getTodasContas();
   }
-  onSubmit() {
-    this.contasBancariasService.save(this.contas).subscribe(data => {
-      this.contas = data;
-      if (this.contas != null){
-          this.gotoUserList();
-      }
-      });
-  }
-
-  gotoUserList() {
-    this.router.navigate(['/home']);
-  }
 
     getTodasContas() {
       this.contasBancariasService.findAll().pipe(takeUntil(this.destroy$)).subscribe((contasBancarias: any[]) => {
