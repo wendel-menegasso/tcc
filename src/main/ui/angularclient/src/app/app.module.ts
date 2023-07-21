@@ -19,7 +19,7 @@ import { ContasBancariasComponent } from './contas-bancarias/contas-bancarias.co
 import { ContasBancariasService } from './service/contas-bancarias.service';
 import { ContasComponent } from './contas/contas.component';
 import { InserirContasModalComponent } from './inserir-contas-modal/inserir-contas-modal.component';
-
+import { UserHeaderComponent } from './user-header/user-header.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import { InserirContasModalComponent } from './inserir-contas-modal/inserir-cont
     DesbloquearUsuarioComponent,
     ContasBancariasComponent,
     ContasComponent,
-    InserirContasModalComponent
+    InserirContasModalComponent,
+    UserHeaderComponent
   ],
   imports: [
     BrowserModule,

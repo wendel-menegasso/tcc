@@ -17,15 +17,20 @@ public class Controller{
     public Controller(){
     }
 
+    public void setToken(String token){
+        UserService userService = new UserService();
+        userService.gerarToken(usuario);
+    }
+
     public boolean cadastrarUsuario(){
         UserService userService = new UserService();
         return userService.salvarUsuario(usuario);
     }
 
-    public boolean consultarUsuario(){
+    public List<Usuario> consultarUsuario(){
         UserService userService = new UserService();
         List<Usuario> userList = userService.listarUsuario(usuario);
-        return !userList.isEmpty();
+        return userList;
     }
 
     public List<Usuario> consultarTodosUsuarios(){

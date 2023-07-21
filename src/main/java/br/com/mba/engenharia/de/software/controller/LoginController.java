@@ -4,12 +4,14 @@ import br.com.mba.engenharia.de.software.entity.Users;
 import br.com.mba.engenharia.de.software.model.login.Login;
 import br.com.mba.engenharia.de.software.negocio.usuarios.Usuario;
 import br.com.mba.engenharia.de.software.security.Criptrografia;
+import br.com.mba.engenharia.de.software.security.GerarToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import static br.com.mba.engenharia.de.software.controller.UserLinks.AUTHENTICATE;
 
@@ -22,7 +24,7 @@ public class LoginController{
         Controller controller = new Controller();
         return ResponseEntity.ok(controller.consultarTodosUsuarios());
     }
-    @GetMapping("/redirectLogout")
+    @GetMapping(path = "logout")
     public String logout() {
         return "logout";
     }
@@ -34,11 +36,23 @@ public class LoginController{
         usuario.setSenha(criptrografia.criptografar(user.getPassword()));
         Controller controller = new Controller();
         controller.setController(usuario);
+        List<Usuario> usuarioList = controller.consultarUsuario();
         if(user.getUsername().equals("professor@gmail.com") && criptrografia.criptrografia(user.getPassword())){
-            return ResponseEntity.ok(usuario);
+            user.setPassword("");
+            return ResponseEntity.ok(user);
         }
-        else if (controller.consultarUsuario()){
-            return ResponseEntity.ok(usuario);
+        else if (usuarioList.size() == 1){
+            user.setPassword("");
+            user.setUsername("");
+            GerarToken gerarToken = new GerarToken();
+            usuario.setToken(gerarToken.gerarToken());
+            usuario.setId(usuarioList.get(0).getId());
+            controller.setController(usuario);
+            controller.setToken(usuario.getToken());
+            user.setToken(usuario.getToken());
+            user.setId(usuarioList.get(0).getId());
+            user.setName(usuarioList.get(0).getNome());
+            return ResponseEntity.ok(user);
         }
         else {
             return ResponseEntity.ok(null);

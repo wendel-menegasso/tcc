@@ -163,6 +163,37 @@ public class UserService{
         return query.getResultList().get(size - 1).getId();
     }
 
+    @Transactional
+    public void gerarToken(Usuario user){
+        entityManagerFactory();
+        entityManager.getTransaction().begin();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaUpdate<Usuario> cQuery = builder.createCriteriaUpdate(Usuario.class);
+        Root<Usuario> root = cQuery.from(Usuario.class);
+        cQuery
+                .set("token", user.getToken())
+                .where(builder.equal(root.get("id"), user.getId()));
+        Query query = entityManager.createQuery(cQuery);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    @Transactional
+    public void logout(Usuario user){
+        entityManagerFactory();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaUpdate<Usuario> cQuery = builder.createCriteriaUpdate(Usuario.class);
+        Root<Usuario> root2 = cQuery.from(Usuario.class);
+        cQuery
+                .set("token", "1")
+                .where(builder.equal(root2.get("id"), user.getId()));
+        Query query = entityManager.createQuery(cQuery);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
 }
 
 

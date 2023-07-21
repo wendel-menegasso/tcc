@@ -20,11 +20,13 @@ const routes: Routes = [
         { path: '', component: UserFormComponent },
         { path: 'users', component: UserListComponent },
         { path: 'home', component: MenuComponent},
+        { path: 'home/:name/:token/:id', component: MenuComponent},
         { path: 'falhaDeLogin', component: FalhaDeLoginComponent},
         { path: 'cadastrarUsuario', component: CriarUsuarioComponent},
         { path: 'desbloquearUsuario', component: DesbloquearUsuarioComponent},
         { path: 'contasBancarias', component: ContasComponent},
-        { path: 'contas', component: ContasBancariasComponent}
+        { path: 'contas', component: ContasBancariasComponent},
+        { path: 'logout', component: UserFormComponent}
         ],
     },
 ];
