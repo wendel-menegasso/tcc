@@ -27,7 +27,6 @@ export class UserFormComponent {
     this.userService.authenticate(this.user).subscribe(data => {
       this.users = data;
       if (this.users != null){
-          console.log(this.users);
           this.gotoUserList();
       }
       else{
@@ -40,6 +39,6 @@ export class UserFormComponent {
       this.name = this.users.name;
       this.token = this.users.token;
       this.id = this.users.id;
-      this.router.navigate(['/home'], { queryParams: { name: this.name, 'token': this.token, 'id': this.id  } });
+      this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.id  } });
   }
 }

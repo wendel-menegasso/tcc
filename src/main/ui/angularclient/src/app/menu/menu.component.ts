@@ -8,7 +8,9 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-public username: string;
+public token: string;
+public str: string;
+public id: string
 
 
 constructor( private route: ActivatedRoute ) {
@@ -17,10 +19,13 @@ constructor( private route: ActivatedRoute ) {
   ngOnInit() {
 this.route.queryParamMap
   .subscribe((params) => {
-    const orderObj = { ...params.keys, ...params };
-    var txt = JSON.stringify(orderObj);
-    this.username = txt;
-    console.log(this.username);
+    var obj = params;
+    this.str = JSON.stringify(obj);
+    const string = this.str.replace( "params", "");
+    this.token = string.substring(14, 114);
+    this.id = string.substring(122, string.length - 3);
+    console.log(this.token);
+    console.log(this.id);
   }
 );
 
