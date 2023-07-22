@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ContasBancariasService } from '../service/contas-bancarias.service';
 import { ContasBancarias } from '../model/contas-bancarias';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: 'app-inserir-contas-modal',
@@ -10,24 +10,16 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./inserir-contas-modal.component.css'],
   providers: [NgbModalConfig, NgbModal]
 })
-export class InserirContasModalComponent{
+export class InserirContasModalComponent implements OnInit{
 
   contas: ContasBancarias;
   contasBancarias: any[] = [];
   contasCount = 0;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal,
-  private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
           private router: Router,
             private contasBancariasService: ContasBancariasService) {
-    // customize default values of modals used by this component tree
-    config.backdrop = 'static';
-    config.keyboard = false;
           this.contas = new ContasBancarias();
-  }
-
-  open(content) {
-    this.modalService.open(content);
   }
 
     onSubmit() {
@@ -42,5 +34,13 @@ export class InserirContasModalComponent{
       gotoUserList() {
         this.router.navigate(['/home']);
       }
+        displayStyle = "none";
 
+        openPopup() {
+          this.displayStyle = "block";
+        }
+        closePopup() {
+          this.displayStyle = "none";
+        }
+          ngOnInit() {}
 }

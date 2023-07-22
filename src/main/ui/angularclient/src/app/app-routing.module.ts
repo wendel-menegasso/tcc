@@ -10,25 +10,24 @@ import { CriarUsuarioComponent } from './criar-usuario/criar-usuario.component';
 import { DesbloquearUsuarioComponent } from  './desbloquear-usuario/desbloquear-usuario.component';
 import { ContasBancariasComponent } from './contas-bancarias/contas-bancarias.component';
 import { ContasComponent } from './contas/contas.component';
+import { LoginComponent } from './login/login.component';
+import { TelaInicialComponent } from './tela-inicial/tela-inicial.component';
+import { CorpoComponent } from './corpo/corpo.component';
 
 const routes: Routes = [
     { path: 'login', component: AppComponent },
-    {
-        path: '',
-        component: MasterComponent,
-        children: [
-        { path: '', component: UserFormComponent },
-        { path: 'users', component: UserListComponent },
-        { path: 'home', component: MenuComponent},
-        { path: 'home/:name/:token/:id', component: MenuComponent},
-        { path: 'falhaDeLogin', component: FalhaDeLoginComponent},
-        { path: 'cadastrarUsuario', component: CriarUsuarioComponent},
-        { path: 'desbloquearUsuario', component: DesbloquearUsuarioComponent},
-        { path: 'contasBancarias', component: ContasComponent},
-        { path: 'contas', component: ContasBancariasComponent},
-        { path: 'logout', component: UserFormComponent}
-        ],
-    },
+    { path: 'users', component: UserListComponent },
+    { path: 'menu', component: MenuComponent},
+    { path: 'contasBancarias', component: ContasComponent},
+    { path: 'contas', component: ContasBancariasComponent},
+    { path: 'logout', component: UserFormComponent},
+    { path: 'home', component: TelaInicialComponent},
+    { path: 'corpo', component: CorpoComponent},
+    { path: '', component: UserFormComponent },
+    { path: 'telaLogin', component: LoginComponent},
+    { path: 'falhaDeLogin', component: FalhaDeLoginComponent},
+    { path: 'cadastrarUsuario', component: CriarUsuarioComponent},
+    { path: 'desbloquearUsuario', component: DesbloquearUsuarioComponent},
 ];
 
 

@@ -2,68 +2,37 @@
   <ngb-accordion #acc="ngbAccordion">
     <ngb-panel>
       <ng-template ngbPanelTitle>
-        <span>&#8659; <b>USER</b> &#8659;</span>
-      </ng-template>
-      <ng-template ngbPanelContent>
-        <div class="list">
-          <a routerLink="/info">Informações</a><br>
-        </div>
-        <div class="list">
-          <a routerLink="/logout">Logout</a><br>
-        </div>
-        <div class="list">
-          <a routerLink="/criarUsuario">Criar Usuario</a><br>
-        </div>
-        <div class="list">
-          <a routerLink="/perfil">Perfil</a><br>
-        </div>
-      </ng-template>
-    </ngb-panel>
-  </ngb-accordion>
-  <ngb-accordion #acc="ngbAccordion">
-    <ngb-panel>
-      <ng-template ngbPanelTitle>
-        <span>&#8659; <b>HOME</b> &#8659;</span>
-      </ng-template>
-      <ng-template ngbPanelContent>
-        <div class="list">
-          <a routerLink="/home">Home</a><br>
-        </div>
-        <div class="list">
-          <a routerLink="/">Login</a><br>
-        </div>
-      </ng-template>
-    </ngb-panel>
-  </ngb-accordion>
-  <ngb-accordion #acc="ngbAccordion">
-    <ngb-panel>
-      <ng-template ngbPanelTitle>
         <span>&#8659; <b>MENU</b> &#8659;</span>
       </ng-template>
       <ng-template ngbPanelContent>
         <div class="list">
-          <a routerLink="/contasBancarias">Contas</a><br>
+          <input type="submit" (click)="Contas()" style= "width: 130px" value="Contas"><br>
         </div>
         <div class="list">
-          <a routerLink="/ganhos">Ganhos</a><br>
+          <input type="submit" onclick="Gastos()" style= "width: 130px" value="Gastos"><br>
         </div>
         <div class="list">
-          <a routerLink="/gastos">Gastos</a><br>
+          <input type="submit" onclick="Gastos()" style= "width: 130px" value="Gastos"><br>
         </div>
         <div class="list">
-          <a routerLink="/veiculos">Veículos</a><br>
+          <input type="submit" onclick="Veiculos()" style= "width: 130px" value="Veículos"><br>
         </div>
         <div class="list">
-          <a routerLink="/imoveis">Imóveis</a><br>
+          <input type="submit" onclick="Imoveis()" style= "width: 130px" value="Imóveis"><br>
         </div>
         <div class="list">
-          <a routerLink="/empresas">Empreasas</a><br>
+          <input type="submit" onclick="Empresas()" style= "width: 130px" value="Empresas"><br>
         </div>
         <div class="list">
-          <a routerLink="/acoes">Ações</a><br>
+          <input type="submit" onclick="Acoes()" style= "width: 130px" value="Ações"><br>
         </div>
         <div class="list">
-          <a routerLink="/ganhos/deletar">Tesouro Direto</a><br>
+        </div>
+        <div class="list">
+          <input type="submit" onclick="Home()" style= "width: 130px" value="Home"><br>
+        </div>
+        <div class="list">
+          <input type="submit" onclick="Logout()" style= "width: 130px" value="Logout"><br>
         </div>
       </ng-template>
     </ngb-panel>

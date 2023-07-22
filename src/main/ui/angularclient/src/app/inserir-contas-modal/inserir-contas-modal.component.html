@@ -1,64 +1,81 @@
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <br>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <br>
-    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
-      <div class="form-group">
-        <label for="agencia">Agência</label>
-        <input type="text" [(ngModel)]="contas.agencia"
-               class="form-control"
-               id="agencia"
-               name="agencia"
-               placeholder="Agencia"
-               required #name="ngModel">
-        <label for="conta">Conta</label>
-        <input type="text" [(ngModel)]="contas.conta"
-               class="form-control"
-               id="conta"
-               name="conta"
-               placeholder="Contas"
-               required #email="ngModel">
-        <label for="tipo">Banco</label>
-        <select name="tipo" id="tipo">
-          <option>Poupança</option>
-          <option>Conta Salário</option>
-          <option>Conta Corrente</option>
-          <option>Conta Empresarial</option>
-        </select>
+<button class="btn btn-lg btn-outline-primary" (click)="openPopup()">Criar Conta</button>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Inserir Conta</h4>
       </div>
-<br>
-      <div class="form-group">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="agencia">Agência</label>
+          <input type="text" [(ngModel)]="contas.agencia"
+                 class="form-control"
+                 id="agencia"
+                 name="agencia"
+                 placeholder="Agencia"
+                 required #name="ngModel">
+          <label for="conta">Conta</label>
+          <input type="text" [(ngModel)]="contas.conta"
+                 class="form-control"
+                 id="conta"
+                 name="conta"
+                 placeholder="Contas"
+                 required #email="ngModel">
+          <label for="tipo">Tipo</label>
+          <select class="form-control" id="tipo" name="tipo" [(ngModel)]="contas.tipo">
+            <option
+                    class="form-control">Conta Poupança</option>
+            <option
+                    class="form-control">Conta Salário</option>
+            <option
+                    class="form-control">Conta Corrente</option>
+            <option
+                    class="form-control">Conta Empresa</option>
+          </select>
         <label for="banco">Banco</label>
-        <select name="banco" id="banco">
-          <option>Banco do Brasil</option>
-          <option>Bradesco</option>
-          <option>Banco Pan</option>
-          <option>C6</option>
-          <option>Caixa Econômica Federal</option>
-          <option>Itaú</option>
-          <option>Nubank</option>
-          <option>Santander</option>
-          <option>Outros</option>
-        </select>
-        <label for="saldo">E-mail</label>
+              <select class="form-control" id="banco" name="banco" [(ngModel)]="contas.banco">
+                <option
+                        class="form-control">Banco do Brasil</option>
+                <option
+                        class="form-control">Bradesco</option>
+                <option
+                        class="form-control">Banco Pan</option>
+                <option
+                        class="form-control">C6</option>
+                <option
+                        class="form-control">Caixa Econômica Federal</option>
+                <option
+                        class="form-control">Itaú</option>
+                <option
+                        class="form-control">Nubank</option>
+                <option
+                        class="form-control">Santander</option>
+                <option
+                        class="form-control">Outros</option>
+              </select>
+        <label for="saldo">Saldo</label>
         <input type="text" [(ngModel)]="contas.saldo"
                class="form-control"
                id="saldo"
                name="saldo"
                placeholder="R$"
                required #name="ngModel">
-      </div>
-<br>
-      <button type="submit" [disabled]="!userForm.form.valid"
-              class="btn btn-info">Submit
-      </button>
-    </form>
-  </div>
-</ng-template>
+        <button type="submit" (click)="onSubmit()"
+                class="btn btn-info">Submit
+        </button>
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Criar Conta</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

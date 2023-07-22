@@ -13,4 +13,7 @@ export class NgbdAccordionConfig {
 		config.closeOthers = true;
 		config.type = 'info';
 	}
+	  Contas() {
+      window.location.href = "contasBancarias";
+    }
 }

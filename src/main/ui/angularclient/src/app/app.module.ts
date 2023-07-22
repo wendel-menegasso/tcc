@@ -20,6 +20,9 @@ import { ContasBancariasService } from './service/contas-bancarias.service';
 import { ContasComponent } from './contas/contas.component';
 import { InserirContasModalComponent } from './inserir-contas-modal/inserir-contas-modal.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
+import { LoginComponent } from './login/login.component';
+import { TelaInicialComponent } from './tela-inicial/tela-inicial.component';
+import { CorpoComponent } from './corpo/corpo.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { UserHeaderComponent } from './user-header/user-header.component';
     ContasBancariasComponent,
     ContasComponent,
     InserirContasModalComponent,
-    UserHeaderComponent
+    UserHeaderComponent,
+    LoginComponent,
+    TelaInicialComponent,
+    CorpoComponent
   ],
   imports: [
     BrowserModule,
