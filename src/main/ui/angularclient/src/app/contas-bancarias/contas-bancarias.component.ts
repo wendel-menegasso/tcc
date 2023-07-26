@@ -49,9 +49,32 @@ export class ContasBancariasComponent implements OnInit {
   		        if (this.contasBancarias[i].tipo == "4"){
   		            account.tipo = "Empresa";
   		        }
+  		        if (this.contasBancarias[i].banco == "1"){
+  		            account.banco = "Banco do Brasil";
+  		        }
+  		        if (this.contasBancarias[i].banco == "2"){
+  		            account.banco = "Bradesco";
+  		        }
+  		        if (this.contasBancarias[i].banco == "3"){
+  		            account.banco = "Banco Pan";
+  		        }
+  		        if (this.contasBancarias[i].banco == "4"){
+  		            account.banco = "C6";
+  		        }
+  		        if (this.contasBancarias[i].banco == "5"){
+  		            account.banco = "Caixa Econômica Federal";
+  		        }
+  		        if (this.contasBancarias[i].banco == "6"){
+  		            account.banco = "Itaú";
+  		        }
+  		        if (this.contasBancarias[i].banco == "7"){
+  		            account.banco = "Santander";
+  		        }
+  		        if (this.contasBancarias[i].banco == "8"){
+  		            account.banco = "Outros";
+  		        }
               account.id = this.contasBancarias[i].id;
               account.agencia = this.contasBancarias[i].agencia;
-              account.banco = this.contasBancarias[i].banco;
               account.saldo = this.contasBancarias[i].saldo;
               account.conta = this.contasBancarias[i].conta;
               account.usuario = this.contasBancarias[i].usuario;

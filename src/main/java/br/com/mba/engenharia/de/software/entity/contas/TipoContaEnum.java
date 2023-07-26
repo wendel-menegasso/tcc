@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.negocio.contas;
+package br.com.mba.engenharia.de.software.entity.contas;
 
 public enum TipoContaEnum{
     CC(1, "Conta Corrente"),

@@ -1,22 +1,25 @@
-package br.com.mba.engenharia.de.software.service;
+package br.com.mba.engenharia.de.software.service.usuarios;
 
-import br.com.mba.engenharia.de.software.PersistenceUnitInfoImpl;
 import br.com.mba.engenharia.de.software.exceptions.ListarContaException;
-import br.com.mba.engenharia.de.software.negocio.usuarios.Usuario;
-import jakarta.persistence.*;
-import jakarta.persistence.criteria.*;
+import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
+import br.com.mba.engenharia.de.software.repository.usuario.UsuarioRepositoryNovo;
+import br.com.mba.engenharia.de.software.service.contas.ContaService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.CriteriaUpdate;
+import jakarta.persistence.criteria.Root;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.orm.jpa.persistenceunit.SmartPersistenceUnitInfo;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 @Component
 @Service
@@ -25,29 +28,10 @@ public class UserService{
     @PersistenceContext
     EntityManager entityManager;
 
+    @Autowired
+    private UsuarioRepositoryNovo usuarioRepositoryNovo;
+
     private static final Logger logger = LoggerFactory.getLogger(ContaService.class);
-
-    @Bean
-    public EntityManagerFactory entityManagerFactory() {
-        HibernateJpaVendorAdapter hibernatePersistenceProvider = new HibernateJpaVendorAdapter();
-        Properties properties = new Properties();
-        properties.put("spring.jpa.database-platform", "org.hibernate.dialect.MySQL57Dialect");
-        properties.put("spring.jpa.generate-ddl", true);
-        properties.put("spring.datasource.url", "jdbc:mysql://root:fsa41306@localhost:3306/tcc?useTimezone=true&serverTimezone=UTC");
-        properties.put("spring.datasource.username", "root");
-        properties.put("spring.datasource.password", "fsa41306");
-        properties.put("spring.jpa.hibernate.ddl-auto", "create");
-        properties.put("spring.datasource.driver-class-name", "com.mysql.jdbc.Driver");
-        properties.put("spring.main.allow-bean-definition-overriding", true);
-        properties.put("javax.persistence.jdbc.url", "jdbc:mysql://root:fsa41306@localhost:3306/tcc?useTimezone=true&serverTimezone=UTC");
-
-        List<String> managedClassName = new ArrayList<>();
-        managedClassName.add("br.com.mba.engenharia.de.software.negocio.usuarios.Usuario");
-        SmartPersistenceUnitInfo pui = new PersistenceUnitInfoImpl("tcc", managedClassName, properties);
-        pui.setPersistenceProviderPackageName("\"br.com.mba.engenharia.de.software.negocio.usuarios.Usuario");
-        this.entityManager = hibernatePersistenceProvider.getPersistenceProvider().createContainerEntityManagerFactory(pui, properties).createEntityManager();
-        return hibernatePersistenceProvider.getPersistenceProvider().createContainerEntityManagerFactory(pui, properties);
-    }
 
     @Transactional
     public boolean salvarUsuario(Usuario user) {
@@ -55,7 +39,7 @@ public class UserService{
             if (listarUsuario(user).size()==0){
                 int id = ultimoId() + 1;
                 user.setId(id);
-                entityManagerFactory();
+                user.setStatus("0");
                 entityManager.getTransaction().begin();
                 entityManager.persist(user);
             }
@@ -82,34 +66,14 @@ public class UserService{
 
     @Transactional
     public boolean habilitarUsuario(Usuario user){
-        entityManagerFactory();
         entityManager.getTransaction().begin();
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Usuario> cQuery = builder.createQuery(Usuario.class);
-        Root<Usuario> root = cQuery.from(Usuario.class);
-        Usuario usuario = new Usuario();
-        usuario.setUsername(user.getUsername());
-        usuario.setToken(user.getToken());
-        usuario.setSenha(user.getSenha());
-        cQuery
-                .select(root)
-                .where(builder
-                        .like(root.<String>get("username"), user.getUsername()));
-        cQuery
-                .where(builder
-                        .like(root.<String>get("senha"), user.getSenha()));
-        cQuery
-                .where(builder
-                        .like(root.<String>get("token"), user.getToken()));
-
-        TypedQuery<Usuario> query = entityManager.createQuery(cQuery);
-        Usuario usuario2 = query.getResultList().get(0);
+        usuarioRepositoryNovo.findByTokenUsernameAndSenha(user.getUsername(), user.getSenha(), "0", user.getToken());
         CriteriaBuilder builder2 = entityManager.getCriteriaBuilder();
         CriteriaUpdate<Usuario> cQuery2 = builder2.createCriteriaUpdate(Usuario.class);
         Root<Usuario> root2 = cQuery2.from(Usuario.class);
         cQuery2
-                .set("token", "1")
-                .where(builder2.equal(root2.get("id"), usuario2.getId()));
+                .set("status", "1")
+                .where(builder2.equal(root2.get("id"), user.getId()));
         Query query2 = entityManager.createQuery(cQuery2);
 
         int result = query2.executeUpdate();
@@ -126,7 +90,6 @@ public class UserService{
 
     @Transactional
     public List<Usuario> listarTodosUsuarios(){
-        entityManagerFactory();
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Usuario> cQuery = builder.createQuery(Usuario.class);
         Root<Usuario> root = cQuery.from(Usuario.class);
@@ -139,7 +102,6 @@ public class UserService{
 
     @Transactional
     public List<Usuario> procuraRegistro(Usuario user){
-        entityManagerFactory();
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Usuario> criteriaQuery = builder.createQuery(Usuario.class);
         Root<Usuario> root = criteriaQuery.from(Usuario.class);
@@ -152,7 +114,6 @@ public class UserService{
 
     @Transactional
     public int ultimoId(){
-        entityManagerFactory();
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Usuario> criteriaQuery = builder.createQuery(Usuario.class);
         Root<Usuario> root = criteriaQuery.from(Usuario.class);
@@ -165,7 +126,6 @@ public class UserService{
 
     @Transactional
     public void gerarToken(Usuario user){
-        entityManagerFactory();
         entityManager.getTransaction().begin();
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaUpdate<Usuario> cQuery = builder.createCriteriaUpdate(Usuario.class);
@@ -181,7 +141,6 @@ public class UserService{
 
     @Transactional
     public void logout(Usuario user){
-        entityManagerFactory();
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaUpdate<Usuario> cQuery = builder.createCriteriaUpdate(Usuario.class);
         Root<Usuario> root2 = cQuery.from(Usuario.class);

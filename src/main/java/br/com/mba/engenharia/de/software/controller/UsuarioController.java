@@ -1,24 +1,32 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.entity.Users;
-import br.com.mba.engenharia.de.software.negocio.usuarios.Usuario;
+import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
 import br.com.mba.engenharia.de.software.output.SenderMail;
+import br.com.mba.engenharia.de.software.repository.usuario.UsuarioRepositoryNovo;
 import br.com.mba.engenharia.de.software.security.ComplexidadeSenha;
 import br.com.mba.engenharia.de.software.security.Criptrografia;
 import br.com.mba.engenharia.de.software.security.GerarToken;
 import br.com.mba.engenharia.de.software.utils.ValidadorCPF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
+@Controller
 @CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController{
     private static final Logger logger = LoggerFactory.getLogger(Usuario.class);
+
+    @Autowired
+    private UsuarioRepositoryNovo usuarioRepositoryNovo;
 
     @PostMapping("/enviarCadastro")
     public ResponseEntity<?> enviarCadastro(@RequestBody Usuario user) throws IOException {
@@ -44,7 +52,7 @@ public class UsuarioController{
             return ResponseEntity.badRequest().build();
         }
         usuario.setToken(gerarToken.gerarToken());
-        Controller controller = new Controller();
+        Control controller = new Control();
         controller.setController(usuario);
         if (controller.cadastrarUsuario()){
             if (SenderMail.sendEmail(usuario)){
@@ -58,8 +66,7 @@ public class UsuarioController{
                 return ResponseEntity.badRequest().build();
             }
         }
-        else {
-            logger.error(String.format("Erro na conexao"));
+        else{
             return ResponseEntity.badRequest().build();
         }
     }
@@ -72,9 +79,9 @@ public class UsuarioController{
         user.setSenha(criptrografia.criptografar(usuario.getSenha()));
         user.setToken(usuario.getToken());
         user.setUsername(usuario.getUsername());
-        Controller controller = new Controller();
-        controller.setController(user);
-        if (controller.desbloquearUsuario()){
+        Control controller = new Control();
+        controller.desbloquearUsuario(user);
+        if (controller.desbloquearUsuario(user)){
             return ResponseEntity.ok(Usuario.class);
         }
         else{

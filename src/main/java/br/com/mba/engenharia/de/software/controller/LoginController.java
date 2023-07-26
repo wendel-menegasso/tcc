@@ -1,8 +1,8 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.entity.Users;
+import br.com.mba.engenharia.de.software.entity.usuarios.Users;
 import br.com.mba.engenharia.de.software.model.login.Login;
-import br.com.mba.engenharia.de.software.negocio.usuarios.Usuario;
+import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
 import br.com.mba.engenharia.de.software.security.Criptrografia;
 import br.com.mba.engenharia.de.software.security.GerarToken;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class LoginController{
     private static final Logger logger = LoggerFactory.getLogger(Login.class);
     @GetMapping(path = UserLinks.LIST_USERS)
     ResponseEntity<?> listUsers() {
-        Controller controller = new Controller();
+        Control controller = new Control();
         return ResponseEntity.ok(controller.consultarTodosUsuarios());
     }
     @GetMapping(path = "logout")
@@ -34,7 +34,7 @@ public class LoginController{
         usuario.setUsername(user.getUsername());
         Criptrografia criptrografia = new Criptrografia();
         usuario.setSenha(criptrografia.criptografar(user.getPassword()));
-        Controller controller = new Controller();
+        Control controller = new Control();
         controller.setController(usuario);
         List<Usuario> usuarioList = controller.consultarUsuario();
         if(user.getUsername().equals("professor@gmail.com") && criptrografia.criptrografia(user.getPassword())){

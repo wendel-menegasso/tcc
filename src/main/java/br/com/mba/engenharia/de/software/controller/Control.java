@@ -1,25 +1,29 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.negocio.contas.Conta;
-import br.com.mba.engenharia.de.software.negocio.usuarios.Usuario;
-import br.com.mba.engenharia.de.software.service.ContaService;
-import br.com.mba.engenharia.de.software.service.UserService;
+import br.com.mba.engenharia.de.software.entity.contas.Conta;
+import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
+import br.com.mba.engenharia.de.software.repository.contas.ContaRepositoryNovo;
+import br.com.mba.engenharia.de.software.service.contas.ContaService;
+import br.com.mba.engenharia.de.software.service.usuarios.UserService;
 
 import java.util.List;
 
-public class Controller{
+public class Control{
     private Usuario usuario;
+    private ContaRepositoryNovo contasRepository;
 
     public void setController(Usuario usuario){
         this.usuario = usuario;
     }
 
-    public Controller(){
+    public void setContasRepository(ContaRepositoryNovo contasRepository){
+        this.contasRepository = contasRepository;
     }
 
     public void setToken(String token){
         UserService userService = new UserService();
         userService.gerarToken(usuario);
+
     }
 
     public boolean cadastrarUsuario(){
@@ -39,23 +43,23 @@ public class Controller{
     }
 
     public boolean cadastrarConta(Conta conta){
-        ContaService contaService = new ContaService();
+        ContaService contaService = new ContaService(contasRepository);
         return contaService.salvarConta(conta);
     }
 
     public List<Conta> consultarConta(Conta conta){
-        ContaService contaService = new ContaService();
+        ContaService contaService = new ContaService(contasRepository);
         return contaService.listarConta(conta);
     }
 
     public List<Conta> listarTodasContas(){
-        ContaService contaService = new ContaService();
+        ContaService contaService = new ContaService(contasRepository);
         return contaService.listarTodasContas();
     }
 
-    public boolean desbloquearUsuario() throws InstantiationException, IllegalAccessException {
+    public boolean desbloquearUsuario(Usuario user) throws InstantiationException, IllegalAccessException {
         UserService userService = new UserService();
-        return userService.habilitarUsuario(usuario);
+        return userService.habilitarUsuario(user);
     }
 
 }

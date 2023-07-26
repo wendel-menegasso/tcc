@@ -1,26 +1,29 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.entity.Users;
-import br.com.mba.engenharia.de.software.negocio.contas.*;
-import br.com.mba.engenharia.de.software.negocio.usuarios.Usuario;
-import br.com.mba.engenharia.de.software.negocio.usuarios.UsuarioRepository;
+import br.com.mba.engenharia.de.software.entity.contas.Conta;
+import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
+import br.com.mba.engenharia.de.software.repository.contas.ContaRepositoryNovo;
 import br.com.mba.engenharia.de.software.security.GerarToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.Serializable;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@Controller
 public class ContaController{
     private static final Logger logger = LoggerFactory.getLogger(Conta.class);
 
+    @Autowired
+    private ContaRepositoryNovo contasRepository;
+
     @PostMapping("/criarConta")
-    public ResponseEntity<?> save(@RequestBody Conta conta) throws IOException {
+    public ResponseEntity<?> salvar(@RequestBody Conta conta) throws IOException {
         GerarToken gerarToken = new GerarToken();
         Usuario usuario = new Usuario();
         usuario.setCpf("11111111111");
@@ -32,8 +35,9 @@ public class ContaController{
         usuario.setToken(gerarToken.gerarToken());
         usuario.setId(1);
         conta.setUsuario(usuario.getId());
-        Controller controller = new Controller();
+        Control controller = new Control();
         controller.setController(usuario);
+        controller.setContasRepository(contasRepository);
 
         if (controller.cadastrarConta(conta)){
             logger.info(String.format("Usuário cadastrado corretamente"));
@@ -44,9 +48,9 @@ public class ContaController{
             return ResponseEntity.ok(null);
         }
     }
-    @GetMapping("/listarConta")
+    @PostMapping("/listarConta")
     public ResponseEntity<?> listarConta() throws IOException {
-        Controller controller = new Controller();
+        Control controller = new Control();
         return ResponseEntity.ok(controller.listarTodasContas());
     }
 }

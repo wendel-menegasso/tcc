@@ -1,14 +1,17 @@
-package br.com.mba.engenharia.de.software.negocio.contas;
+package br.com.mba.engenharia.de.software.entity.contas;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "conta")
-public class Conta extends AbstractPersistable {
+@Data
+@Component
+public class Conta{
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;

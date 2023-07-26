@@ -21,8 +21,45 @@ export class InserirContasModalComponent implements OnInit{
             private contasBancariasService: ContasBancariasService) {
           this.contas = new ContasBancarias();
   }
-
     onSubmit() {
+      if (this.contas.banco == "Banco do Brasil"){
+        this.contas.banco = "1";
+      }
+      if (this.contas.banco == "Bradesco"){
+        this.contas.banco = "2";
+      }
+      if (this.contas.banco == "Banco Pan"){
+        this.contas.banco = "3";
+      }
+      if (this.contas.banco == "C6"){
+        this.contas.banco = "4";
+      }
+      if (this.contas.banco == "Caixa Econômica Federal"){
+        this.contas.banco = "5";
+      }
+      if (this.contas.banco == "Itaú"){
+        this.contas.banco = "6";
+      }
+      if (this.contas.banco == "Santander"){
+        this.contas.banco = "7";
+      }
+      if (this.contas.banco == "Outros"){
+        this.contas.banco = "8";
+      }
+
+  		if (this.contas.tipo == "Conta Poupança"){
+  		  this.contas.tipo = "1";
+  		}
+  		if (this.contas.tipo == "Conta Salário"){
+  		  this.contas.tipo = "2";
+  		}
+  		if (this.contas.tipo == "Conta Corrente"){
+  		  this.contas.tipo = "3";
+  		}
+  		if (this.contas.tipo == "Conta Empresa"){
+  		  this.contas.tipo = "4";
+  		}
+
       this.contasBancariasService.save(this.contas).subscribe(data => {
         this.contas = data;
         if (this.contas != null){
@@ -36,11 +73,11 @@ export class InserirContasModalComponent implements OnInit{
       }
         displayStyle = "none";
 
-        openPopup() {
-          this.displayStyle = "block";
-        }
-        closePopup() {
-          this.displayStyle = "none";
-        }
-          ngOnInit() {}
+      openPopup() {
+        this.displayStyle = "block";
+      }
+      closePopup() {
+        this.displayStyle = "none";
+      }
+      ngOnInit() {}
 }

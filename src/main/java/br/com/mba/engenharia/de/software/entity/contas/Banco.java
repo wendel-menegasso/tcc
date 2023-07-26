@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.negocio.contas;
+package br.com.mba.engenharia.de.software.entity.contas;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,21 +6,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "banco")
+public class Banco {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 45)
-    private String name;
+    @Column(name = "descr", length = 30)
+    private String descr;
 
-    public String getName() {
-        return name;
+    public String getDescr() {
+        return descr;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
     public Integer getId() {

@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.entity;
+package br.com.mba.engenharia.de.software.entity.usuarios;
 
 import lombok.Data;
 

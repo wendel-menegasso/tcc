@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.negocio.contas;
+package br.com.mba.engenharia.de.software.entity.contas;
 
 public enum BancoEnum{
     BB(1, "Banco do Brasil"),

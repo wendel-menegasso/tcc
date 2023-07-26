@@ -1,6 +1,6 @@
 package br.com.mba.engenharia.de.software.model;
 
-import br.com.mba.engenharia.de.software.negocio.contas.Conta;
+import br.com.mba.engenharia.de.software.entity.contas.Conta;
 import org.springframework.stereotype.Component;
 
 @Component

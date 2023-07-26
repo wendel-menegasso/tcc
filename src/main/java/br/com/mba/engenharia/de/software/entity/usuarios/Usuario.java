@@ -1,15 +1,22 @@
-package br.com.mba.engenharia.de.software.negocio.usuarios;
+package br.com.mba.engenharia.de.software.entity.usuarios;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "usuarios")
 @Component
-public class Usuario {
+@Data
+public class Usuario{
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -34,6 +41,17 @@ public class Usuario {
 
     @Column(name = "cpf", nullable = false, length = 11)
     private String cpf;
+
+    @Column(name = "status", nullable = false, length = 1)
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getCpf() {
         return cpf;

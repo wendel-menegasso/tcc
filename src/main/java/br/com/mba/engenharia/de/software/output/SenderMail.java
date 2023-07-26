@@ -1,6 +1,6 @@
 package br.com.mba.engenharia.de.software.output;
 
-import br.com.mba.engenharia.de.software.negocio.usuarios.Usuario;
+import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
