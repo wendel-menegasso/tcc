@@ -12,6 +12,8 @@
           <package value="br.com.mba.engenharia.de.software.negocio.repeticao" />
           <package value="br.com.mba.engenharia.de.software.negocio.usuarios" />
           <package value="br.com.mba.engenharia.de.software.negocio.veiculos" />
+          <package value="br.com.mba.engenharia.de.software.entity.contas" />
+          <package value="br.com.mba.engenharia.de.software.entity.usuarios" />
         </packages>
       </persistence-unit>
     </persistence-units>

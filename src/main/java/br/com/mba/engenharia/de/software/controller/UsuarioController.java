@@ -2,14 +2,13 @@ package br.com.mba.engenharia.de.software.controller;
 
 import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
 import br.com.mba.engenharia.de.software.output.SenderMail;
-import br.com.mba.engenharia.de.software.repository.usuario.UsuarioRepositoryNovo;
 import br.com.mba.engenharia.de.software.security.ComplexidadeSenha;
 import br.com.mba.engenharia.de.software.security.Criptrografia;
 import br.com.mba.engenharia.de.software.security.GerarToken;
+import br.com.mba.engenharia.de.software.service.usuarios.UserManager;
 import br.com.mba.engenharia.de.software.utils.ValidadorCPF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,8 +24,11 @@ import java.io.IOException;
 public class UsuarioController{
     private static final Logger logger = LoggerFactory.getLogger(Usuario.class);
 
-    @Autowired
-    private UsuarioRepositoryNovo usuarioRepositoryNovo;
+    private UserManager userManager;
+
+    public UsuarioController(UserManager userManager) {
+        this.userManager = userManager;
+    }
 
     @PostMapping("/enviarCadastro")
     public ResponseEntity<?> enviarCadastro(@RequestBody Usuario user) throws IOException {
@@ -52,9 +54,7 @@ public class UsuarioController{
             return ResponseEntity.badRequest().build();
         }
         usuario.setToken(gerarToken.gerarToken());
-        Control controller = new Control();
-        controller.setController(usuario);
-        if (controller.cadastrarUsuario()){
+
             if (SenderMail.sendEmail(usuario)){
                 logger.info(String.format("Usuário cadastrado corretamente!"));
                 logger.info(String.format("Token enviado com sucesso!"));
@@ -65,10 +65,6 @@ public class UsuarioController{
                 logger.error(String.format("Erro no envio do e-mail"));
                 return ResponseEntity.badRequest().build();
             }
-        }
-        else{
-            return ResponseEntity.badRequest().build();
-        }
     }
 
     @PostMapping("/habilitarUsuario")
@@ -79,9 +75,7 @@ public class UsuarioController{
         user.setSenha(criptrografia.criptografar(usuario.getSenha()));
         user.setToken(usuario.getToken());
         user.setUsername(usuario.getUsername());
-        Control controller = new Control();
-        controller.desbloquearUsuario(user);
-        if (controller.desbloquearUsuario(user)){
+        if (userManager.habilitarUsuario(user)){
             return ResponseEntity.ok(Usuario.class);
         }
         else{

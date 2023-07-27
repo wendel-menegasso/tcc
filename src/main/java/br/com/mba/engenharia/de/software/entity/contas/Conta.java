@@ -1,9 +1,9 @@
 package br.com.mba.engenharia.de.software.entity.contas;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -16,22 +16,22 @@ public class Conta{
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "banco")
+    @Column(name = "banco", nullable = false)
     private Integer banco;
 
-    @Column(name = "tipo")
+    @Column(name = "tipo", nullable = false)
     private Integer tipo;
 
-    @Column(name = "saldo")
+    @Column(name = "saldo", nullable = false)
     private Double saldo;
 
-    @Column(name = "agencia", length = 12)
+    @Column(name = "agencia", length = 12, nullable = false)
     private String agencia;
 
-    @Column(name = "conta", length = 12)
+    @Column(name = "conta", length = 12, nullable = false)
     private String conta;
 
-    @Column(name = "usuario")
+    @Column(name = "usuario", nullable = false)
     private Integer usuario;
 
     public Integer getUsuario() {
