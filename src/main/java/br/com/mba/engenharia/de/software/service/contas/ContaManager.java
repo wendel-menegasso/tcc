@@ -25,7 +25,7 @@ public class ContaManager implements ContaService{
 
     @Transactional
     public boolean salvarConta(Conta contas) {
-        List<Conta> list = contasRepository.lastRegister();
+        List<Conta> list = contasRepository.findAll();
         int id = list.get(list.size()).getId();
         contas.setId(id);
         contasRepository.save(contas);
@@ -62,7 +62,7 @@ public class ContaManager implements ContaService{
 
     @Transactional
     public List<Conta> listarTodasContas(){
-       return contasRepository.lastRegister();
+       return contasRepository.findAll();
     }
 
 
@@ -103,7 +103,7 @@ public class ContaManager implements ContaService{
 
     @Override
     public List<Conta> lastRegister() {
-        return contasRepository.lastRegister();
+        return contasRepository.findAll();
     }
 
     @Override

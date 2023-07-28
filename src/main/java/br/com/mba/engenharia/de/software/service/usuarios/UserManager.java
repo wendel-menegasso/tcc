@@ -175,6 +175,16 @@ public class UserManager implements UserService{
     public List<Usuario> findAll() {
         return usuarioRepositoryNovo.findAll();
     }
+
+    @Override
+    public List<Usuario> findByUsernameAndSenhaAndStatus(String username, String senha, String status) {
+        return usuarioRepositoryNovo.findByUsernameAndSenhaAndStatus(username, senha, status);
+    }
+
+    @Override
+    public int save(Usuario usuario) {
+        return usuarioRepositoryNovo.save(usuario);
+    }
 }
 
 

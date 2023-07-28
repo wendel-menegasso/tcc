@@ -10,4 +10,6 @@ public interface UserService {
     List<Usuario> findByIdAndToken(String token, Integer id);
     Optional<Usuario> findByTokenUsernameAndSenha(String username, String senha, String status, String token);
     List<Usuario> findAll();
+    List<Usuario> findByUsernameAndSenhaAndStatus(String username, String senha, String status);
+    int save(Usuario usuario);
 }

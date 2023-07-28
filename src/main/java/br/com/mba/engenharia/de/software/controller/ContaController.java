@@ -2,12 +2,14 @@ package br.com.mba.engenharia.de.software.controller;
 
 import br.com.mba.engenharia.de.software.entity.contas.Conta;
 import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
+import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.security.GerarToken;
 import br.com.mba.engenharia.de.software.service.contas.ContaManager;
 import br.com.mba.engenharia.de.software.service.contas.ContaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,14 +21,22 @@ import java.io.IOException;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@Controller
 public class ContaController{
     private static final Logger logger = LoggerFactory.getLogger(Conta.class);
 
+    @Autowired
+    ContaRepository contaRepository;
+
     ContaService contaService;
 
-    public ContaController(ContaService contaService) {
-        this.contaService = contaService;
+    @Bean
+    public ContaService contaService(){
+        ContaManager contaManager = new ContaManager(contaRepository);
+        return contaManager;
+    }
+
+    public ContaController() {
+        this.contaService = contaService();
     }
 
     @PostMapping("/criarConta")
