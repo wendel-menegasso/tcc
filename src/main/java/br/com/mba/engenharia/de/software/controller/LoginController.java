@@ -37,6 +37,7 @@ public class LoginController{
     @Bean
     public UserService userService(){
         UserManager userManager = new UserManager(usuarioRepositoryNovo);
+        userManager.setRepository(usuarioRepositoryNovo);
         return userManager;
     }
 

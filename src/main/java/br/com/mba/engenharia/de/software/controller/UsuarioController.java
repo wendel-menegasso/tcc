@@ -26,12 +26,10 @@ import java.io.IOException;
 public class UsuarioController{
     private static final Logger logger = LoggerFactory.getLogger(Usuario.class);
 
-    private UserManager userManager;
-
     @Autowired
     UsuarioRepositoryNovo usuarioRepositoryNovo;
 
-    UserService userService;
+    UserService userService = userService();
 
     @Bean
     public UserService userService(){
@@ -67,6 +65,9 @@ public class UsuarioController{
             return ResponseEntity.badRequest().build();
         }
         usuario.setToken(gerarToken.gerarToken());
+        usuario.setStatus("0");
+        userService.setRepository(usuarioRepositoryNovo);
+        usuario.setId(userService.count());
         userService.save(usuario);
             if (SenderMail.sendEmail(usuario)){
                 logger.info(String.format("Usuário cadastrado corretamente!"));
@@ -88,7 +89,9 @@ public class UsuarioController{
         user.setSenha(criptrografia.criptografar(usuario.getSenha()));
         user.setToken(usuario.getToken());
         user.setUsername(usuario.getUsername());
-        if (userManager.habilitarUsuario(user)){
+        userService.setRepository(usuarioRepositoryNovo);
+        if (userService.findByTokenUsernameSenhaAndStatusAndUpdateStatus(user.getToken(),
+                user.getUsername(), user.getSenha(), "0") == 1){
             return ResponseEntity.ok(Usuario.class);
         }
         else{

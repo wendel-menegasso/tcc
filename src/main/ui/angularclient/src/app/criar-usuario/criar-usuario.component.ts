@@ -32,6 +32,6 @@ export class CriarUsuarioComponent implements OnInit{
   }
 
   gotoUserList() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/desbloquearUsuario']);
   }
 }

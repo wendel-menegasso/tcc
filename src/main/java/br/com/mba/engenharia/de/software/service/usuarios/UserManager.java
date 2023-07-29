@@ -167,7 +167,7 @@ public class UserManager implements UserService{
     }
 
     @Override
-    public Optional<Usuario> findByTokenUsernameAndSenha(String username, String senha, String status, String token) {
+    public Optional<Usuario> findByTokenUsernameAndSenha(String token, String username, String status, String senha) {
         return usuarioRepositoryNovo.findByTokenUsernameAndSenha(username, senha, status, token);
     }
 
@@ -182,8 +182,23 @@ public class UserManager implements UserService{
     }
 
     @Override
-    public int save(Usuario usuario) {
-        return usuarioRepositoryNovo.save(usuario);
+    public void save(Usuario usuario) {
+        usuarioRepositoryNovo.save(usuario);
+    }
+
+    @Override
+    public void setRepository(UsuarioRepositoryNovo usuarioRepositoryNovo) {
+        this.usuarioRepositoryNovo = usuarioRepositoryNovo;
+    }
+
+    @Override
+    public int count() {
+        return usuarioRepositoryNovo.count() + 1;
+    }
+
+    @Override
+    public Integer findByTokenUsernameSenhaAndStatusAndUpdateStatus(String token, String username, String senha, String status) {
+        return usuarioRepositoryNovo.findByTokenUsernameSenhaAndStatusAndUpdateStatus(token, username, senha, status);
     }
 }
 
