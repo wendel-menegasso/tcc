@@ -91,6 +91,17 @@ export class ContasBancariasComponent implements OnInit {
           console.log(this.contasBancarias);
       });
     }
+	excluir(id: string){
+		this.contasBancariasService.delete(id).subscribe(data => {
+			this.contas = data;
+			if (this.contas != null){
+				this.router.navigate(['/contas']);
+			}
+			else{
+				alert("Não foi possível excluir");
+			}
+			});
+	}
     ngOnDestroy() {
       this.destroy$.next(true);
       this.destroy$.unsubscribe();

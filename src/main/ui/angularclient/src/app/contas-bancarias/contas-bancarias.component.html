@@ -1,26 +1,27 @@
 <div id="tabela">
 <h2>Contas</h2>
-  <table class="table table-bordered" border="1px">
+  <table border="1px" class="form-control">
     <thead>
-    <tr>
+    <tr class="form-control">
       <th>Agência</th>
       <th>Conta</th>
       <th>Banco</th>
       <th>Saldo</th>
       <th>Tipo</th>
       <th>Excluir</th>
-      <th>Editar</th>
+      <th>Alterar</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="form-control">
     <tr *ngFor="let conta of contasBancarias; let i = index">
       <td>{{conta.agencia}}</td>
       <td>{{conta.conta}}</td>
       <td>{{conta.banco}}</td>
       <td>{{conta.saldo}}</td>
       <td>{{conta.tipo}}</td>
-      <td><button>-</button></td>
-      <td><button>@</button></td>
+      <button type="button" class="btn btn-danger"
+      (click)="excluir(conta.id)"> Excluir</button>
+      <td><button>Alterar</button></td>
     </tr>
     </tbody>
   </table>

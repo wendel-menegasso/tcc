@@ -110,6 +110,21 @@ public class ContaManager implements ContaService{
     public void save(Conta contas) {
         contasRepository.save(contas);
     }
+
+    @Override
+    public void setContaRepository(ContaRepository contaRepository) {
+        this.contasRepository = contaRepository;
+    }
+
+    @Override
+    public int count() {
+        return this.contasRepository.count() + 1;
+    }
+
+    @Override
+    public List<Conta> findAll() {
+        return this.contasRepository.findAll();
+    }
 }
 
 

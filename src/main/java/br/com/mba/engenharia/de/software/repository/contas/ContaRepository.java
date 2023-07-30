@@ -1,13 +1,19 @@
 package br.com.mba.engenharia.de.software.repository.contas;
 
 import br.com.mba.engenharia.de.software.entity.contas.Conta;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @org.springframework.stereotype.Repository
 public interface ContaRepository extends Repository<Conta, Long> {
+    @Transactional
+    @Modifying
+    @Query("delete from Conta c where c.id = ?1")
+    int delete(Integer id);
     @Query("select c from Conta c where c.banco = ?1")
     List<Conta> findByBanco(Integer banco);
 
@@ -30,6 +36,9 @@ public interface ContaRepository extends Repository<Conta, Long> {
     List<Conta> findByContaAgenciaBanco(String conta, String agencia, Integer banco);
 
     List<Conta> findAll();
+
+    @Query("select count(c) from Conta c")
+    int count();
 
     void save(Conta contas);
 }

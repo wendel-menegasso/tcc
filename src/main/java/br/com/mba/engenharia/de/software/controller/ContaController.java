@@ -11,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -39,7 +36,7 @@ public class ContaController{
     }
 
     @PostMapping("/criarConta")
-    public ResponseEntity<?> salvar(@RequestBody Conta conta) throws IOException {
+    public ResponseEntity<?> salvar(@RequestBody Conta conta){
         GerarToken gerarToken = new GerarToken();
         Usuario usuario = new Usuario();
         usuario.setCpf("11111111111");
@@ -51,12 +48,31 @@ public class ContaController{
         usuario.setToken(gerarToken.gerarToken());
         usuario.setId(1);
         conta.setUsuario(usuario.getId());
+        contaService.setContaRepository(contaRepository);
+        conta.setId(contaService.count());
         contaService.save(conta);
         logger.info(String.format("Usuário cadastrado corretamente"));
         return ResponseEntity.ok(conta);
     }
-    @PostMapping("/listarConta")
-    public ResponseEntity<?> listarConta() throws IOException {
-        return ResponseEntity.ok(contaService.lastRegister());
+
+    @GetMapping("/listarConta")
+    public ResponseEntity<?> listarConta(){
+        contaService.setContaRepository(contaRepository);
+        return ResponseEntity.ok(contaService.findAll());
+    }
+
+    @DeleteMapping("/deletarConta/{id}")
+    public ResponseEntity<?> deletarConta(@PathVariable("id") String id){
+        contaService.setContaRepository(contaRepository);
+        Conta conta = new Conta();
+        conta.setId(Integer.parseInt(id));
+        if (contaRepository.delete(conta.getId()) == 1){
+            logger.info(String.format("Usuário deletado com sucesso"));
+            return ResponseEntity.ok(conta);
+        }
+        else{
+            logger.info(String.format("Falha na exclusão"));
+            return null;
+        }
     }
 }
