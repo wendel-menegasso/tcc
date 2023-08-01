@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.service.annotation.PutExchange;
 
 import java.io.IOException;
 
@@ -74,5 +75,10 @@ public class ContaController{
             logger.info(String.format("Falha na exclusão"));
             return null;
         }
+    }
+    @PutMapping("/alterarConta")
+    public ResponseEntity<?> alterarConta(@RequestBody Conta conta){
+        contaService.setContaRepository(contaRepository);
+        return ResponseEntity.ok(contaService.findById(conta.getId()));
     }
 }

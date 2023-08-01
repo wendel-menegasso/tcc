@@ -35,6 +35,9 @@ public interface ContaRepository extends Repository<Conta, Long> {
     @Query("select c from Conta c where c.conta = ?1 and c.agencia = ?2 and c.banco = ?3")
     List<Conta> findByContaAgenciaBanco(String conta, String agencia, Integer banco);
 
+    @Query("select c from Conta c where c.id = ?1")
+    Conta findById(Integer id);
+
     List<Conta> findAll();
 
     @Query("select count(c) from Conta c")

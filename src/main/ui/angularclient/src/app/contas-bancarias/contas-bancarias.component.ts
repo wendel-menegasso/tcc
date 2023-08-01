@@ -13,6 +13,8 @@ import { Subject } from 'rxjs';
 })
 export class ContasBancariasComponent implements OnInit {
 
+	id:string;
+
   contas: ContasBancarias;
   contasBancarias: ContasBancarias[] = [];
   accounts: ContasBancarias[] = [];

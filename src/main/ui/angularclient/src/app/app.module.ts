@@ -23,6 +23,7 @@ import { UserHeaderComponent } from './user-header/user-header.component';
 import { LoginComponent } from './login/login.component';
 import { TelaInicialComponent } from './tela-inicial/tela-inicial.component';
 import { CorpoComponent } from './corpo/corpo.component';
+import { AlterarContasModalComponent } from './alterar-contas-modal/alterar-contas-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CorpoComponent } from './corpo/corpo.component';
     UserHeaderComponent,
     LoginComponent,
     TelaInicialComponent,
-    CorpoComponent
+    CorpoComponent,
+    AlterarContasModalComponent
   ],
   imports: [
     BrowserModule,

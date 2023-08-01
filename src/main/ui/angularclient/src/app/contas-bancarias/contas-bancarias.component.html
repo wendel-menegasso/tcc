@@ -19,9 +19,9 @@
       <td>{{conta.banco}}</td>
       <td>{{conta.saldo}}</td>
       <td>{{conta.tipo}}</td>
-      <button type="button" class="btn btn-danger"
-      (click)="excluir(conta.id)"> Excluir</button>
-      <td><button>Alterar</button></td>
+      <td><button type="button" class="btn btn-danger"
+      (click)="excluir(conta.id)"> Excluir</button></td>
+      <td><app-alterar-contas-modal [idConta]=conta.id></app-alterar-contas-modal></td>
     </tr>
     </tbody>
   </table>

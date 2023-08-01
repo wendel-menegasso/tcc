@@ -125,6 +125,11 @@ public class ContaManager implements ContaService{
     public List<Conta> findAll() {
         return this.contasRepository.findAll();
     }
+
+    @Override
+    public Conta findById(Integer id) {
+        return this.contasRepository.findById(id);
+    }
 }
 
 

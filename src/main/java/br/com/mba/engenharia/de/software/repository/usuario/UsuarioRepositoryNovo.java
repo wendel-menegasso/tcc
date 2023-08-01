@@ -17,7 +17,7 @@ public interface UsuarioRepositoryNovo extends org.springframework.data.reposito
     Integer findByTokenUsernameSenhaAndStatusAndUpdateStatus(String token, String username, String senha, String status);
     @Query("select count(u) from Usuario u")
     int count();
-    @Query("select u from Usuario u where u.username like '?1' and u.senha like '?2' and u.status like '?3'")
+    @Query("select u from Usuario u where u.username like ?1 and u.senha like ?2 and u.status like ?3")
     List<Usuario> findByUsernameAndSenhaAndStatus(String username, String senha, String status);
     @Transactional
     @Modifying

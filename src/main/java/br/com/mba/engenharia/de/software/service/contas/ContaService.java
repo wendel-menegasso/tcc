@@ -20,4 +20,5 @@ public interface ContaService {
     void setContaRepository(ContaRepository contaRepository);
     int count();
     List<Conta> findAll();
+    Conta findById(Integer id);
 }
