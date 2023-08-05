@@ -24,6 +24,10 @@ import { LoginComponent } from './login/login.component';
 import { TelaInicialComponent } from './tela-inicial/tela-inicial.component';
 import { CorpoComponent } from './corpo/corpo.component';
 import { AlterarContasModalComponent } from './alterar-contas-modal/alterar-contas-modal.component';
+import { AlterarRendasModalComponent } from './alterar-rendas-modal/alterar-rendas-modal.component';
+import { InserirRendasModalComponent } from './inserir-rendas-modal/inserir-rendas-modal.component';
+import { RendasComponent } from './rendas/rendas.component';
+import { RendasUsuarioComponent } from './rendas-usuario/rendas-usuario.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,11 @@ import { AlterarContasModalComponent } from './alterar-contas-modal/alterar-cont
     LoginComponent,
     TelaInicialComponent,
     CorpoComponent,
-    AlterarContasModalComponent
+    AlterarContasModalComponent,
+    AlterarRendasModalComponent,
+    InserirRendasModalComponent,
+    RendasComponent,
+    RendasUsuarioComponent
   ],
   imports: [
     BrowserModule,
