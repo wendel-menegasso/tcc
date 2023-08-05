@@ -12,6 +12,10 @@ import java.util.List;
 public interface ContaRepository extends Repository<Conta, Long> {
     @Transactional
     @Modifying
+    @Query("update Conta c set c.banco = ?1, c.tipo = ?2, c.saldo = ?3, c.agencia = ?4, c.conta = ?5 where c.id = ?6")
+    int updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id);
+    @Transactional
+    @Modifying
     @Query("delete from Conta c where c.id = ?1")
     int delete(Integer id);
     @Query("select c from Conta c where c.banco = ?1")

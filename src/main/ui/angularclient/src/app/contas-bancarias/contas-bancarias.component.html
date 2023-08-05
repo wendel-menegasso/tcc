@@ -1,8 +1,8 @@
 <div id="tabela">
 <h2>Contas</h2>
-  <table border="1px" class="form-control">
+  <table border="1px">
     <thead>
-    <tr class="form-control">
+    <tr>
       <th>Agência</th>
       <th>Conta</th>
       <th>Banco</th>
@@ -12,7 +12,7 @@
       <th>Alterar</th>
     </tr>
     </thead>
-    <tbody class="form-control">
+    <tbody>
     <tr *ngFor="let conta of contasBancarias; let i = index">
       <td>{{conta.agencia}}</td>
       <td>{{conta.conta}}</td>

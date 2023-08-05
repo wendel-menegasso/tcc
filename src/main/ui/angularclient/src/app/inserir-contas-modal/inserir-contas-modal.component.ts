@@ -28,23 +28,26 @@ export class InserirContasModalComponent implements OnInit{
       if (this.contas.banco == "Bradesco"){
         this.contas.banco = "2";
       }
-      if (this.contas.banco == "Banco Pan"){
+      if (this.contas.banco == "C6"){
         this.contas.banco = "3";
       }
-      if (this.contas.banco == "C6"){
+      if (this.contas.banco == "Caixa Econômica Federal"){
         this.contas.banco = "4";
       }
-      if (this.contas.banco == "Caixa Econômica Federal"){
+      if (this.contas.banco == "Itaú"){
         this.contas.banco = "5";
       }
-      if (this.contas.banco == "Itaú"){
+      if (this.contas.banco == "Nubank"){
         this.contas.banco = "6";
       }
-      if (this.contas.banco == "Santander"){
+      if (this.contas.banco == "Pan"){
         this.contas.banco = "7";
       }
-      if (this.contas.banco == "Outros"){
+      if (this.contas.banco == "Santander"){
         this.contas.banco = "8";
+      }
+      if (this.contas.banco == "Outros"){
+        this.contas.banco = "9";
       }
 
   		if (this.contas.tipo == "Conta Poupança"){
@@ -69,7 +72,8 @@ export class InserirContasModalComponent implements OnInit{
     }
 
       gotoUserList() {
-        this.router.navigate(['/home']);
+        alert('Salvo com sucesso!');
+				this.router.navigate(['/contas']);
       }
         displayStyle = "none";
 

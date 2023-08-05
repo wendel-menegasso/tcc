@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.PutExchange;
-
-import java.io.IOException;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -76,9 +73,22 @@ public class ContaController{
             return null;
         }
     }
-    @PutMapping("/alterarConta")
-    public ResponseEntity<?> alterarConta(@RequestBody Conta conta){
+    @PostMapping("/recebeDadosAlterarConta")
+    public ResponseEntity<?> recebeDadosAlterarConta(@RequestBody Conta conta){
         contaService.setContaRepository(contaRepository);
         return ResponseEntity.ok(contaService.findById(conta.getId()));
     }
+
+    @PutMapping("alterarConta")
+    public ResponseEntity<?> alterarConta(@RequestBody Conta conta){
+        contaService.setContaRepository(contaRepository);
+        if (contaRepository.updateConta(conta.getBanco(), conta.getTipo(), conta.getSaldo(),
+                conta.getAgencia(), conta.getConta(), conta.getId()) == 1){
+            return ResponseEntity.ok(conta);
+        }
+        else{
+            return null;
+        }
+    }
+
 }

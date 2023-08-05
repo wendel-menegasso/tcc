@@ -26,36 +26,15 @@
                  required #email="ngModel"
                  value={{conta.conta}}>
           <label for="tipo">Tipo</label>
-          <select class="form-control" id="tipo" name="tipo" [(ngModel)]="conta.tipo" selectedIndex={{conta.tipo}}>
-            <option
-                    class="form-control">Conta Poupança</option>
-            <option
-                    class="form-control">Conta Salário</option>
-            <option
-                    class="form-control">Conta Corrente</option>
-            <option
-                    class="form-control">Conta Empresa</option>
-          </select>
+          <select [value]="modelo_tipo.tipo_id" class="form-control" id="tipo" name="tipo" [(ngModel)]="conta.tipo">
+                <option class="form-control" disabled>Escolha o tipo de conta:</option>
+                <option class="form-control" *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.name }}</option>
+              </select>
+              
         <label for="banco">Banco</label>
-              <select class="form-control" id="banco" name="banco" [(ngModel)]="conta.banco" selectedIndex={{conta.banco}}>
-                <option
-                        class="form-control">Banco do Brasil</option>
-                <option
-                        class="form-control">Bradesco</option>
-                <option
-                        class="form-control">Banco Pan</option>
-                <option
-                        class="form-control">C6</option>
-                <option
-                        class="form-control">Caixa Econômica Federal</option>
-                <option
-                        class="form-control">Itaú</option>
-                <option
-                        class="form-control">Nubank</option>
-                <option
-                        class="form-control">Santander</option>
-                <option
-                        class="form-control">Outros</option>
+        <select [value]="modelo_banco.banco_id" class="form-control" id="banco" name="banco" [(ngModel)]="conta.banco">
+                <option class="form-control" disabled>Escolha o banco:</option>
+                <option class="form-control" *ngFor="let banco of bancos" [value]="banco.id">{{ banco.name }}</option>
               </select>
         <label for="saldo">Saldo</label>
         <input type="text" [(ngModel)]="conta.saldo"
@@ -66,7 +45,7 @@
                required #name="ngModel"
                value={{conta.saldo}}>
         <button type="submit" (click)="onSubmit()"
-                class="btn btn-info"></button>
+                class="btn btn-info">Salvar</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger"
