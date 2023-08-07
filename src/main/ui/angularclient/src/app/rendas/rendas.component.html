@@ -1,1 +1,25 @@
-<p>rendas works!</p>
+<div id="tabela">
+    <h2>Contas</h2>
+      <table border="1px">
+        <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Tipo</th>
+          <th>Data</th>
+          <th>Valor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let renda of rendas; let i = index">
+          <td>{{renda.nome}}</td>
+          <td>{{renda.tipo}}</td>
+          <td>{{renda.data}}</td>
+          <td>{{renda.valor}}</td>
+          <td><button type="button" class="btn btn-danger"
+          (click)="excluir(renda.id)"> Excluir</button></td>
+          <td><app-alterar-rendas-modal [idRenda]=renda.id></app-alterar-rendas-modal></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-inserir-contas-modal></app-inserir-contas-modal>

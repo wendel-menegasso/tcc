@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,50 +20,6 @@ public class ContaManager implements ContaService{
     public ContaManager(ContaRepository contasRepository) {
         this.contasRepository = contasRepository;
     }
-
-
-    @Transactional
-    public boolean salvarConta(Conta contas) {
-        List<Conta> list = contasRepository.findAll();
-        int id = list.get(list.size()).getId();
-        contas.setId(id);
-        contasRepository.save(contas);
-        return true;
-    }
-
-    @Transactional
-    public List<Conta> procuraRegistro(Conta contas){
-        if (contas.getConta() != null && contas.getAgencia() != null && contas.getBanco() != null){
-            return contasRepository.findByContaAgenciaBanco(contas.getConta(), contas.getAgencia(), contas.getBanco());
-        }
-        else if (contas.getConta() != null && contas.getAgencia() != null){
-            return contasRepository.findByContaAgencia(contas.getConta(),contas.getAgencia());
-        }
-        else if (contas.getConta() != null && contas.getBanco() != null){
-            return contasRepository.findByContaBanco(contas.getConta(), contas.getBanco());
-        }
-        else if (contas.getAgencia() != null && contas.getBanco() != null){
-            return contasRepository.findByAgenciaBanco(contas.getAgencia(), contas.getBanco());
-        } else if (contas.getConta() != null) {
-            return contasRepository.findByConta(contas.getConta());
-        } else if (contas.getAgencia() != null) {
-            return contasRepository.findByAgencia(contas.getAgencia());
-        }
-        else if (contas.getBanco() != null){
-            return contasRepository.findByBanco(contas.getBanco());
-        }
-        return null;
-    }
-
-    public List<Conta> listarConta(Conta contas){
-        return procuraRegistro(contas);
-    }
-
-    @Transactional
-    public List<Conta> listarTodasContas(){
-       return contasRepository.findAll();
-    }
-
 
     @Override
     public List<Conta> findByBanco(Integer banco) {

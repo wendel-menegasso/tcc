@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.negocio.rendas;
+package br.com.mba.engenharia.de.software.entity.despesas;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,13 +6,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tiporenda")
-public class Tiporenda {
+@Table(name = "tipodespesas")
+public class Tipodespesa {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "descr", nullable = false, length = 50)
+    @Column(name = "descr", nullable = false, length = 40)
     private String descr;
 
     public String getDescr() {

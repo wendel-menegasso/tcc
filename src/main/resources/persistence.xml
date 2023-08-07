@@ -5,16 +5,16 @@
 
     <persistence-unit name="tcc" transaction-type="JTA">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>br.com.mba.engenharia.de.software.negocio.despesas.Despesa</class>
-        <class>br.com.mba.engenharia.de.software.negocio.despesas.Tipodespesa</class>
+        <class>br.com.mba.engenharia.de.software.entity.despesas.Despesa</class>
+        <class>br.com.mba.engenharia.de.software.entity.despesas.Tipodespesa</class>
         <class>br.com.mba.engenharia.de.software.negocio.veiculos.Fabricante</class>
         <class>br.com.mba.engenharia.de.software.negocio.veiculos.Modelo</class>
         <class>br.com.mba.engenharia.de.software.negocio.veiculos.Tipoveiculo</class>
         <class>br.com.mba.engenharia.de.software.negocio.veiculos.Veiculo</class>
         <class>br.com.mba.engenharia.de.software.entity.usuarios.Usuario</class>
         <class>br.com.mba.engenharia.de.software.negocio.repeticao.Repeticao</class>
-        <class>br.com.mba.engenharia.de.software.negocio.rendas.Renda</class>
-        <class>br.com.mba.engenharia.de.software.negocio.rendas.Tiporenda</class>
+        <class>br.com.mba.engenharia.de.software.entity.rendas.Renda</class>
+        <class>br.com.mba.engenharia.de.software.entity.rendas.Tiporenda</class>
         <class>br.com.mba.engenharia.de.software.negocio.imoveis.Cidade</class>
         <class>br.com.mba.engenharia.de.software.negocio.imoveis.Estado</class>
         <class>br.com.mba.engenharia.de.software.negocio.imoveis.Imovei</class>

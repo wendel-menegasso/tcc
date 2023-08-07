@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.negocio.rendas;
+package br.com.mba.engenharia.de.software.entity.despesas;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,8 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "rendas")
-public class Renda {
+@Table(name = "despesas")
+public class Despesa {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -33,6 +33,9 @@ public class Renda {
     @Column(name = "repeticao")
     private Integer repeticao;
 
+    @Column(name = "origem")
+    private Integer origem;
+
     @Column(name = "usuario")
     private Integer usuario;
 
@@ -42,6 +45,14 @@ public class Renda {
 
     public void setUsuario(Integer usuario) {
         this.usuario = usuario;
+    }
+
+    public Integer getOrigem() {
+        return origem;
+    }
+
+    public void setOrigem(Integer origem) {
+        this.origem = origem;
     }
 
     public Integer getRepeticao() {
