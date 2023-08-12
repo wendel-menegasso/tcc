@@ -28,6 +28,7 @@ import { AlterarRendasModalComponent } from './alterar-rendas-modal/alterar-rend
 import { InserirRendasModalComponent } from './inserir-rendas-modal/inserir-rendas-modal.component';
 import { RendasComponent } from './rendas/rendas.component';
 import { RendasUsuarioComponent } from './rendas-usuario/rendas-usuario.component';
+import { RendasService } from './service/rendas-service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { RendasUsuarioComponent } from './rendas-usuario/rendas-usuario.componen
     NgbModule,
     FormsModule
   ],
-  providers: [UserService,UsuarioService,ContasBancariasService],
+  providers: [UserService,UsuarioService,ContasBancariasService,RendasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

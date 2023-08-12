@@ -93,8 +93,6 @@ export class ContasBancariasComponent implements OnInit {
   		    for (var i=0; i<this.contasCount;i++){
   		        this.contasBancarias.push(accounts[i]);
   		    }
-
-          console.log(this.contasBancarias);
       });
     }
 	excluir(id: string){

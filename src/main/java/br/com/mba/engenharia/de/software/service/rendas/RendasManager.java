@@ -33,11 +33,16 @@ public class RendasManager implements RendasService{
 
     @Override
     public int count() {
-        return repository.count();
+        return repository.count() + 1;
     }
 
     @Override
     public void save(Renda rendas) {
         repository.save(rendas);
+    }
+
+    @Override
+    public void setRendasRepository(RendasRepository repository) {
+        this.repository = repository;
     }
 }

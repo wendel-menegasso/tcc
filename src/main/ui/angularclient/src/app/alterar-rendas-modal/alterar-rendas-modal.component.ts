@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-alterar-rendas-modal',
@@ -11,5 +11,5 @@ export class AlterarRendasModalComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  @Input() idRenda : string;
 }

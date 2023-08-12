@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RendasServiceService } from './rendas-service.service';
+import { RendasService } from './rendas-service';
 
 describe('RendasServiceService', () => {
-  let service: RendasServiceService;
+  let service: RendasService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RendasServiceService);
+    service = TestBed.inject(RendasService);
   });
 
   it('should be created', () => {
