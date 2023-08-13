@@ -1,1 +1,66 @@
-<p>inserir-rendas-modal works!</p>
+<button class="btn btn-lg btn-outline-primary" (click)="openPopup()">Criar Conta</button>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Inserir Renda</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" [(ngModel)]="rendas.nome"
+                 class="form-control"
+                 id="nome"
+                 name="nome"
+                 placeholder="Nome"
+                 required #name="ngModel">
+          <label for="valor">Valor</label>
+          <input type="text" [(ngModel)]="rendas.valor"
+                 class="form-control"
+                 id="valor"
+                 name="valor"
+                 placeholder="R$"
+                 required #email="ngModel">
+          <label for="tipo">Tipo</label>
+          <select class="form-control" id="tipo" name="tipo" [(ngModel)]="rendas.tipo">
+            <option
+                    class="form-control">Salário</option>
+            <option
+                    class="form-control">Empresa</option>
+            <option
+                    class="form-control">Aluguel</option>
+            <option
+                    class="form-control">Ações</option>
+            <option
+                    class="form-control">Juros Poupança</option>
+            <option
+                    class="form-control">Tesouro Direto</option>
+            <option
+                    class="form-control">Outros</option>                  
+          </select>
+        <label for="saldo">Data</label>
+        <input type="text" [(ngModel)]="rendas.data"
+               class="form-control"
+               id="data"
+               name="data"
+               placeholder="DD/MM/AAAA"
+               required #name="ngModel">
+        <button type="submit" (click)="onSubmit()"
+                class="btn btn-info">Salvar
+        </button>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

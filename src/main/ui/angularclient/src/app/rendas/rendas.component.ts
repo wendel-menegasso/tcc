@@ -52,11 +52,15 @@ export class RendasComponent implements OnInit {
             if (this.rendas[i].tipo == "6"){
                 renda.tipo = "Tesouro Direto";
             }
+            if (this.rendas[i].tipo == "7"){
+                renda.tipo = "Outros";
+            }
       
             renda.id = this.rendas[i].id;
             renda.nome = this.rendas[i].nome;
             renda.valor = this.rendas[i].valor;
             renda.usuario = this.rendas[i].usuario;
+            renda.data = this.rendas[i].data;
             rendaArray[i] = renda;
         }
 
@@ -78,7 +82,7 @@ export class RendasComponent implements OnInit {
     this.rendasService.delete(id).subscribe(data => {
         this.rendas = data;
         if (this.rendas != null){
-            this.router.navigate(['/contas']);
+            this.router.navigate(['/ganhos']);
         }
         else{
             alert("Não foi possível excluir");

@@ -45,4 +45,9 @@ public class RendasManager implements RendasService{
     public void setRendasRepository(RendasRepository repository) {
         this.repository = repository;
     }
+
+    @Override
+    public int updateRendas(String nome, Integer tipo, Double valor, String data, Integer id) {
+        return this.repository.updateRendas(nome, tipo, valor, data, id);
+    }
 }

@@ -27,7 +27,7 @@ public interface RendasRepository extends Repository<Renda, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Renda r set r.nome = ?1, r.tipo = ?2, r.valor = ?3, r.repeticao = ?4 where r.id = ?5")
-    int updateRendas(String nome, Integer tipo, Double valor, Integer repeticao, Integer id);
+    @Query("update Renda r set r.nome = ?1, r.tipo = ?2, r.valor = ?3, r.data = ?4 where r.id = ?5")
+    int updateRendas(String nome, Integer tipo, Double valor, String data, Integer id);
 
 }

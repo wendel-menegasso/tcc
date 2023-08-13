@@ -14,11 +14,11 @@ export class RendasService {
   private alterarUrl: string;
 
   constructor(private http: HttpClient) {
-    this.findUrl = 'http://localhost:9090/listarRendas';
-    this.saveRendasUrl = 'http://localhost:9090/criarRendas';
-    this.deleteUrl = 'http://localhost:9090/deletarRendas/';
-    this.recebeDadosAlterarRendasUrl = 'http://localhost:9090/recebeDadosAlterarRendas';
-    this.alterarUrl = 'http://localhost:9090/alterarRendas';
+    this.findUrl = 'http://localhost:9090/listarRenda';
+    this.saveRendasUrl = 'http://localhost:9090/criarRenda';
+    this.deleteUrl = 'http://localhost:9090/deletarRenda/';
+    this.recebeDadosAlterarRendasUrl = 'http://localhost:9090/recebeDadosAlterarRenda';
+    this.alterarUrl = 'http://localhost:9090/alterarRenda';
   }
 
   public findAll(): Observable<Rendas[]> {

@@ -18,4 +18,6 @@ public interface RendasService {
 
     void setRendasRepository(RendasRepository repository);
 
+    int updateRendas(String nome, Integer tipo, Double valor, String data, Integer id);
+
 }

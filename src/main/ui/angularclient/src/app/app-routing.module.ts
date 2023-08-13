@@ -13,6 +13,8 @@ import { ContasComponent } from './contas/contas.component';
 import { LoginComponent } from './login/login.component';
 import { TelaInicialComponent } from './tela-inicial/tela-inicial.component';
 import { CorpoComponent } from './corpo/corpo.component';
+import { RendasComponent } from './rendas/rendas.component';
+import { RendasUsuarioComponent } from './rendas-usuario/rendas-usuario.component';
 
 const routes: Routes = [
     { path: 'login', component: AppComponent },
@@ -28,6 +30,7 @@ const routes: Routes = [
     { path: 'falhaDeLogin', component: FalhaDeLoginComponent},
     { path: 'cadastrarUsuario', component: CriarUsuarioComponent},
     { path: 'desbloquearUsuario', component: DesbloquearUsuarioComponent},
+    { path: 'ganhos', component: RendasUsuarioComponent},
 ];
 
 

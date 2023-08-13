@@ -70,7 +70,7 @@ public class RendasController{
     public ResponseEntity<?> alterarConta(@RequestBody Renda renda){
         rendasService.setRendasRepository(repository);
         if (repository.updateRendas(renda.getNome(), renda.getTipo(), renda.getValor(),
-                renda.getRepeticao(), renda.getId()) == 1){
+                renda.getData(), renda.getId()) == 1){
             return ResponseEntity.ok(renda);
         }
         else{

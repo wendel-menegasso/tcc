@@ -18,20 +18,11 @@ public class Renda {
     @Column(name = "valor")
     private Double valor;
 
-    @Column(name = "mes")
-    private Integer mes;
-
-    @Column(name = "ano")
-    private Integer ano;
-
-    @Column(name = "dia")
-    private Integer dia;
+    @Column(name = "data")
+    private String data;
 
     @Column(name = "tipo")
     private Integer tipo;
-
-    @Column(name = "repeticao")
-    private Integer repeticao;
 
     @Column(name = "usuario")
     private Integer usuario;
@@ -44,12 +35,12 @@ public class Renda {
         this.usuario = usuario;
     }
 
-    public Integer getRepeticao() {
-        return repeticao;
+    public String getData() {
+        return data;
     }
 
-    public void setRepeticao(Integer repeticao) {
-        this.repeticao = repeticao;
+    public void setData(String data) {
+        this.data = data;
     }
 
     public Integer getTipo() {
@@ -60,29 +51,6 @@ public class Renda {
         this.tipo = tipo;
     }
 
-    public Integer getDia() {
-        return dia;
-    }
-
-    public void setDia(Integer dia) {
-        this.dia = dia;
-    }
-
-    public Integer getAno() {
-        return ano;
-    }
-
-    public void setAno(Integer ano) {
-        this.ano = ano;
-    }
-
-    public Integer getMes() {
-        return mes;
-    }
-
-    public void setMes(Integer mes) {
-        this.mes = mes;
-    }
 
     public Double getValor() {
         return valor;
