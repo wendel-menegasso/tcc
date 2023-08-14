@@ -4,6 +4,7 @@ import { RendasService } from '../service/rendas-service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Rendas } from '../model/rendas';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-rendas',
@@ -20,7 +21,8 @@ export class RendasComponent implements OnInit {
   constructor(    
     private route: ActivatedRoute,
     private router: Router,
-    private rendasService: RendasService) {
+    private rendasService: RendasService,
+    private location: Location) {
         this.rendasDelete = new Rendas();
       }
   ngOnInit(): void {
@@ -73,16 +75,11 @@ export class RendasComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-
   excluir(id: string){
     this.rendasService.delete(id).subscribe(data => {
         this.rendas = data;
         if (this.rendas != null){
-            this.router.navigate(['/ganhos']);
+            location.reload();
         }
         else{
             alert("Não foi possível excluir");
@@ -90,4 +87,8 @@ export class RendasComponent implements OnInit {
         });
 }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

@@ -14,7 +14,7 @@
           <td>{{renda.nome}}</td>
           <td>{{renda.tipo}}</td>
           <td>{{renda.data}}</td>
-          <td>{{renda.valor}}</td>
+          <td>R${{renda.valor}}</td>
           <td><button type="button" class="btn btn-danger"
           (click)="excluir(renda.id)"> Excluir</button></td>
           <td><app-alterar-rendas-modal [idRenda]=renda.id></app-alterar-rendas-modal></td>

@@ -30,7 +30,8 @@ const routes: Routes = [
     { path: 'falhaDeLogin', component: FalhaDeLoginComponent},
     { path: 'cadastrarUsuario', component: CriarUsuarioComponent},
     { path: 'desbloquearUsuario', component: DesbloquearUsuarioComponent},
-    { path: 'ganhos', component: RendasUsuarioComponent},
+    { path: 'ganhos', component: RendasUsuarioComponent},    
+    { path: 'ganhosObtidos', component: RendasComponent},
 ];
 
 

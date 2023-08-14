@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Rendas } from '../model/rendas';
 import { RendasService } from '../service/rendas-service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-inserir-rendas-modal',
@@ -18,7 +19,8 @@ export class InserirRendasModalComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-      private rendasService: RendasService) {
+      private rendasService: RendasService,
+      private location: Location) {
     this.rendas = new Rendas();
 }
 
@@ -35,10 +37,10 @@ onSubmit() {
   if (this.rendas.tipo == "Ações"){
     this.rendas.tipo = "4";
   }
-  if (this.rendas.tipo == "Juros poupança"){
+  if (this.rendas.tipo == "Juros Poupança"){
     this.rendas.tipo = "5";
   }
-  if (this.rendas.tipo == "Tesouro direto"){
+  if (this.rendas.tipo == "Tesouro Direto"){
     this.rendas.tipo = "6";
   }
   if (this.rendas.tipo == "Outros"){
@@ -54,8 +56,9 @@ onSubmit() {
 }
 
   gotoRendasList() {
+    this.closePopup();
     alert('Salvo com sucesso!');
-    this.router.navigate(['/ganhos']);
+    location.reload();
   }
     displayStyle = "none";
 
