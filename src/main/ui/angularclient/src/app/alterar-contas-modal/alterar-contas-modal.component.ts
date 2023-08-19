@@ -87,10 +87,6 @@ export class AlterarContasModalComponent implements OnInit {
     this.displayStyle = "none";
   }
 
-  gotoAlterarConta() {
-    this.router.navigate(['/home']);
-  }
-
   @Input() idConta : string;
 
 }
