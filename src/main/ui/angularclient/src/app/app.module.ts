@@ -29,6 +29,10 @@ import { InserirRendasModalComponent } from './inserir-rendas-modal/inserir-rend
 import { RendasComponent } from './rendas/rendas.component';
 import { RendasUsuarioComponent } from './rendas-usuario/rendas-usuario.component';
 import { RendasService } from './service/rendas-service';
+import { GastosComponent } from './gastos/gastos.component';
+import { GastosUsuarioComponent } from './gastos-usuario/gastos-usuario.component';
+import { InserirGastosModalComponent } from './inserir-gastos-modal/inserir-gastos-modal.component';
+import { AlterarGastosModalComponent } from './alterar-gastos-modal/alterar-gastos-modal.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,11 @@ import { RendasService } from './service/rendas-service';
     AlterarRendasModalComponent,
     InserirRendasModalComponent,
     RendasComponent,
-    RendasUsuarioComponent
+    RendasUsuarioComponent,
+    GastosComponent,
+    GastosUsuarioComponent,
+    InserirGastosModalComponent,
+    AlterarGastosModalComponent
   ],
   imports: [
     BrowserModule,
