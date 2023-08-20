@@ -30,7 +30,7 @@ public class GastosManager implements GastosService{
 
     @Override
     public int count() {
-        return repository.count();
+        return repository.count() + 1;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class GastosManager implements GastosService{
     }
 
     @Override
-    public Gastos updateGastos(String nome, Integer tipo, Double valor, String data, Integer id) {
+    public int updateGastos(String nome, Integer tipo, Double valor, String data, Integer id) {
         return repository.updateGastos(nome, tipo, valor, data, id);
     }
 

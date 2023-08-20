@@ -11,6 +11,6 @@ public interface GastosService {
     List<Gastos> findAll();
     int count();
     Gastos save(Gastos gastos);
-    Gastos updateGastos(String nome, Integer tipo, Double valor, String data, Integer id);
+    int updateGastos(String nome, Integer tipo, Double valor, String data, Integer id);
     void setGastosRepository(GastosRepository repository);
 }

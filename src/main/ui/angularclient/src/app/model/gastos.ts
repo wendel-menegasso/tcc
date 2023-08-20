@@ -1,9 +1,8 @@
 export class Gastos {
-    id: String;
-    nome: String;
-    tipo: String;
-    valor: String;
-    data: String;
-    origem: String;
-    usuario: String;
+    id: string;
+    nome: string;
+    tipo: string;
+    valor: string;
+    data: string;
+    usuario: string;
 }

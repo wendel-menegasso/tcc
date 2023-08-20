@@ -1,1 +1,86 @@
-<p>inserir-gastos-modal works!</p>
+<button class="btn btn-lg btn-outline-primary" (click)="openPopup()">Inserir Gasto</button>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Inserir Gasto</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" [(ngModel)]="gastos.nome"
+                 class="form-control"
+                 id="nome"
+                 name="nome"
+                 placeholder="Nome"
+                 required #name="ngModel">
+          <label for="valor">Valor</label>
+          <input type="text" [(ngModel)]="gastos.valor"
+                 class="form-control"
+                 id="valor"
+                 name="valor"
+                 placeholder="R$"
+                 required #email="ngModel">
+          <label for="tipo">Tipo</label>
+          <select class="form-control" id="tipo" name="tipo" [(ngModel)]="gastos.tipo">
+            <option
+                    class="form-control">Mercado</option>
+            <option
+                    class="form-control">Alimentação</option>
+            <option
+                    class="form-control">Farmácia</option>
+            <option
+                    class="form-control">Médico</option>
+            <option
+                    class="form-control">Mensalidade escolar</option>
+            <option
+                    class="form-control">Livros escolares</option>
+            <option
+                    class="form-control">Academia</option>
+            <option
+                    class="form-control">Beleza</option>
+            <option
+                    class="form-control">Automóvel</option>
+            <option
+                    class="form-control">Domícilio</option>
+            <option
+                    class="form-control">Empregados domésticos</option>
+            <option
+                    class="form-control">Dívidas</option>
+            <option
+                    class="form-control">Empréstimos</option>
+            <option
+                    class="form-control">Entretenimento</option>
+            <option
+                    class="form-control">Empresa</option>       
+            <option
+                    class="form-control">Investimentos</option>
+            <option
+                    class="form-control">Outros</option>    
+          </select>
+        <label for="saldo">Data</label>
+        <input type="text" [(ngModel)]="gastos.data"
+               class="form-control"
+               id="data"
+               name="data"
+               placeholder="DD/MM/AAAA"
+               required #name="ngModel">
+        <button type="submit" (click)="onSubmit()"
+                class="btn btn-info">Salvar
+        </button>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

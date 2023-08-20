@@ -15,7 +15,7 @@ public interface GastosRepository extends Repository<Gastos, Long> {
     @Query("delete from Gastos g where g.id = ?1")
     int delete(Integer id);
 
-    @Query("select g from Ganhos g where g.id = ?1")
+    @Query("select g from Gastos g where g.id = ?1")
     Gastos findById(Integer id);
 
     List<Gastos> findAll();
@@ -28,5 +28,5 @@ public interface GastosRepository extends Repository<Gastos, Long> {
     @Transactional
     @Modifying
     @Query("update Gastos g set g.nome = ?1, g.tipo = ?2, g.valor = ?3, g.data = ?4 where g.id = ?5")
-    Gastos updateGastos(String nome, Integer tipo, Double valor, String data, Integer id);
+    int updateGastos(String nome, Integer tipo, Double valor, String data, Integer id);
 }

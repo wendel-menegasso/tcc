@@ -86,10 +86,10 @@ public class GastosController {
     public ResponseEntity<?> alterarGasto(@RequestBody GastosDTOFull gastosDTOFull){
         gastosService.setGastosRepository(repository);
         Gastos gastos = gastosDTOFull.parseGastosToDTOFullTGoGastos();
-        Gastos gastosResposta = gastosService.updateGastos(gastos.getNome(), gastos.getTipo(), gastos.getValor(),
+        int retorno = gastosService.updateGastos(gastos.getNome(), gastos.getTipo(), gastos.getValor(),
                 gastos.getData(), gastos.getId());
-        if (gastosResposta != null){
-            GastosRespostaDTO gastosRespostaDTO = new GastosRespostaDTO(gastosResposta);
+        if (retorno == 1){
+            GastosRespostaDTO gastosRespostaDTO = new GastosRespostaDTO(gastos);
             return new ResponseEntity<>(gastosRespostaDTO, HttpStatus.OK);
         }
         else {

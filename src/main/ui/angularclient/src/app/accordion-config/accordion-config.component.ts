@@ -19,4 +19,7 @@ export class NgbdAccordionConfig {
 	Ganhos() {
 	  window.location.href = "ganhos";	
 	}
+	Gastos() {
+	window.location.href = "gastos";
+	}
 }

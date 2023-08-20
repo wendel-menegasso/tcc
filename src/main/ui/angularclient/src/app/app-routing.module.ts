@@ -15,6 +15,8 @@ import { TelaInicialComponent } from './tela-inicial/tela-inicial.component';
 import { CorpoComponent } from './corpo/corpo.component';
 import { RendasComponent } from './rendas/rendas.component';
 import { RendasUsuarioComponent } from './rendas-usuario/rendas-usuario.component';
+import { GastosUsuarioComponent } from './gastos-usuario/gastos-usuario.component';
+import { GastosComponent } from './gastos/gastos.component';
 
 const routes: Routes = [
     { path: 'login', component: AppComponent },
@@ -32,6 +34,8 @@ const routes: Routes = [
     { path: 'desbloquearUsuario', component: DesbloquearUsuarioComponent},
     { path: 'ganhos', component: RendasUsuarioComponent},    
     { path: 'ganhosObtidos', component: RendasComponent},
+    { path: 'gastos', component: GastosUsuarioComponent},
+    { path: 'gastosObtidos', component: GastosComponent},
 ];
 
 

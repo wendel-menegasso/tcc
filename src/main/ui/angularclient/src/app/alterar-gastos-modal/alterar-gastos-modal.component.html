@@ -1,1 +1,53 @@
-<p>alterar-gastos-modal works!</p>
+<button class="btn btn-lg btn-outline-primary" (click)="openPopup()">Alterar</button>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Alterar Gastos</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" [(ngModel)]="gasto.nome"
+                 class="form-control"
+                 id="nome"
+                 name="nome"
+                 placeholder="Nome">
+          <label for="data">Data</label>
+          <input type="text" [(ngModel)]="gasto.data"
+                 class="form-control"
+                 id="data"
+                 name="data"
+                 placeholder="Data"
+                 required #email="ngModel"
+                 value={{gasto.data}}>
+          <label for="tipo">Tipo</label>
+          <select [value]="modelo_tipo.tipo_id" class="form-control" id="tipo" name="tipo" [(ngModel)]="gasto.tipo">
+                <option class="form-control" disabled>Escolha o tipo de Ganho:</option>
+                <option class="form-control" *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.name }}</option>
+              </select>
+        <label for="valor">Valor</label>
+        <input type="text" [(ngModel)]="gasto.valor"
+               class="form-control"
+               id="valor"
+               name="valor"
+               placeholder="R$"
+               required #name="ngModel"
+               value={{gasto.valor}}>
+        <button type="submit" (click)="onSubmit()"
+                class="btn btn-info">Salvar</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+      </div>
+      </div>
+  </div>
+  </div>
