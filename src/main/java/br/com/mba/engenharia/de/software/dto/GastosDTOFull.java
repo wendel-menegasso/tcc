@@ -13,7 +13,7 @@ public class GastosDTOFull {
         private Double valor;
         private Integer id;
 
-        public Gastos parseGastosToDTOFullTGoGastos(){
+        public Gastos parseGastosToDTOFullToGastos(){
             return new Gastos(nome, valor, data, tipo, origem, id, usuario);
         }
 }

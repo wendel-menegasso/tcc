@@ -1,6 +1,8 @@
 package br.com.mba.engenharia.de.software.entity.usuarios;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 
 @Entity
 @Data
+@Getter
+@NoArgsConstructor
 public class Users {
 	
 	@Id
@@ -25,5 +29,16 @@ public class Users {
 
     @Column
     private String name;
+
+    public Users(String username, String password, String token, String name){
+        this.username = username;
+        this.password = password;
+        this.token = token;
+        this.name = name;
+    }
+
+    public void setId(long id){
+        this.id = id;
+    }
 
 }

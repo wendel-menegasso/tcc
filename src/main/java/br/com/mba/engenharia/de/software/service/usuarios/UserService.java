@@ -12,8 +12,8 @@ public interface UserService {
     Optional<Usuario> findByTokenUsernameAndSenha(String token, String username, String status, String senha);
     List<Usuario> findAll();
     List<Usuario> findByUsernameAndSenhaAndStatus(String username, String senha, String status);
-    void save(Usuario usuario);
+    Usuario save(Usuario usuario);
     void setRepository(UsuarioRepositoryNovo usuarioRepositoryNovo);
     int count();
-    Integer findByTokenUsernameSenhaAndStatusAndUpdateStatus(String token, String username, String senha, String status);
+    Usuario findByTokenUsernameSenhaAndStatusAndUpdateStatus(String token, String username, String senha, String status);
 }

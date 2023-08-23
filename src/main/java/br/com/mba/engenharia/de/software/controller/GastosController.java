@@ -44,8 +44,9 @@ public class GastosController {
 
         gastos.setId(gastosService.count());
         Gastos gastosRetorno = gastosService.save(gastos);
+        GastosRespostaDTO gastosRespostaDTO = new GastosRespostaDTO(gastosRetorno);
 
-        if (gastosRetorno != null){
+        if (gastosRespostaDTO != null){
             logger.info(String.format("Renda cadastrada corretamente"));
             return new ResponseEntity<>(gastosRetorno, HttpStatus.CREATED);
         }
@@ -85,7 +86,7 @@ public class GastosController {
     @PutMapping("alterarGasto")
     public ResponseEntity<?> alterarGasto(@RequestBody GastosDTOFull gastosDTOFull){
         gastosService.setGastosRepository(repository);
-        Gastos gastos = gastosDTOFull.parseGastosToDTOFullTGoGastos();
+        Gastos gastos = gastosDTOFull.parseGastosToDTOFullToGastos();
         int retorno = gastosService.updateGastos(gastos.getNome(), gastos.getTipo(), gastos.getValor(),
                 gastos.getData(), gastos.getId());
         if (retorno == 1){

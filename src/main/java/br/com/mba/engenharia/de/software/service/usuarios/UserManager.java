@@ -182,8 +182,8 @@ public class UserManager implements UserService{
     }
 
     @Override
-    public void save(Usuario usuario) {
-        usuarioRepositoryNovo.save(usuario);
+    public Usuario save(Usuario usuario) {
+        return usuarioRepositoryNovo.save(usuario);
     }
 
     @Override
@@ -197,7 +197,7 @@ public class UserManager implements UserService{
     }
 
     @Override
-    public Integer findByTokenUsernameSenhaAndStatusAndUpdateStatus(String token, String username, String senha, String status) {
+    public Usuario findByTokenUsernameSenhaAndStatusAndUpdateStatus(String token, String username, String senha, String status) {
         return usuarioRepositoryNovo.findByTokenUsernameSenhaAndStatusAndUpdateStatus(token, username, senha, status);
     }
 }

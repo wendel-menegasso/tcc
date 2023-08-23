@@ -1,13 +1,19 @@
 package br.com.mba.engenharia.de.software.entity.usuarios;
 
+import br.com.mba.engenharia.de.software.dto.UsuarioDTORetorno;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "usuarios")
 @Component
 @Data
+@Getter
+@NoArgsConstructor
 public class Usuario{
     @Id
     @Column(name = "id", nullable = false)
@@ -37,75 +43,41 @@ public class Usuario{
     @Column(name = "status", nullable = false, length = 1)
     private String status;
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public void setStatus(String status){
+        this.status = status;
+    }
+
+    public void setCPF(String cpf){
+        this.cpf = cpf;
+    }
+
+    public void setToken(String token){
+        this.token = token;
+    }
+
+    public void setSenha(String senha){
+        this.senha = senha;
+    }
+
+
+    public Usuario(String username, String email, String nome, String sobrenome){
+        this.username = username;
+        this.email = email;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+
+    public Usuario(String username, String token){
+        this.username = username;
+        this.token = token;
+    }
+
+    public UsuarioDTORetorno parseUsuarioToUsuarioDTORetorno(){
+        return new UsuarioDTORetorno(this);
+    }
+
 }
