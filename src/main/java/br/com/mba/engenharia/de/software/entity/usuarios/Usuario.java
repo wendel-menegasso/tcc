@@ -1,8 +1,10 @@
 package br.com.mba.engenharia.de.software.entity.usuarios;
 
 import br.com.mba.engenharia.de.software.dto.UsuarioDTORetorno;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

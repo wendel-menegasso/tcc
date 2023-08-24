@@ -45,20 +45,20 @@ public class UsuarioController{
     }
 
     @PostMapping("/enviarCadastro")
-    public ResponseEntity<?> enviarCadastro(@RequestBody UsuarioDTO user) throws IOException {
+    public ResponseEntity<?> enviarCadastro(@RequestBody UsuarioDTO usuarioDTO) throws IOException {
         GerarToken gerarToken = new GerarToken();
-        Usuario usuario = user.parseUsuarioDTOToUsuario();
+        Usuario usuario = usuarioDTO.parseUsuarioDTOToUsuario();
         ValidadorCPF validadorCPF = new ValidadorCPF();
-        if (validadorCPF.isValid(user.getCpf())){
-            usuario.setCPF(user.getCpf());
+        if (validadorCPF.isValid(usuarioDTO.getCpf())){
+            usuario.setCPF(usuarioDTO.getCpf());
         }
         else {
             return ResponseEntity.badRequest().build();
         }
         Criptrografia criptrografia = new Criptrografia();
         ComplexidadeSenha  complexidadeSenha = new ComplexidadeSenha();
-        if (complexidadeSenha.isStronger(user.getSenha())){
-            usuario.setSenha(criptrografia.criptografar(user.getSenha()));
+        if (complexidadeSenha.isStronger(usuarioDTO.getSenha())){
+            usuario.setSenha(criptrografia.criptografar(usuarioDTO.getSenha()));
         }
         else {
             return ResponseEntity.badRequest().build();
@@ -81,11 +81,11 @@ public class UsuarioController{
     }
 
     @PostMapping("/habilitarUsuario")
-    public ResponseEntity<?>  habiblitarUsuario(@RequestBody UsuarioDTO usuario) throws IOException, InstantiationException, IllegalAccessException {
-        Usuario user = usuario.parseUsuarioDTOToUsuarioFromDesbloqueio();
-        user.setCPF(usuario.getCpf());
+    public ResponseEntity<?>  habiblitarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws IOException, InstantiationException, IllegalAccessException {
+        Usuario user = usuarioDTO.parseUsuarioDTOToUsuarioFromDesbloqueio();
+        user.setCPF(usuarioDTO.getCpf());
         Criptrografia criptrografia = new Criptrografia();
-        user.setSenha(criptrografia.criptografar(usuario.getSenha()));
+        user.setSenha(criptrografia.criptografar(usuarioDTO.getSenha()));
         userService.setRepository(usuarioRepositoryNovo);
         Usuario usuarioRetorno = userService.findByTokenUsernameSenhaAndStatusAndUpdateStatus(user.getToken(),
                 user.getUsername(), user.getSenha(), "0");

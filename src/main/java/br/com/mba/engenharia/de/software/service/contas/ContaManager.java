@@ -62,8 +62,13 @@ public class ContaManager implements ContaService{
     }
 
     @Override
-    public void save(Conta contas) {
-        contasRepository.save(contas);
+    public Conta save(Conta contas) {
+        return contasRepository.save(contas);
+    }
+
+    @Override
+    public Conta delete(int id) {
+        return contasRepository.delete(id);
     }
 
     @Override
@@ -84,6 +89,11 @@ public class ContaManager implements ContaService{
     @Override
     public Conta findById(Integer id) {
         return this.contasRepository.findById(id);
+    }
+
+    @Override
+    public Conta updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id) {
+        return contasRepository.updateConta(banco, tipo, saldo, agencia, conta, id);
     }
 }
 

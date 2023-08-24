@@ -1,16 +1,21 @@
 package br.com.mba.engenharia.de.software.entity.contas;
 
+import br.com.mba.engenharia.de.software.dto.ContaDTORetorno;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "conta")
 @Data
 @Component
+@Getter
+@NoArgsConstructor
 public class Conta{
     @Id
     @Column(name = "id", nullable = false)
@@ -34,59 +39,19 @@ public class Conta{
     @Column(name = "usuario", nullable = false)
     private Integer usuario;
 
-    public Integer getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Integer usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getConta() {
-        return conta;
-    }
-
-    public void setConta(String conta) {
-        this.conta = conta;
-    }
-
-    public String getAgencia() {
-        return agencia;
-    }
-
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
-    }
-
-    public Double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(Double saldo) {
-        this.saldo = saldo;
-    }
-
-    public Integer getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
-    }
-
-    public Integer getBanco() {
-        return banco;
-    }
-
-    public void setBanco(Integer banco) {
-        this.banco = banco;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Conta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer usuario){
+        this.banco = banco;
+        this.tipo = tipo;
+        this.saldo = saldo;
+        this.agencia = agencia;
+        this.conta = conta;
+        this.usuario = usuario;
+    }
+    public ContaDTORetorno parseContaToContaDTORetorno(){
+        return new ContaDTORetorno(this);
     }
 }
