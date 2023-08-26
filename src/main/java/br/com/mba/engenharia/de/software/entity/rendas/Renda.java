@@ -1,12 +1,17 @@
 package br.com.mba.engenharia.de.software.entity.rendas;
 
+import br.com.mba.engenharia.de.software.dto.RendasRetornoDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "rendas")
+@Getter
+@NoArgsConstructor
 public class Renda {
     @Id
     @Column(name = "id", nullable = false)
@@ -27,49 +32,24 @@ public class Renda {
     @Column(name = "usuario")
     private Integer usuario;
 
-    public Integer getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Integer usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
+    public Renda(String nome, Double valor, String data, Integer tipo){
+        this.nome = nome;
+        this.valor = valor;
         this.data = data;
-    }
-
-    public Integer getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
 
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
+    public Renda(String nome, Double valor, String data, Integer tipo, Integer id, Integer usuario){
         this.nome = nome;
+        this.valor = valor;
+        this.data = data;
+        this.tipo = tipo;
+        this.id = id;
+        this.usuario = usuario;
     }
 
-    public Integer getId() {
-        return id;
+    public RendasRetornoDTO parseRendaToRendasRetornoDTO(){
+        return new RendasRetornoDTO(this);
     }
 
     public void setId(Integer id) {

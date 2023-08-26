@@ -6,7 +6,7 @@ import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
 import java.util.List;
 
 public interface RendasService {
-    int delete(Integer id);
+    List<Renda> delete(Integer id);
 
     Renda findById(Integer id);
 
@@ -14,10 +14,10 @@ public interface RendasService {
 
     int count();
 
-    void save(Renda rendas);
+    Renda save(Renda rendas);
 
     void setRendasRepository(RendasRepository repository);
 
-    int updateRendas(String nome, Integer tipo, Double valor, String data, Integer id);
+    List<Renda> updateRendas(String nome, Integer tipo, Double valor, String data, Integer id);
 
 }

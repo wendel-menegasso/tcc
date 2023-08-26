@@ -1,7 +1,6 @@
 package br.com.mba.engenharia.de.software.service.rendas;
 
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
-import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +16,7 @@ public class RendasManager implements RendasService{
     }
 
     @Override
-    public int delete(Integer id) {
+    public List<Renda> delete(Integer id) {
         return repository.delete(id);
     }
 
@@ -37,8 +36,8 @@ public class RendasManager implements RendasService{
     }
 
     @Override
-    public void save(Renda rendas) {
-        repository.save(rendas);
+    public Renda save(Renda rendas) {
+        return repository.save(rendas);
     }
 
     @Override
@@ -47,7 +46,7 @@ public class RendasManager implements RendasService{
     }
 
     @Override
-    public int updateRendas(String nome, Integer tipo, Double valor, String data, Integer id) {
+    public List<Renda> updateRendas(String nome, Integer tipo, Double valor, String data, Integer id) {
         return this.repository.updateRendas(nome, tipo, valor, data, id);
     }
 }
