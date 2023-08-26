@@ -67,7 +67,7 @@ public class GastosController {
         gastosService.setGastosRepository(repository);
         Renda renda = new Renda();
         renda.setId(Integer.parseInt(id));
-        if (repository.delete(renda.getId()) == 1){
+        if (repository.delete(renda.getId()) > 0){
             logger.info(String.format("Renda deletada com sucesso"));
             return new ResponseEntity<>(1, HttpStatus.OK);
         }
