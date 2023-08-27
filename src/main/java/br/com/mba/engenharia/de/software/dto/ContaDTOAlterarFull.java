@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @NoArgsConstructor
-public class ContaDTO {
+public class ContaDTOAlterarFull {
     @NotNull
     private Integer banco;
     @NotNull
@@ -23,9 +23,10 @@ public class ContaDTO {
     private String conta;
     @NotNull
     private Integer usuario;
+    @NotNull
+    private Integer id;
 
     public Conta parseContaDTOToConta(){
-        return new Conta(this.banco, this.tipo, this.saldo, this.agencia, this.conta, this.usuario);
+        return new Conta(this.banco, this.tipo, this.saldo, this.agencia, this.conta, this.usuario, this.id);
     }
-
 }

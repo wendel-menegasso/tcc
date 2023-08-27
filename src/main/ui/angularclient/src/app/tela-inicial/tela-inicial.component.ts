@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -24,11 +24,8 @@ this.route.queryParamMap
     const string = this.str.replace( "params", "");
     this.token = string.substring(14, 114);
     this.id = string.substring(122, string.length - 3);
-    console.log(this.token);
-    console.log(this.id);
   }
 );
 
   }
-
 }

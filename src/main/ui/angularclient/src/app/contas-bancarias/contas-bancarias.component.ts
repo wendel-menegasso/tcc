@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContasBancariasService } from '../service/contas-bancarias.service';
 import { ContasBancarias } from '../model/contas-bancarias';
@@ -14,26 +14,36 @@ import { Subject } from 'rxjs';
 export class ContasBancariasComponent implements OnInit {
 
 	id:string;
-
+	conta: ContasBancarias;
   contas: ContasBancarias;
   contasBancarias: ContasBancarias[] = [];
   accounts: ContasBancarias[] = [];
   contasCount = 0;
     destroy$: Subject<boolean> = new Subject<boolean>();
+	query: string;
+	chaveValor: string[];
+	chave: string;
+	valor: string;
 
   constructor(
     private route: ActivatedRoute,
       private router: Router,
         private contasBancariasService: ContasBancariasService) {
     this.contas = new ContasBancarias();
+	this.conta = new ContasBancarias();
   }
 
   ngOnInit(): void {
-    this.getTodasContas();
+	this.query = location.search.slice(1);
+    this.chaveValor = this.query.split('=');
+    this.chave = this.chaveValor[0];
+    this.valor = this.chaveValor[1];
+	this.conta.usuario = this.valor;
+	this.getTodasContas();	
   }
 
     getTodasContas(): void {
-      this.contasBancariasService.findAll().pipe(takeUntil(this.destroy$)).subscribe((contasBancarias: ContasBancarias[]) => {
+      this.contasBancariasService.findAll(this.conta).pipe(takeUntil(this.destroy$)).subscribe((contasBancarias: ContasBancarias[]) => {
   		    this.contasCount = contasBancarias.length;
   		    this.contasBancarias = contasBancarias;
   		    var accounts :ContasBancarias[] = [];
@@ -99,7 +109,7 @@ export class ContasBancariasComponent implements OnInit {
 		this.contasBancariasService.delete(id).subscribe(data => {
 			this.contas = data;
 			if (this.contas != null){
-				this.router.navigate(['/contas']);
+				location.reload();
 			}
 			else{
 				alert("Não foi possível excluir");
@@ -110,5 +120,5 @@ export class ContasBancariasComponent implements OnInit {
       this.destroy$.next(true);
       this.destroy$.unsubscribe();
     }
-
+	@Input() idUsuario : string;
 }

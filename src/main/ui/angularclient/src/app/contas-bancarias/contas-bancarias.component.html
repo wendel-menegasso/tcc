@@ -21,9 +21,9 @@
       <td>{{conta.tipo}}</td>
       <td><button type="button" class="btn btn-danger"
       (click)="excluir(conta.id)"> Excluir</button></td>
-      <td><app-alterar-contas-modal [idConta]=conta.id></app-alterar-contas-modal></td>
+      <td><app-alterar-contas-modal [idConta]=conta.id [idUsuario]=valor></app-alterar-contas-modal></td>
     </tr>
     </tbody>
   </table>
 </div>
-<app-inserir-contas-modal></app-inserir-contas-modal>
+<app-inserir-contas-modal [idUsuario]=valor></app-inserir-contas-modal>

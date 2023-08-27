@@ -1,11 +1,13 @@
 package br.com.mba.engenharia.de.software.dto;
 
+import lombok.Getter;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+@Getter
 public class ContaDTOFull {
-    private Integer id;
-    private Integer banco;
-    private Integer tipo;
-    private Double saldo;
-    private String agencia;
-    private String conta;
-    private Integer usuario;
+    @NotNull
+    @Pattern(regexp = "[0-9]")
+    private String usuario;
 }

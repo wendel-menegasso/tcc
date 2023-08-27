@@ -12,12 +12,12 @@ import java.util.List;
 public interface ContaRepository extends Repository<Conta, Long> {
     @Transactional
     @Modifying
-    @Query("update Conta c set c.banco = ?1, c.tipo = ?2, c.saldo = ?3, c.agencia = ?4, c.conta = ?5 where c.id = ?6")
-    Conta updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id);
+    @Query("update Conta c set c.banco = ?1, c.tipo = ?2, c.saldo = ?3, c.agencia = ?4, c.conta = ?5 where c.id = ?6 and c.usuario = ?7")
+    Integer updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id, Integer usuario);
     @Transactional
     @Modifying
     @Query("delete from Conta c where c.id = ?1")
-    Conta delete(Integer id);
+    Integer delete(Integer id);
     @Query("select c from Conta c where c.banco = ?1")
     List<Conta> findByBanco(Integer banco);
 
@@ -42,7 +42,8 @@ public interface ContaRepository extends Repository<Conta, Long> {
     @Query("select c from Conta c where c.id = ?1")
     Conta findById(Integer id);
 
-    List<Conta> findAll();
+    @Query("select c from Conta c where c.usuario = ?1")
+    List<Conta> findAll(Integer usuario);
 
     @Query("select count(c) from Conta c")
     int count();

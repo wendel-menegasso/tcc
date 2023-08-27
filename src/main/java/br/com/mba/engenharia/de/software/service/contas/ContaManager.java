@@ -57,17 +57,12 @@ public class ContaManager implements ContaService{
     }
 
     @Override
-    public List<Conta> lastRegister() {
-        return contasRepository.findAll();
-    }
-
-    @Override
     public Conta save(Conta contas) {
         return contasRepository.save(contas);
     }
 
     @Override
-    public Conta delete(int id) {
+    public Integer delete(int id) {
         return contasRepository.delete(id);
     }
 
@@ -82,8 +77,8 @@ public class ContaManager implements ContaService{
     }
 
     @Override
-    public List<Conta> findAll() {
-        return this.contasRepository.findAll();
+    public List<Conta> findAll(Integer usuario) {
+        return this.contasRepository.findAll(usuario);
     }
 
     @Override
@@ -92,8 +87,8 @@ public class ContaManager implements ContaService{
     }
 
     @Override
-    public Conta updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id) {
-        return contasRepository.updateConta(banco, tipo, saldo, agencia, conta, id);
+    public Integer updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id, Integer usuario) {
+        return contasRepository.updateConta(banco, tipo, saldo, agencia, conta, id, usuario);
     }
 }
 

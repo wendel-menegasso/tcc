@@ -2,7 +2,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ContasBancariasService } from '../service/contas-bancarias.service';
 import { ContasBancarias } from '../model/contas-bancarias';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-inserir-contas-modal',
@@ -62,18 +62,18 @@ export class InserirContasModalComponent implements OnInit{
   		if (this.contas.tipo == "Conta Empresa"){
   		  this.contas.tipo = "4";
   		}
-
+      this.contas.usuario = this.idUsuario;
       this.contasBancariasService.save(this.contas).subscribe(data => {
         this.contas = data;
         if (this.contas != null){
-            this.gotoUserList();
+          location.reload();
         }
         });
     }
 
-      gotoUserList() {
+      gotoUserList(id) {
         alert('Salvo com sucesso!');
-				this.router.navigate(['/contas']);
+				this.router.navigate(['/contas?id='+id]);
       }
         displayStyle = "none";
 
@@ -84,4 +84,5 @@ export class InserirContasModalComponent implements OnInit{
         this.displayStyle = "none";
       }
       ngOnInit() {}
+      @Input() idUsuario : string;
 }

@@ -15,12 +15,11 @@ public interface ContaService {
     List<Conta> findByContaBanco(String conta, Integer banco);
     List<Conta> findByContaAgencia(String conta, String agencia);
     List<Conta> findByContaAgenciaBanco(String conta, String agencia, Integer banco);
-    List<Conta> lastRegister();
     Conta save(Conta contas);
-    Conta delete(int id);
+    Integer delete(int id);
     void setContaRepository(ContaRepository contaRepository);
     int count();
-    List<Conta> findAll();
+    List<Conta> findAll(Integer usuario);
     Conta findById(Integer id);
-    Conta updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id);
+    Integer updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id, Integer usuario);
 }

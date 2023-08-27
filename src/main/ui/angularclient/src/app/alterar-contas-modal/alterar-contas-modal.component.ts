@@ -60,7 +60,7 @@ export class AlterarContasModalComponent implements OnInit {
       this.retornoConta = data;
       if (this.retornoConta != null){
         alert('Alterado com sucesso');
-        this.router.navigate(['/contas']);
+        location.reload();
       }
     })
   }
@@ -70,6 +70,7 @@ export class AlterarContasModalComponent implements OnInit {
   openPopup() {
     this.displayStyle = "block";
     this.contasArg.id = this.idConta;
+    this.contasArg.usuario = this.idUsuario;
     this.contasBancariasService.recebeDadosAlterarConta(this.contasArg).subscribe(data => {
       
       this.conta = data;
@@ -88,5 +89,5 @@ export class AlterarContasModalComponent implements OnInit {
   }
 
   @Input() idConta : string;
-
+  @Input() idUsuario : string;
 }

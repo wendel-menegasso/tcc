@@ -20,18 +20,18 @@ export class ContasBancariasService {
     this.alterarUrl = 'http://localhost:9090/alterarConta';
   }
 
-  public findAll(): Observable<ContasBancarias[]> {
-    return this.http.get<ContasBancarias[]>(this.findUrl);
+  public findAll(contas: ContasBancarias): Observable<ContasBancarias[]> {
+    return this.http.post<ContasBancarias[]>(this.findUrl, contas);
   }
 
   public save(contas: ContasBancarias) : Observable<ContasBancarias> {
     return this.http.post<ContasBancarias>(this.saveContasUrl, contas);
   }
 
-  public delete(id: string) : Observable<any>{
+  public delete(id: string) : Observable<ContasBancarias>{
     let headers = new HttpHeaders();
     headers.append("contas",btoa("id:"+id));
-    return this.http.delete<any>(this.deleteUrl+id, { headers: headers });
+    return this.http.delete<ContasBancarias>(this.deleteUrl+id, { headers: headers });
   }
 
   public recebeDadosAlterarConta(conta: ContasBancarias) : Observable<ContasBancarias> {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,18 +8,27 @@ import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 	providers: [NgbAccordionConfig], // add the NgbAccordionConfig to the component providers
 })
 export class NgbdAccordionConfig {
+
+	public token: string;
+	public str: string;
+	public id: string
+
 	constructor(config: NgbAccordionConfig) {
 		// customize default values of accordions used by this component tree
 		config.closeOthers = true;
 		config.type = 'info';
 	}
 	Contas() {
-      window.location.href = "contasBancarias";
+	  this.id = this.idUsuarioMenu;
+      window.location.href = "contasBancarias?id="+this.id;
     }
 	Ganhos() {
-	  window.location.href = "ganhos";	
+		this.id = this.idUsuarioMenu;
+	    window.location.href = "ganhos?id="+this.id;	
 	}
 	Gastos() {
-	window.location.href = "gastos";
+		this.id = this.idUsuarioMenu;
+	    window.location.href = "gastos?id="+this.id;
 	}
+	@Input() idUsuarioMenu : string;
 }

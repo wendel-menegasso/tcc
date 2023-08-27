@@ -51,6 +51,22 @@ public class Conta{
         this.conta = conta;
         this.usuario = usuario;
     }
+
+    public Conta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer usuario, Integer id){
+        this.banco = banco;
+        this.tipo = tipo;
+        this.saldo = saldo;
+        this.agencia = agencia;
+        this.conta = conta;
+        this.usuario = usuario;
+        this.id = id;
+    }
+
+    public Conta(Integer id, Integer usuario){
+        this.id = id;
+        this.usuario = usuario;
+    }
+
     public ContaDTORetorno parseContaToContaDTORetorno(){
         return new ContaDTORetorno(this);
     }

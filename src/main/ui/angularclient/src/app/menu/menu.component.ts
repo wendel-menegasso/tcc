@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ constructor( private route: ActivatedRoute ) {
 }
 
   ngOnInit() {
-this.route.queryParamMap
-
+    this.id = this.idUsuario;
   }
+  @Input() idUsuario : string;
 }

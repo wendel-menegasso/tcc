@@ -1,7 +1,6 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.dto.ContaDTO;
-import br.com.mba.engenharia.de.software.dto.ContaDTORetorno;
+import br.com.mba.engenharia.de.software.dto.*;
 import br.com.mba.engenharia.de.software.entity.contas.Conta;
 import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.service.contas.ContaManager;
@@ -55,11 +54,11 @@ public class ContaController{
 
     }
 
-    @GetMapping("/listarConta")
-    public ResponseEntity<?> listarConta(){
+    @PostMapping("/listarConta")
+    public ResponseEntity<?> listarConta(@RequestBody ContaDTOFull contaDTOFull){
         contaService.setContaRepository(contaRepository);
-
-        List<Conta> contaList = contaService.findAll();
+        Integer usuario = Integer.parseInt(contaDTOFull.getUsuario());
+        List<Conta> contaList = contaService.findAll(usuario);
         List<ContaDTORetorno> contaDTORetornoList = new ArrayList<>();
         for (Conta conta : contaList){
             contaDTORetornoList.add(conta.parseContaToContaDTORetorno());
@@ -70,9 +69,10 @@ public class ContaController{
     @DeleteMapping("/deletarConta/{id}")
     public ResponseEntity<?> deletarConta(@PathVariable("id") String id){
         contaService.setContaRepository(contaRepository);
-        Conta conta = contaRepository.delete(Integer.parseInt(id));
-        ContaDTORetorno contaDTORetorno = conta.parseContaToContaDTORetorno();
-        if (contaDTORetorno != null){
+        Conta contaRetorno = contaService.findById(Integer.parseInt(id));
+        ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
+        Integer retorno = contaService.delete(Integer.parseInt(id));
+        if (retorno > 0){
             logger.info(String.format("Usuário deletado com sucesso"));
             return new ResponseEntity<>(contaDTORetorno, HttpStatus.OK);
         }
@@ -82,21 +82,22 @@ public class ContaController{
         }
     }
     @PostMapping("/recebeDadosAlterarConta")
-    public ResponseEntity<?> recebeDadosAlterarConta(@RequestBody ContaDTO contaDTO){
+    public ResponseEntity<?> recebeDadosAlterarConta(@RequestBody ContaDTOAlterar contaDTOAlterar){
         contaService.setContaRepository(contaRepository);
-        Conta conta = contaDTO.parseContaDTOToConta();
+        Conta conta = contaDTOAlterar.parseContaDTOAlterarToConta();
         Conta contaRetorno = contaService.findById(conta.getId());
         ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
         return new ResponseEntity<>(contaDTORetorno, HttpStatus.OK);
     }
 
     @PutMapping("alterarConta")
-    public ResponseEntity<?> alterarConta(@RequestBody ContaDTO contaDTO){
+    public ResponseEntity<?> alterarConta(@RequestBody ContaDTOAlterarFull contaDTOAlterarFull){
         contaService.setContaRepository(contaRepository);
-        Conta conta = contaDTO.parseContaDTOToConta();
-        Conta contaRetorno = contaRepository.updateConta(conta.getBanco(), conta.getTipo(), conta.getSaldo(), conta.getAgencia(), conta.getConta(), conta.getId());
+        Conta conta = contaDTOAlterarFull.parseContaDTOToConta();
+        Conta contaRetorno = contaService.findById(conta.getId());
         ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
-        if (contaDTORetorno != null){
+        Integer numeroDeRegistrosAlterados = contaRepository.updateConta(conta.getBanco(), conta.getTipo(), conta.getSaldo(), conta.getAgencia(), conta.getConta(), conta.getId(), conta.getUsuario());
+        if (numeroDeRegistrosAlterados > 0){
             return new ResponseEntity<>(contaDTORetorno, HttpStatus.OK);
         }
         else{
