@@ -13,12 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Gastos {
 
-    public Gastos(String nome, Double valor, String data, Integer tipo, Integer origem){
+    public Gastos(String nome, Double valor, String data, Integer tipo, Integer origem, Integer usuario){
         this.nome = nome;
         this.valor = valor;
         this.data = data;
         this.tipo = tipo;
         this.origem = origem;
+        this.usuario = usuario;
     }
 
     public Gastos(String nome, Double valor, String data, Integer tipo, Integer origem, Integer id, Integer usuario){

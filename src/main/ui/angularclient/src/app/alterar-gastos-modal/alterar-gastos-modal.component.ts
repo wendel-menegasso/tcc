@@ -71,6 +71,7 @@ export class AlterarGastosModalComponent implements OnInit {
   openPopup() {
     this.displayStyle = "block";
     this.gastosArg.id = this.idGastos;
+    this.gastosArg.usuario = this.idUsuario;
     this.gastosService.recebeDadosAlterarRendas(this.gastosArg).subscribe(data => {
       
       this.gasto = data;
@@ -86,5 +87,5 @@ export class AlterarGastosModalComponent implements OnInit {
   }
 
   @Input() idGastos : string;
-
+  @Input() idUsuario : string;
 }

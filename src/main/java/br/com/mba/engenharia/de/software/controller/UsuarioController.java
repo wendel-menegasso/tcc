@@ -87,10 +87,11 @@ public class UsuarioController{
         Criptrografia criptrografia = new Criptrografia();
         user.setSenha(criptrografia.criptografar(usuarioDTO.getSenha()));
         userService.setRepository(usuarioRepositoryNovo);
-        Usuario usuarioRetorno = userService.findByTokenUsernameSenhaAndStatusAndUpdateStatus(user.getToken(),
+        Usuario usuarioRetorno = userService.findByTokenUsernameAndSenha(user.getToken(), user.getUsername(), "0", user.getSenha());
+        Integer retorno = userService.findByTokenUsernameSenhaAndStatusAndUpdateStatus(user.getToken(),
                 user.getUsername(), user.getSenha(), "0");
         UsuarioDTORetorno usuarioDTORetorno = usuarioRetorno.parseUsuarioToUsuarioDTORetorno();
-        if (usuarioDTORetorno != null){
+        if (retorno > 0){
             return new ResponseEntity<>(usuarioDTORetorno, HttpStatus.CREATED);
         }
         else{

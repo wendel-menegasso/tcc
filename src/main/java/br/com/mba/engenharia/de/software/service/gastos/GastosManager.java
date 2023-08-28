@@ -24,8 +24,8 @@ public class GastosManager implements GastosService{
     }
 
     @Override
-    public List<Gastos> findAll() {
-        return repository.findAll();
+    public List<Gastos> findAll(Integer idUser) {
+        return repository.findAll(idUser);
     }
 
     @Override

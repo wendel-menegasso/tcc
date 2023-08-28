@@ -47,19 +47,19 @@ public class GastosController {
         GastosRespostaDTO gastosRespostaDTO = new GastosRespostaDTO(gastosRetorno);
 
         if (gastosRespostaDTO != null){
-            logger.info(String.format("Renda cadastrada corretamente"));
+            logger.info(String.format("Despesa cadastrada corretamente"));
             return new ResponseEntity<>(gastosRetorno, HttpStatus.CREATED);
         }
         else{
-            logger.info(String.format("Renda cadastrada incorretamente"));
+            logger.info(String.format("Despesa cadastrada incorretamente"));
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
     }
 
-    @GetMapping("/listarGasto")
-    public ResponseEntity<?> listarGasto(){
+    @PostMapping("/listarGasto")
+    public ResponseEntity<?> listarGasto(@RequestBody String idUsuario){
         gastosService.setGastosRepository(repository);
-        return ResponseEntity.ok(gastosService.findAll());
+        return ResponseEntity.ok(gastosService.findAll(Integer.parseInt(idUsuario)));
     }
 
     @DeleteMapping("/deletarGasto/{id}")
@@ -68,7 +68,7 @@ public class GastosController {
         Renda renda = new Renda();
         renda.setId(Integer.parseInt(id));
         if (repository.delete(renda.getId()) > 0){
-            logger.info(String.format("Renda deletada com sucesso"));
+            logger.info(String.format("Despesa deletada com sucesso"));
             return new ResponseEntity<>(1, HttpStatus.OK);
         }
         else{
@@ -91,9 +91,11 @@ public class GastosController {
                 gastos.getData(), gastos.getId());
         if (retorno == 1){
             GastosRespostaDTO gastosRespostaDTO = new GastosRespostaDTO(gastos);
+            logger.info(String.format("Gasto alterado com sucesso"));
             return new ResponseEntity<>(gastosRespostaDTO, HttpStatus.OK);
         }
         else {
+            logger.info(String.format("Gasto não alterado"));
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

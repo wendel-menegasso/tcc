@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GastosService } from '../service/gastos.service';
 import { takeUntil } from 'rxjs/operators';
@@ -17,6 +17,11 @@ export class GastosComponent implements OnInit {
   gastos: Gastos[];
   gastosDelete: Gastos;
   gastosCount = 0;
+  idUser: string;
+  query: string;
+  chaveValor: string[];
+  chave: string;
+  valor: string;
 
   constructor(    
     private route: ActivatedRoute,
@@ -26,11 +31,16 @@ export class GastosComponent implements OnInit {
         this.gastosDelete = new Gastos();
       }
   ngOnInit(): void {
+    this.query = location.search.slice(1);
+    this.chaveValor = this.query.split('=');
+    this.chave = this.chaveValor[0];
+    this.valor = this.chaveValor[1];
+    this.idUser = this.valor;
     this.getTodosGastos();
   }
 
   getTodosGastos(): void {
-    this.gastosService.findAll().pipe(takeUntil(this.destroy$)).subscribe((gastos: Gastos[]) => {
+    this.gastosService.findAll(this.idUser).pipe(takeUntil(this.destroy$)).subscribe((gastos: Gastos[]) => {
         this.gastosCount = gastos.length;
         this.gastos = gastos;
         var gastoArray :Gastos[] = [];
@@ -121,5 +131,5 @@ export class GastosComponent implements OnInit {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
+  @Input() idUsuario : string;
 }

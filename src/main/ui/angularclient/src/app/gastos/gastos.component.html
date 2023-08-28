@@ -17,9 +17,9 @@
           <td>R${{gasto.valor}}</td>
           <td><button type="button" class="btn btn-danger"
           (click)="excluir(gasto.id)"> Excluir</button></td>
-          <td><app-alterar-gastos-modal [idGastos]=gasto.id></app-alterar-gastos-modal></td>
+          <td><app-alterar-gastos-modal [idGastos]=gasto.id [idUsuario]=idUser></app-alterar-gastos-modal></td>
         </tr>
         </tbody>
       </table>
     </div>
-    <app-inserir-gastos-modal></app-inserir-gastos-modal>
+    <app-inserir-gastos-modal [idUsuario]=idUser></app-inserir-gastos-modal>

@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @Service
@@ -167,8 +166,8 @@ public class UserManager implements UserService{
     }
 
     @Override
-    public Optional<Usuario> findByTokenUsernameAndSenha(String token, String username, String status, String senha) {
-        return usuarioRepositoryNovo.findByTokenUsernameAndSenha(username, senha, status, token);
+    public Usuario findByTokenUsernameAndSenha(String token, String username, String status, String senha) {
+        return usuarioRepositoryNovo.findByTokenUsernameAndSenha(token, username, status, senha);
     }
 
     @Override
@@ -197,7 +196,7 @@ public class UserManager implements UserService{
     }
 
     @Override
-    public Usuario findByTokenUsernameSenhaAndStatusAndUpdateStatus(String token, String username, String senha, String status) {
+    public Integer findByTokenUsernameSenhaAndStatusAndUpdateStatus(String token, String username, String senha, String status) {
         return usuarioRepositoryNovo.findByTokenUsernameSenhaAndStatusAndUpdateStatus(token, username, senha, status);
     }
 }

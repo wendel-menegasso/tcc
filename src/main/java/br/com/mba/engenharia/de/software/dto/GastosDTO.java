@@ -18,7 +18,7 @@ public class GastosDTO {
     private Double valor;
 
     public Gastos parseGastosToDTOGastos(){
-        return new Gastos(nome, valor, data, tipo, origem);
+        return new Gastos(nome, valor, data, tipo, origem, usuario);
     }
 
 }

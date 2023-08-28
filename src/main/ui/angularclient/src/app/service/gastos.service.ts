@@ -22,8 +22,8 @@ export class GastosService {
     this.alterarUrl = 'http://localhost:9090/alterarGasto';
   }
 
-  public findAll(): Observable<Gastos[]> {
-    return this.http.get<Gastos[]>(this.findUrl);
+  public findAll(user: string): Observable<Gastos[]> {
+    return this.http.post<Gastos[]>(this.findUrl, user);
   }
 
   public save(gastos: Gastos) : Observable<Gastos> {

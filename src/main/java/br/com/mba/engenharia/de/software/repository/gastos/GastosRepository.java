@@ -18,7 +18,8 @@ public interface GastosRepository extends Repository<Gastos, Long> {
     @Query("select g from Gastos g where g.id = ?1")
     Gastos findById(Integer id);
 
-    List<Gastos> findAll();
+    @Query("select g from Gastos g where g.usuario = ?1")
+    List<Gastos> findAll(Integer idUser);
 
     @Query("select count(g) from Gastos g")
     int count();

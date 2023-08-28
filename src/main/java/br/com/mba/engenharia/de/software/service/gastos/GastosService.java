@@ -8,7 +8,7 @@ import java.util.List;
 public interface GastosService {
     int delete(Integer id);
     Gastos findById(Integer id);
-    List<Gastos> findAll();
+    List<Gastos> findAll(Integer idUser);
     int count();
     Gastos save(Gastos gastos);
     int updateGastos(String nome, Integer tipo, Double valor, String data, Integer id);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Gastos } from '../model/gastos';
@@ -76,7 +76,7 @@ onSubmit() {
   if (this.gastos.tipo == "Outros"){
     this.gastos.tipo = "17";
   }
-
+  this.gastos.usuario = this.idUsuario;
   this.gastosService.save(this.gastos).subscribe(data => {
     this.gastos = data;
     if (this.gastos != null){
@@ -102,5 +102,5 @@ closePopup() {
 
 ngOnInit(): void {
 }
-
+@Input() idUsuario : string;
 }
