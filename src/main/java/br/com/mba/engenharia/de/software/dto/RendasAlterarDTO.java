@@ -4,11 +4,14 @@ import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import lombok.Getter;
 
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
-public class RendasDTO {
+public class RendasAlterarDTO {
+    @NotNull
+    private Integer id;
     @Size(min=8,max=8)
     @Pattern(regexp = "(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)\\d{2}")
     private String data;
@@ -21,6 +24,6 @@ public class RendasDTO {
     private Double valor;
 
     public Renda parseRendasDTOToRenda(){
-        return new Renda(nome, valor, data, tipo, usuario);
+        return new Renda(nome, valor, data, tipo, usuario, id);
     }
 }

@@ -21,8 +21,8 @@ export class RendasService {
     this.alterarUrl = 'http://localhost:9090/alterarRenda';
   }
 
-  public findAll(): Observable<Rendas[]> {
-    return this.http.get<Rendas[]>(this.findUrl);
+  public findAll(user: string): Observable<Rendas[]> {
+    return this.http.post<Rendas[]>(this.findUrl, user);
   }
 
   public save(rendas: Rendas) : Observable<Rendas> {

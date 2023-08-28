@@ -13,12 +13,13 @@ public interface RendasRepository extends Repository<Renda, Long> {
     @Transactional
     @Modifying
     @Query("delete from Renda r where r.id = ?1")
-    List<Renda> delete(Integer id);
+    Integer delete(Integer id);
 
     @Query("select r from Renda r where r.id = ?1")
     Renda findById(Integer id);
 
-    List<Renda> findAll();
+    @Query("select r from Renda r where r.usuario = ?1")
+    List<Renda> findAll(Integer idUser);
 
     @Query("select count(r) from Renda r")
     int count();
@@ -27,7 +28,7 @@ public interface RendasRepository extends Repository<Renda, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Renda r set r.nome = ?1, r.tipo = ?2, r.valor = ?3, r.data = ?4 where r.id = ?5")
-    List<Renda> updateRendas(String nome, Integer tipo, Double valor, String data, Integer id);
+    @Query("update Renda r set r.nome = ?1, r.tipo = ?2, r.valor = ?3, r.data = ?4 where r.id = ?5 and r.usuario = ?6")
+    Integer updateRendas(String nome, Integer tipo, Double valor, String data, Integer id, Integer usuario);
 
 }

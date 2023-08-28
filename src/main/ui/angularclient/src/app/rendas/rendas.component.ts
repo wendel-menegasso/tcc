@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RendasService } from '../service/rendas-service';
 import { takeUntil } from 'rxjs/operators';
@@ -17,6 +17,11 @@ export class RendasComponent implements OnInit {
   rendas: Rendas[];
   rendasDelete: Rendas;
   rendasCount = 0;
+  idUser: string;
+  query: string;
+  chaveValor: string[];
+  chave: string;
+  valor: string;
 
   constructor(    
     private route: ActivatedRoute,
@@ -26,11 +31,16 @@ export class RendasComponent implements OnInit {
         this.rendasDelete = new Rendas();
       }
   ngOnInit(): void {
+    this.query = location.search.slice(1);
+    this.chaveValor = this.query.split('=');
+    this.chave = this.chaveValor[0];
+    this.valor = this.chaveValor[1];
+    this.idUser = this.valor;
     this.getTodasRendas();
   }
 
   getTodasRendas(): void {
-    this.rendasService.findAll().pipe(takeUntil(this.destroy$)).subscribe((rendas: Rendas[]) => {
+    this.rendasService.findAll(this.idUser).pipe(takeUntil(this.destroy$)).subscribe((rendas: Rendas[]) => {
         this.rendasCount = rendas.length;
         this.rendas = rendas;
         var rendaArray :Rendas[] = [];
@@ -91,4 +101,5 @@ export class RendasComponent implements OnInit {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
+  @Input() idUsuario : string;
 }

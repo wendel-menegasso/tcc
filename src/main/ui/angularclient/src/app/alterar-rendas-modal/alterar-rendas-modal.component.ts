@@ -45,6 +45,7 @@ export class AlterarRendasModalComponent implements OnInit {
   }
 
   onSubmit(){
+    this.renda.usuario = this.idUsuario;
     this.rendasService.alterarRendas(this.renda).subscribe(data =>{
       this.retornoRenda = data;
       if (this.retornoRenda != null){
@@ -60,6 +61,7 @@ export class AlterarRendasModalComponent implements OnInit {
   openPopup() {
     this.displayStyle = "block";
     this.rendasArg.id = this.idRenda;
+    this.rendasArg.usuario = this.idUsuario;
     this.rendasService.recebeDadosAlterarRendas(this.rendasArg).subscribe(data => {
       
       this.renda = data;
@@ -75,5 +77,6 @@ export class AlterarRendasModalComponent implements OnInit {
   }
 
   @Input() idRenda : string;
+  @Input() idUsuario : string;
 
 }

@@ -16,7 +16,7 @@ public class RendasManager implements RendasService{
     }
 
     @Override
-    public List<Renda> delete(Integer id) {
+    public Integer delete(Integer id) {
         return repository.delete(id);
     }
 
@@ -26,8 +26,8 @@ public class RendasManager implements RendasService{
     }
 
     @Override
-    public List<Renda> findAll() {
-        return repository.findAll();
+    public List<Renda> findAll(Integer idUser) {
+        return repository.findAll(idUser);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class RendasManager implements RendasService{
     }
 
     @Override
-    public List<Renda> updateRendas(String nome, Integer tipo, Double valor, String data, Integer id) {
-        return this.repository.updateRendas(nome, tipo, valor, data, id);
+    public Integer updateRendas(String nome, Integer tipo, Double valor, String data, Integer id, Integer usuario) {
+        return this.repository.updateRendas(nome, tipo, valor, data, id, usuario);
     }
 }

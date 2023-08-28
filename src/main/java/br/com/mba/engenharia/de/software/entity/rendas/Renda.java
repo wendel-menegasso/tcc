@@ -32,11 +32,12 @@ public class Renda {
     @Column(name = "usuario")
     private Integer usuario;
 
-    public Renda(String nome, Double valor, String data, Integer tipo){
+    public Renda(String nome, Double valor, String data, Integer tipo, Integer usuario){
         this.nome = nome;
         this.valor = valor;
         this.data = data;
         this.tipo = tipo;
+        this.usuario = usuario;
     }
 
     public Renda(String nome, Double valor, String data, Integer tipo, Integer id, Integer usuario){

@@ -1,5 +1,6 @@
 package br.com.mba.engenharia.de.software.controller;
 
+import br.com.mba.engenharia.de.software.dto.RendasAlterarDTO;
 import br.com.mba.engenharia.de.software.dto.RendasDTO;
 import br.com.mba.engenharia.de.software.dto.RendasRetornoDTO;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
@@ -55,11 +56,12 @@ public class RendasController{
         }
     }
 
-    @GetMapping("/listarRenda")
-    public ResponseEntity<?> listarConta(){
+    @PostMapping("/listarRenda")
+    public ResponseEntity<?> listarConta(@RequestBody String idUser){
         rendasService.setRendasRepository(repository);
         List<RendasRetornoDTO> rendasRetornoDTOList = new ArrayList<>();
-        for (Renda renda : rendasService.findAll()){
+        List<Renda> rendaList = rendasService.findAll(Integer.parseInt(idUser));
+        for (Renda renda : rendaList){
             rendasRetornoDTOList.add(renda.parseRendaToRendasRetornoDTO());
         }
         return new ResponseEntity<>(rendasRetornoDTOList, HttpStatus.OK);
@@ -70,13 +72,11 @@ public class RendasController{
         rendasService.setRendasRepository(repository);
         Renda renda = new Renda();
         renda.setId(Integer.parseInt(id));
-        List<RendasRetornoDTO> rendasRetornoDTOList = new ArrayList<>();
-        for (Renda rendaRetorno : repository.delete(renda.getId())){
-            rendasRetornoDTOList.add(rendaRetorno.parseRendaToRendasRetornoDTO());
-        }
-        if (rendasRetornoDTOList.size() > 0){
+        Renda rendaRetorno = rendasService.findById(renda.getId());
+        RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
+        if (rendasService.delete(renda.getId()) > 0){
             logger.info(String.format("Renda deletada com sucesso"));
-            return new ResponseEntity<>(rendasRetornoDTOList, HttpStatus.OK);
+            return new ResponseEntity<>(rendasRetornoDTO, HttpStatus.OK);
         }
         else{
             logger.info(String.format("Falha na exclusão"));
@@ -84,8 +84,8 @@ public class RendasController{
         }
     }
     @PostMapping("/recebeDadosAlterarRenda")
-    public ResponseEntity<?> recebeDadosAlterarConta(@RequestBody RendasDTO rendasDTO){
-        Renda renda = rendasDTO.parseRendasDTOToRenda();
+    public ResponseEntity<?> recebeDadosAlterarConta(@RequestBody RendasAlterarDTO rendasAlterarDTO){
+        Renda renda = rendasAlterarDTO.parseRendasDTOToRenda();
         rendasService.setRendasRepository(repository);
         Renda rendaRetorno  = rendasService.findById(renda.getId());
         RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
@@ -98,16 +98,15 @@ public class RendasController{
     }
 
     @PutMapping("alterarRenda")
-    public ResponseEntity<?> alterarConta(@RequestBody RendasDTO rendasDTO){
-        Renda renda = rendasDTO.parseRendasDTOToRenda();
+    public ResponseEntity<?> alterarConta(@RequestBody RendasAlterarDTO rendasAlterarDTO){
+        Renda renda = rendasAlterarDTO.parseRendasDTOToRenda();
         rendasService.setRendasRepository(repository);
-        List<RendasRetornoDTO> rendasRetornoDTOList = new ArrayList<>();
-        for (Renda rendaRetorno : repository.updateRendas(renda.getNome(), renda.getTipo(), renda.getValor(),
-                renda.getData(), renda.getId())){
-            rendasRetornoDTOList.add(rendaRetorno.parseRendaToRendasRetornoDTO());
-        }
-        if (rendasRetornoDTOList.size() > 0){
-            return new ResponseEntity<>(rendasRetornoDTOList, HttpStatus.OK);
+        Renda rendaRetorno = rendasService.findById(renda.getId());
+        RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
+        Integer retorno = repository.updateRendas(renda.getNome(), renda.getTipo(), renda.getValor(),
+                renda.getData(), renda.getId(), renda.getUsuario());
+        if (retorno > 0){
+            return new ResponseEntity<>(rendasRetornoDTO, HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);

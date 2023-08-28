@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Rendas } from '../model/rendas';
@@ -46,7 +46,7 @@ onSubmit() {
   if (this.rendas.tipo == "Outros"){
     this.rendas.tipo = "7";
   }
-
+  this.rendas.usuario = this.idUsuario;
   this.rendasService.save(this.rendas).subscribe(data => {
     this.rendas = data;
     if (this.rendas != null){
@@ -71,5 +71,7 @@ onSubmit() {
 
   ngOnInit(): void {
   }
+
+  @Input() idUsuario : string;
 
 }
