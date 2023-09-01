@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalConfig, NgbModal, NgbCalendar, NgbDate, NgbDateStruct, NgbInputDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Rendas } from '../model/rendas';
 import { RendasService } from '../service/rendas-service';
 import { Location } from '@angular/common';
@@ -13,6 +13,8 @@ import { Location } from '@angular/common';
 })
 export class InserirRendasModalComponent implements OnInit {
 
+  model: NgbDateStruct;
+
   rendas: Rendas;
   rendasArray: any[] = [];
   rendasasCount = 0;
@@ -20,8 +22,26 @@ export class InserirRendasModalComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
       private rendasService: RendasService,
-      private location: Location) {
+      private location: Location,
+      config: NgbInputDatepickerConfig, 
+      calendar: NgbCalendar) {
     this.rendas = new Rendas();
+
+        		// customize default values of datepickers used by this component tree
+		config.minDate = { day: 1, month: 1, year: 1900 };
+		config.maxDate = {day: 31, month: 12, year: 2099 };
+
+		// days that don't belong to current month are not visible
+		config.outsideDays = 'hidden';
+
+		// weekends are disabled
+		config.markDisabled = (date: NgbDate) => calendar.getWeekday(date) >= 6;
+
+		// setting datepicker popup to close only on click outside
+		config.autoClose = 'outside';
+
+		// setting datepicker popup to open above the input
+		config.placement = ['right', 'right'];
 }
 
 onSubmit() {
@@ -47,6 +67,7 @@ onSubmit() {
     this.rendas.tipo = "7";
   }
   this.rendas.usuario = this.idUsuario;
+  this.rendas.data = this.model.day + '-' + this.model.month + '-' + this.model.year;
   this.rendasService.save(this.rendas).subscribe(data => {
     this.rendas = data;
     if (this.rendas != null){

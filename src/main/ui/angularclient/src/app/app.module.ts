@@ -60,7 +60,7 @@ import { AlterarGastosModalComponent } from './alterar-gastos-modal/alterar-gast
     GastosComponent,
     GastosUsuarioComponent,
     InserirGastosModalComponent,
-    AlterarGastosModalComponent
+    AlterarGastosModalComponent,
   ],
   imports: [
     BrowserModule,

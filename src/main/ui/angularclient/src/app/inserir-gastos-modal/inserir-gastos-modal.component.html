@@ -11,6 +11,22 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
+                <label for="dataGastos">Data</label>
+        <form class="row row-cols-sm-auto" id="formData">
+                <div class="col-12">
+                        <div class="input-group">
+                                <input
+                                        class="form-control"
+                                        placeholder="yyyy-mm-dd"
+                                        name="data"
+                                        id="dataGastos"
+                                        [(ngModel)]="model"
+                                        ngbDatepicker
+                                        #d="ngbDatepicker">
+                                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+                        </div>
+                </div>
+        </form>
           <label for="nome">Nome</label>
           <input type="text" [(ngModel)]="gastos.nome"
                  class="form-control"
@@ -56,20 +72,13 @@
             <option
                     class="form-control">Entretenimento</option>
             <option
-                    class="form-control">Empresa</option>       
+                    class="form-control">Empresa</option>
             <option
                     class="form-control">Investimentos</option>
             <option
-                    class="form-control">Outros</option>    
+                    class="form-control">Outros</option>
           </select>
-        <label for="saldo">Data</label>
-        <input type="text" [(ngModel)]="gastos.data"
-               class="form-control"
-               id="data"
-               name="data"
-               placeholder="DD/MM/AAAA"
-               required #name="ngModel">
-        <button type="submit" (click)="onSubmit()"
+               <button type="submit" (click)="onSubmit()"
                 class="btn btn-info">Salvar
         </button>
 

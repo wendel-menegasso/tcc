@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalConfig, NgbModal, NgbCalendar, NgbDate, NgbDateStruct, NgbInputDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Gastos } from '../model/gastos';
 import { GastosService } from '../service/gastos.service';
 import { Location } from '@angular/common';
@@ -13,6 +13,8 @@ import { Location } from '@angular/common';
 })
 export class InserirGastosModalComponent implements OnInit {
 
+  model: NgbDateStruct;
+
   gastos: Gastos;
   gastosArray: any[] = [];
   gastosCount = 0;
@@ -20,8 +22,25 @@ export class InserirGastosModalComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
       private gastosService: GastosService,
-      private location: Location) {
+      private location: Location,
+      config: NgbInputDatepickerConfig, 
+      calendar: NgbCalendar) {
     this.gastos = new Gastos();
+    		// customize default values of datepickers used by this component tree
+		config.minDate = { day: 1, month: 1, year: 1900 };
+		config.maxDate = {day: 31, month: 12, year: 2099 };
+
+		// days that don't belong to current month are not visible
+		config.outsideDays = 'hidden';
+
+		// weekends are disabled
+		config.markDisabled = (date: NgbDate) => calendar.getWeekday(date) >= 6;
+
+		// setting datepicker popup to close only on click outside
+		config.autoClose = 'outside';
+
+		// setting datepicker popup to open above the input
+		config.placement = ['right', 'right'];
 }
 
 onSubmit() {
@@ -77,6 +96,7 @@ onSubmit() {
     this.gastos.tipo = "17";
   }
   this.gastos.usuario = this.idUsuario;
+  this.gastos.data = this.model.day + '-' + this.model.month + '-' + this.model.year;
   this.gastosService.save(this.gastos).subscribe(data => {
     this.gastos = data;
     if (this.gastos != null){
