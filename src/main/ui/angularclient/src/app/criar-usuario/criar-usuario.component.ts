@@ -26,7 +26,12 @@ export class CriarUsuarioComponent implements OnInit{
     this.usuarioService.enviarCadastro(this.usuario).subscribe(data => {
       this.usuario = data;
       if (this.usuario != null){
+        if (this.usuario.retorno != "Senhas diferentes!"){
           this.gotoUserList();
+        }
+        else{
+          alert('Senhas diferentes');
+        }
       }
       });
   }

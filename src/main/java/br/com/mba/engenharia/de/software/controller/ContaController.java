@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class ContaController{
     private static final Logger logger = LoggerFactory.getLogger(Conta.class);
 
@@ -60,10 +60,15 @@ public class ContaController{
         Integer usuario = Integer.parseInt(contaDTOFull.getUsuario());
         List<Conta> contaList = contaService.findAll(usuario);
         List<ContaDTORetorno> contaDTORetornoList = new ArrayList<>();
-        for (Conta conta : contaList){
-            contaDTORetornoList.add(conta.parseContaToContaDTORetorno());
+        if (contaList.size() > 0){
+            for (Conta conta : contaList){
+                contaDTORetornoList.add(conta.parseContaToContaDTORetorno());
+            }
+            return new ResponseEntity<>(contaDTORetornoList, HttpStatus.OK);
         }
-        return new ResponseEntity<>(contaDTORetornoList, HttpStatus.OK);
+        else{
+            return  new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
     }
 
     @DeleteMapping("/deletarConta/{id}")

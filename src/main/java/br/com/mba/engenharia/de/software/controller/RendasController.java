@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class RendasController{
     private static final Logger logger = LoggerFactory.getLogger(Renda.class);
 
@@ -61,10 +61,15 @@ public class RendasController{
         rendasService.setRendasRepository(repository);
         List<RendasRetornoDTO> rendasRetornoDTOList = new ArrayList<>();
         List<Renda> rendaList = rendasService.findAll(Integer.parseInt(idUser));
-        for (Renda renda : rendaList){
-            rendasRetornoDTOList.add(renda.parseRendaToRendasRetornoDTO());
+        if (rendaList.size() > 0){
+            for (Renda renda : rendaList){
+                rendasRetornoDTOList.add(renda.parseRendaToRendasRetornoDTO());
+            }
+            return new ResponseEntity<>(rendasRetornoDTOList, HttpStatus.OK);
         }
-        return new ResponseEntity<>(rendasRetornoDTOList, HttpStatus.OK);
+        else{
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
     }
 
     @DeleteMapping("/deletarRenda/{id}")

@@ -20,6 +20,15 @@
              required #email="ngModel">
     </div>
     <div class="form-group">
+      <label for="password">Confirmação Senha</label><br>
+      <input type="password" [(ngModel)]="usuario.senha2"
+             class="form-control"
+             id="password2"
+             name="password2"
+             placeholder="Senha"
+             required #email="ngModel">
+    </div>
+    <div class="form-group">
       <label for="nome">Nome</label><br>
       <input type="text" [(ngModel)]="usuario.nome"
              class="form-control"
@@ -52,7 +61,7 @@
              class="form-control"
              id="dataNascimento"
              name="dataNascmimento"
-             placeholder="00/00/0000"
+             placeholder="00-00-0000"
              required #name="ngModel">
     </div>
     <div class="form-group">

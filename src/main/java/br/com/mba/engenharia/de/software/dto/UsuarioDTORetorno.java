@@ -2,8 +2,10 @@ package br.com.mba.engenharia.de.software.dto;
 
 import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class UsuarioDTORetorno {
     private Integer id;
     private String username;
@@ -14,6 +16,7 @@ public class UsuarioDTORetorno {
     private String sobrenome;
     private String cpf;
     private String status;
+    private String retorno;
 
     public UsuarioDTORetorno(Usuario usuario) {
         this.id = usuario.getId();
@@ -25,6 +28,10 @@ public class UsuarioDTORetorno {
         this.sobrenome = usuario.getSobrenome();
         this.cpf = usuario.getCpf();
         this.status = usuario.getStatus();
+    }
+
+    public void setRetorno(String retorno){
+        this.retorno = retorno;
     }
 
 }

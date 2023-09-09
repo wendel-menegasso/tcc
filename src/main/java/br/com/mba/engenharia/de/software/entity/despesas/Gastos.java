@@ -1,5 +1,6 @@
 package br.com.mba.engenharia.de.software.entity.despesas;
 
+import br.com.mba.engenharia.de.software.dto.GastosRespostaDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -30,6 +31,10 @@ public class Gastos {
         this.origem = origem;
         this.id = id;
         this.usuario = usuario;
+    }
+
+    public GastosRespostaDTO parseGastosToGastosRespostaDTO(){
+        return new GastosRespostaDTO(this);
     }
 
 

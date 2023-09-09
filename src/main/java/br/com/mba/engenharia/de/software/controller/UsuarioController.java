@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class UsuarioController{
     private static final Logger logger = LoggerFactory.getLogger(Usuario.class);
 
@@ -47,6 +47,11 @@ public class UsuarioController{
     @PostMapping("/enviarCadastro")
     public ResponseEntity<?> enviarCadastro(@RequestBody UsuarioDTO usuarioDTO) throws IOException {
         GerarToken gerarToken = new GerarToken();
+        if (!usuarioDTO.getSenha().equals(usuarioDTO.getSenha2())){
+            UsuarioDTORetorno usuarioDTORetorno = new UsuarioDTORetorno();
+            usuarioDTORetorno.setRetorno("Senhas diferentes!");
+            return new ResponseEntity<>(usuarioDTORetorno, HttpStatus.OK);
+        }
         Usuario usuario = usuarioDTO.parseUsuarioDTOToUsuario();
         ValidadorCPF validadorCPF = new ValidadorCPF();
         if (validadorCPF.isValid(usuarioDTO.getCpf())){
@@ -88,8 +93,8 @@ public class UsuarioController{
         user.setSenha(criptrografia.criptografar(usuarioDTO.getSenha()));
         userService.setRepository(usuarioRepositoryNovo);
         Usuario usuarioRetorno = userService.findByTokenUsernameAndSenha(user.getToken(), user.getUsername(), "0", user.getSenha());
-        Integer retorno = userService.findByTokenUsernameSenhaAndStatusAndUpdateStatus(user.getToken(),
-                user.getUsername(), user.getSenha(), "0");
+        Integer retorno = userService.findByTokenUsernameSenhaAndStatusAndUpdateStatus(usuarioRetorno.getToken(),
+                usuarioRetorno.getUsername(), usuarioRetorno.getSenha(), "0");
         UsuarioDTORetorno usuarioDTORetorno = usuarioRetorno.parseUsuarioToUsuarioDTORetorno();
         if (retorno > 0){
             return new ResponseEntity<>(usuarioDTORetorno, HttpStatus.CREATED);

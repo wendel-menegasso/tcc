@@ -12,6 +12,8 @@ public class UsuarioDTO {
     @NotNull
     private String senha;
     @NotNull
+    private String senha2;
+    @NotNull
     private String email;
     @NotNull
     private String token;

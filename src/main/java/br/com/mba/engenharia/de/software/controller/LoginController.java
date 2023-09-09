@@ -24,7 +24,7 @@ import java.util.List;
 import static br.com.mba.engenharia.de.software.controller.UserLinks.AUTHENTICATE;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class LoginController{
 
     private static final Logger logger = LoggerFactory.getLogger(Login.class);
