@@ -12,6 +12,7 @@ export class RendasService {
   private deleteUrl: string;
   private recebeDadosAlterarRendasUrl: string;
   private alterarUrl: string;
+  private url: string;
 
   constructor(private http: HttpClient) {
     this.findUrl = 'http://localhost:9090/listarRenda';
@@ -21,8 +22,8 @@ export class RendasService {
     this.alterarUrl = 'http://localhost:9090/alterarRenda';
   }
 
-  public findAll(user: string): Observable<Rendas[]> {
-    return this.http.post<Rendas[]>(this.findUrl, user);
+  public findAll(req: string): Observable<Rendas[]> {
+    return this.http.post<Rendas[]>(this.findUrl, req);
   }
 
   public save(rendas: Rendas) : Observable<Rendas> {

@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Gastos } from '../model/gastos';
 import { Location } from '@angular/common';
+import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-gastos',
@@ -22,13 +23,20 @@ export class GastosComponent implements OnInit {
   chaveValor: string[];
   chave: string;
   valor: string;
+  page = 1;
+  pag : Number = 1 ;
+  pageSize = 4;
+  contador : Number = 4;
 
   constructor(    
     private route: ActivatedRoute,
     private router: Router,
     private gastosService: GastosService,
-    private location: Location) {
+    private location: Location,
+    config: NgbPaginationConfig) {
         this.gastosDelete = new Gastos();
+        config.size = 'sm';
+        config.boundaryLinks = true;
       }
   ngOnInit(): void {
     this.query = location.search.slice(1);

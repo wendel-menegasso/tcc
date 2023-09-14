@@ -56,6 +56,7 @@ public class ContaController{
 
     @PostMapping("/listarConta")
     public ResponseEntity<?> listarConta(@RequestBody ContaDTOFull contaDTOFull){
+        logger.info(String.format("Entrou no método listarConta"));
         contaService.setContaRepository(contaRepository);
         Integer usuario = Integer.parseInt(contaDTOFull.getUsuario());
         List<Conta> contaList = contaService.findAll(usuario);
@@ -63,11 +64,12 @@ public class ContaController{
         if (contaList.size() > 0){
             for (Conta conta : contaList){
                 contaDTORetornoList.add(conta.parseContaToContaDTORetorno());
+                logger.info(String.format("---"+conta.getConta()));
             }
-            return new ResponseEntity<>(contaDTORetornoList, HttpStatus.OK);
+            return ResponseEntity.ok(contaDTORetornoList);
         }
         else{
-            return  new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            return  ResponseEntity.ok(null);
         }
     }
 

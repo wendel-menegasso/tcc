@@ -13,7 +13,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let conta of contasBancarias; let i = index">
+    <tr *ngFor="let conta of contasBancarias | slice: (page-1) * pageSize : page * pageSize">
       <td>{{conta.agencia}}</td>
       <td>{{conta.conta}}</td>
       <td>{{conta.banco}}</td>
@@ -27,3 +27,7 @@
   </table>
 </div>
 <app-inserir-contas-modal [idUsuario]=valor></app-inserir-contas-modal>
+<ngb-pagination
+[(page)]="page"
+[pageSize]="4"
+[collectionSize]="contasBancarias.length"></ngb-pagination>

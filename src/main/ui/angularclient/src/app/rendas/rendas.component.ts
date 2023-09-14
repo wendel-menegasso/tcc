@@ -5,10 +5,12 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Rendas } from '../model/rendas';
 import { Location } from '@angular/common';
+import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-rendas',
   templateUrl: './rendas.component.html',
+  providers: [NgbPaginationConfig],
   styleUrls: ['./rendas.component.css']
 })
 export class RendasComponent implements OnInit {
@@ -16,19 +18,27 @@ export class RendasComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   rendas: Rendas[];
   rendasDelete: Rendas;
+  req: string;
   rendasCount = 0;
   idUser: string;
   query: string;
   chaveValor: string[];
   chave: string;
   valor: string;
+  page = 1;
+  pag : Number = 1 ;
+  pageSize = 4;
+  contador : Number = 4;
 
   constructor(    
     private route: ActivatedRoute,
     private router: Router,
     private rendasService: RendasService,
-    private location: Location) {
+    private location: Location,
+    config: NgbPaginationConfig) {
         this.rendasDelete = new Rendas();
+        config.size = 'sm';
+        config.boundaryLinks = true;
       }
   ngOnInit(): void {
     this.query = location.search.slice(1);

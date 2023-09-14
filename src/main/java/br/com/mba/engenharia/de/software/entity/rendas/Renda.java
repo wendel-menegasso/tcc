@@ -49,6 +49,11 @@ public class Renda {
         this.usuario = usuario;
     }
 
+    public Renda(Integer id, Integer usuario){
+        this.id = id;
+        this.usuario = usuario;
+    }
+
     public RendasRetornoDTO parseRendaToRendasRetornoDTO(){
         return new RendasRetornoDTO(this);
     }

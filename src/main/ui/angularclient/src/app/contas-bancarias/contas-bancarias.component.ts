@@ -5,6 +5,7 @@ import { ContasBancarias } from '../model/contas-bancarias';
 import { TipoConta } from '../model/tipo-conta';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-contas-bancarias',
@@ -24,13 +25,20 @@ export class ContasBancariasComponent implements OnInit {
 	chaveValor: string[];
 	chave: string;
 	valor: string;
+	page = 1;
+	pag : Number = 1 ;
+	pageSize = 4;
+	contador : Number = 4;
 
   constructor(
     private route: ActivatedRoute,
       private router: Router,
-        private contasBancariasService: ContasBancariasService) {
+        private contasBancariasService: ContasBancariasService,
+		config: NgbPaginationConfig) {
     this.contas = new ContasBancarias();
 	this.conta = new ContasBancarias();
+	config.size = 'sm';
+	config.boundaryLinks = true;
   }
 
   ngOnInit(): void {

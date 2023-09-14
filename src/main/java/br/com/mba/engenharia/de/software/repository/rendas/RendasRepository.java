@@ -1,6 +1,7 @@
 package br.com.mba.engenharia.de.software.repository.rendas;
 
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;

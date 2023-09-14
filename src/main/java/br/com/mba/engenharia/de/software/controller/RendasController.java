@@ -2,20 +2,27 @@ package br.com.mba.engenharia.de.software.controller;
 
 import br.com.mba.engenharia.de.software.dto.RendasAlterarDTO;
 import br.com.mba.engenharia.de.software.dto.RendasDTO;
+import br.com.mba.engenharia.de.software.dto.RendasDTOFull;
 import br.com.mba.engenharia.de.software.dto.RendasRetornoDTO;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
 import br.com.mba.engenharia.de.software.service.rendas.RendasManager;
 import br.com.mba.engenharia.de.software.service.rendas.RendasService;
+import net.bytebuddy.build.HashCodeAndEqualsPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -57,19 +64,10 @@ public class RendasController{
     }
 
     @PostMapping("/listarRenda")
-    public ResponseEntity<?> listarConta(@RequestBody String idUser){
+    public ResponseEntity<?> listarConta(@RequestBody String req){
         rendasService.setRendasRepository(repository);
-        List<RendasRetornoDTO> rendasRetornoDTOList = new ArrayList<>();
-        List<Renda> rendaList = rendasService.findAll(Integer.parseInt(idUser));
-        if (rendaList.size() > 0){
-            for (Renda renda : rendaList){
-                rendasRetornoDTOList.add(renda.parseRendaToRendasRetornoDTO());
-            }
-            return new ResponseEntity<>(rendasRetornoDTOList, HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
+        List<Renda> rendaList = rendasService.findAll(Integer.parseInt(req));
+        return ResponseEntity.ok(rendaList);
     }
 
     @DeleteMapping("/deletarRenda/{id}")
@@ -89,13 +87,13 @@ public class RendasController{
         }
     }
     @PostMapping("/recebeDadosAlterarRenda")
-    public ResponseEntity<?> recebeDadosAlterarConta(@RequestBody RendasAlterarDTO rendasAlterarDTO){
-        Renda renda = rendasAlterarDTO.parseRendasDTOToRenda();
+    public ResponseEntity<?> recebeDadosAlterarConta(@RequestBody RendasDTOFull rendasDTOFull){
+        Renda renda = rendasDTOFull.parseRendasDTOToRenda();
         rendasService.setRendasRepository(repository);
         Renda rendaRetorno  = rendasService.findById(renda.getId());
         RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
         if (rendasRetornoDTO != null){
-            return new ResponseEntity<>(rendasRetornoDTO, HttpStatus.OK);
+            return ResponseEntity.ok(rendasRetornoDTO);
         }
         else{
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
