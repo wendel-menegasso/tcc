@@ -18,6 +18,7 @@ export class InserirGastosModalComponent implements OnInit {
   gastos: Gastos;
   gastosArray: any[] = [];
   gastosCount = 0;
+  token: string;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -97,19 +98,28 @@ onSubmit() {
   }
   this.gastos.usuario = this.idUsuario;
   this.gastos.data = this.model.day + '-' + this.model.month + '-' + this.model.year;
-  this.gastosService.save(this.gastos).subscribe(data => {
-    this.gastos = data;
-    if (this.gastos != null){
-        this.gotoGastosList();
-    }
-    });
+  var regexp = new RegExp(/^[1-9]([0-9]+)*\.\d{2}/);
+  var valor = regexp.test(this.gastos.valor);
+  if (valor == true){
+    this.gastosService.save(this.gastos).subscribe(data => {
+      this.gastos = data;
+      if (this.gastos != null){
+          this.gotoGastosList();
+      }
+      });
+  }
+  else{
+    alert("O campo valor deve ser preenchido no formato 1000.00");   
+  }
 }
 
 
 gotoGastosList() {
   this.closePopup();
   alert('Salvo com sucesso!');
-  location.reload();
+  this.token = '3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333';
+  this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
+
 }
   displayStyle = "none";
 

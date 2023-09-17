@@ -3,6 +3,7 @@ package br.com.mba.engenharia.de.software.service.rendas;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface RendasService {
@@ -18,6 +19,6 @@ public interface RendasService {
 
     void setRendasRepository(RendasRepository repository);
 
-    Integer updateRendas(String nome, Integer tipo, Double valor, String data, Integer id, Integer usuario);
+    Integer updateRendas(String nome, Integer tipo, String valor, String data, Integer id, Integer usuario);
 
 }

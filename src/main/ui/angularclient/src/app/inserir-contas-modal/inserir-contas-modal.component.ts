@@ -15,6 +15,7 @@ export class InserirContasModalComponent implements OnInit{
   contas: ContasBancarias;
   contasBancarias: any[] = [];
   contasCount = 0;
+  token: string;
 
   constructor(private route: ActivatedRoute,
           private router: Router,
@@ -63,19 +64,39 @@ export class InserirContasModalComponent implements OnInit{
   		  this.contas.tipo = "4";
   		}
       this.contas.usuario = this.idUsuario;
-      this.contasBancariasService.save(this.contas).subscribe(data => {
-        this.contas = data;
-        if (this.contas != null){
-          location.reload();
-        }
-        });
-    }
 
-      gotoUserList(id) {
-        alert('Salvo com sucesso!');
-				this.router.navigate(['/contas?id='+id]);
+      var regexp = new RegExp(/[A-Z a-z]/);
+      var regexp2 = new RegExp(/^[1-9]([0-9]+)*\.\d{2}/);
+      var testAgencia = regexp.test(this.contas.agencia);
+      var testConta = regexp.test(this.contas.conta);
+      var testValor = regexp2.test(this.contas.saldo);
+      if (testAgencia == false){
+        if (testConta == false){
+          if (testValor == true){
+            this.contasBancariasService.save(this.contas).subscribe(data => {
+              this.contas = data;
+              if (this.contas != null){
+                alert('Salvo com sucesso!');
+                this.token = '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111';
+                this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
+                this.closePopup();
+      
+              }
+            });
+          }
+          else{
+            alert("O campo saldo deve ser preenchido no formato 1000.00");
+          }
+        }
+        else{
+          alert("O campo conta deve conter apenas números");
+        }
       }
-        displayStyle = "none";
+      else{
+        alert("O campo agência deve conter apenas números");
+      }
+    }
+    displayStyle = "none";
 
       openPopup() {
         this.displayStyle = "block";

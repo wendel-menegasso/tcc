@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @org.springframework.stereotype.Repository
@@ -30,6 +31,6 @@ public interface RendasRepository extends Repository<Renda, Long> {
     @Transactional
     @Modifying
     @Query("update Renda r set r.nome = ?1, r.tipo = ?2, r.valor = ?3, r.data = ?4 where r.id = ?5 and r.usuario = ?6")
-    Integer updateRendas(String nome, Integer tipo, Double valor, String data, Integer id, Integer usuario);
+    Integer updateRendas(String nome, Integer tipo, String valor, String data, Integer id, Integer usuario);
 
 }

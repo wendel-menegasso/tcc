@@ -4,6 +4,8 @@ import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Getter
 @NoArgsConstructor
 public class GastosRespostaDTO {
@@ -13,10 +15,10 @@ public class GastosRespostaDTO {
     private Integer tipo;
     private Integer usuario;
     private Integer origem;
-    private Double valor;
+    private String valor;
 
     public Gastos parseGastosRespostaDTOToGastos(){
-        return new Gastos(nome, valor, data, tipo, origem, id, usuario);
+        return new Gastos(nome, this.valor, data, tipo, origem, id, usuario);
     }
 
     public GastosRespostaDTO(Gastos gastos){

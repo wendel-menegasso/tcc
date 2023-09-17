@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @org.springframework.stereotype.Repository
@@ -29,5 +30,5 @@ public interface GastosRepository extends Repository<Gastos, Long> {
     @Transactional
     @Modifying
     @Query("update Gastos g set g.nome = ?1, g.tipo = ?2, g.valor = ?3, g.data = ?4 where g.id = ?5")
-    int updateGastos(String nome, Integer tipo, Double valor, String data, Integer id);
+    int updateGastos(String nome, Integer tipo, String valor, String data, Integer id);
 }

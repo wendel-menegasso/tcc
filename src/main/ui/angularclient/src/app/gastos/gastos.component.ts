@@ -10,6 +10,7 @@ import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-gastos',
   templateUrl: './gastos.component.html',
+  providers: [NgbPaginationConfig],
   styleUrls: ['./gastos.component.css']
 })
 export class GastosComponent implements OnInit {
@@ -27,6 +28,8 @@ export class GastosComponent implements OnInit {
   pag : Number = 1 ;
   pageSize = 4;
   contador : Number = 4;
+  token: string;
+    valorGasto: string;
 
   constructor(    
     private route: ActivatedRoute,
@@ -127,7 +130,10 @@ export class GastosComponent implements OnInit {
     this.gastosService.delete(id).subscribe(data => {
         this.gastos = data;
         if (this.gastos != null){
-            location.reload();
+            alert("Excluido com sucesso");
+            this.token = '3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333';
+            this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
+
         }
         else{
             alert("Não foi possível excluir");

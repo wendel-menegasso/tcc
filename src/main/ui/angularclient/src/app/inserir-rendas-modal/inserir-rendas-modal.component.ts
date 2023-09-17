@@ -18,6 +18,7 @@ export class InserirRendasModalComponent implements OnInit {
   rendas: Rendas;
   rendasArray: any[] = [];
   rendasasCount = 0;
+  token: string;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -68,18 +69,27 @@ onSubmit() {
   }
   this.rendas.usuario = this.idUsuario;
   this.rendas.data = this.model.day + '-' + this.model.month + '-' + this.model.year;
-  this.rendasService.save(this.rendas).subscribe(data => {
-    this.rendas = data;
-    if (this.rendas != null){
-        this.gotoRendasList();
-    }
-    });
+  var regexp = new RegExp(/^[1-9]([0-9]+)*\.\d{2}/);
+  var valor = regexp.test(this.rendas.valor);
+  if (valor == true){
+    this.rendasService.save(this.rendas).subscribe(data => {
+      this.rendas = data;
+      if (this.rendas != null){
+          this.gotoRendasList();
+      }
+      });
+  }
+  else{
+    alert("O campo valor deve ser preenchido no formato 1000.00");   
+  }
 }
 
   gotoRendasList() {
     this.closePopup();
     alert('Salvo com sucesso!');
-    location.reload();
+    this.token = '2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
+    this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
+
   }
     displayStyle = "none";
 

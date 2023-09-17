@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
 	selector: 'ngbd-accordion-config',
@@ -18,41 +20,51 @@ export class NgbdAccordionConfig {
 	chave: string;
 	valor: string;
 
-	constructor(config: NgbAccordionConfig) {
-		// customize default values of accordions used by this component tree
-		config.closeOthers = true;
-		config.type = 'info';
-	}
+	constructor(config: NgbAccordionConfig,
+		private route: ActivatedRoute,
+		private router: Router) {
+	 // customize default values of accordions used by this component tree
+	 config.closeOthers = true;
+	 config.type = 'info';
+}
+
 	Contas() {
-	  this.getURL();
-	  this.id = this.idUsuarioMenu;	
-	  if (this.id === undefined){
-		    window.location.href = "contasBancarias?id="+this.idURL;
-	  }
-	  else{
-			window.location.href = "contasBancarias?id="+this.id;
-	  }
-    }
-	Ganhos() {
 		this.getURL();
 		this.id = this.idUsuarioMenu;
 		if (this.id === undefined){
-			window.location.href = "ganhos?id="+this.idURL;
+				this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.idURL  } });
 		}
 		else{
-			window.location.href = "ganhos?id="+this.id;	
-		}	
-	}
-	Gastos() {
-		this.getURL();
-		this.id = this.idUsuarioMenu;
-		if (this.id === undefined){
-			window.location.href = "gastos?id="+this.idURL;
+			  this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.id  } });
 		}
-		else{
-			window.location.href = "gastos?id="+this.id;
-		}
-	}
+  }
+	  Ganhos() {
+			  this.getURL();
+			  this.id = this.idUsuarioMenu;
+			  if (this.id === undefined){
+					  this.router.navigate(['/ganhos'], { queryParams: { 'id': this.idURL  } });
+			  }
+			  else{
+					  this.router.navigate(['/ganhos'], { queryParams: { 'id': this.id  } });
+			  }
+	  }
+	  Gastos() {
+			  this.getURL();
+			  this.id = this.idUsuarioMenu;
+			  if (this.id === undefined){
+					  this.router.navigate(['/gastos'], { queryParams: { 'id': this.idURL  } });
+			  }
+			  else{
+					  this.router.navigate(['/gastos'], { queryParams: { 'id': this.id  } });
+			  }
+	  }
+
+	  Home() {
+		this.token = '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';
+		this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.id  } });;
+}
+
+
 	Logout() {
 		window.location.href = "";
 	}

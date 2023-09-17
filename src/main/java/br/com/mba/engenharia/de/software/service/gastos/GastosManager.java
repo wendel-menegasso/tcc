@@ -3,6 +3,7 @@ package br.com.mba.engenharia.de.software.service.gastos;
 import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import br.com.mba.engenharia.de.software.repository.gastos.GastosRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class GastosManager implements GastosService{
@@ -39,7 +40,7 @@ public class GastosManager implements GastosService{
     }
 
     @Override
-    public int updateGastos(String nome, Integer tipo, Double valor, String data, Integer id) {
+    public int updateGastos(String nome, Integer tipo, String valor, String data, Integer id) {
         return repository.updateGastos(nome, tipo, valor, data, id);
     }
 

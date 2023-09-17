@@ -17,6 +17,8 @@ export class AlterarContasModalComponent implements OnInit {
   retornoConta: ContasBancarias;
   contasBancarias: any[] = [];
   contasCount = 0;
+  token: string;
+  saldo: string;
 
   tipos = [
     { id: 1, name: "Conta Poupança" },
@@ -56,13 +58,35 @@ export class AlterarContasModalComponent implements OnInit {
   }
 
   onSubmit(){
-    this.contasBancariasService.alterarConta(this.conta).subscribe(data =>{
-      this.retornoConta = data;
-      if (this.retornoConta != null){
-        alert('Alterado com sucesso');
-        location.reload();
+    var regexp = new RegExp(/[A-Z a-z]/);
+    var regexp2 = new RegExp(/^[1-9]([0-9]+)*\.\d{2}/);
+    var testAgencia = regexp.test(this.conta.agencia);
+    var testConta = regexp.test(this.conta.conta);
+    var testValor = regexp2.test(this.conta.saldo);
+    if (testAgencia == false){
+      if (testConta == false){
+        if (testValor == true){
+          this.contasBancariasService.alterarConta(this.conta).subscribe(data =>{
+          this.retornoConta = data;
+          if (this.retornoConta != null){
+            alert('Alterado com sucesso');
+            this.token = '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111';
+            this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
+            this.closePopup();
+    
+          }})
+        }
+        else{
+          alert("O campo saldo deve ser preenchido no formato 1000.00");
+        }
       }
-    })
+      else{
+        alert("O campo conta deve conter apenas números");
+      }
+    }
+    else{
+      alert("O campo agência deve conter apenas números");
+    }
   }
 
   displayStyle = "none";
@@ -80,7 +104,7 @@ export class AlterarContasModalComponent implements OnInit {
 
       const banco = Number(this.conta.banco);
       this.modelo_banco.banco_id = banco;
-
+      
       document.getElementById('banco').nodeValue = this.conta.banco;
       });
   }

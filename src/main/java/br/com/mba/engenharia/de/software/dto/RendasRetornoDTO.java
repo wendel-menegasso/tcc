@@ -4,6 +4,8 @@ import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 @Getter
 public class RendasRetornoDTO {
@@ -13,7 +15,7 @@ public class RendasRetornoDTO {
     private String nome;
     private Integer tipo;
     private Integer usuario;
-    private Double valor;
+    private String valor;
 
     public RendasRetornoDTO(Renda renda){
         this.id = renda.getId();

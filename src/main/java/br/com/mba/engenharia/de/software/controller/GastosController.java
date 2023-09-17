@@ -60,20 +60,15 @@ public class GastosController {
     }
 
     @PostMapping("/listarGasto")
-    public ResponseEntity<?> listarGasto(@RequestBody String idUsuario){
+    public ResponseEntity<?> listarGasto(@RequestBody String idUsuario) {
         gastosService.setGastosRepository(repository);
         List<Gastos> gastosList = gastosService.findAll(Integer.parseInt(idUsuario));
         List<GastosRespostaDTO> gastosRespostaDTOList = new ArrayList<>();
-        if (gastosList.size() > 0){
-            for (Gastos gasto : gastosList){
-                GastosRespostaDTO gastosRespostaDTO = gasto.parseGastosToGastosRespostaDTO();
-                gastosRespostaDTOList.add(gastosRespostaDTO);
-            }
-            return new ResponseEntity<>(gastosRespostaDTOList, HttpStatus.OK);
+        for (Gastos gasto : gastosList) {
+            GastosRespostaDTO gastosRespostaDTO = gasto.parseGastosToGastosRespostaDTO();
+            gastosRespostaDTOList.add(gastosRespostaDTO);
         }
-        else{
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
+        return ResponseEntity.ok(gastosRespostaDTOList);
     }
 
     @DeleteMapping("/deletarGasto/{id}")

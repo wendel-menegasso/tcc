@@ -1,6 +1,8 @@
 package br.com.mba.engenharia.de.software.entity.contas;
 
 import br.com.mba.engenharia.de.software.dto.ContaDTORetorno;
+import br.com.mba.engenharia.de.software.dto.GastosRespostaDTO;
+import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,6 +11,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 @Table(name = "conta")
@@ -28,7 +33,7 @@ public class Conta{
     private Integer tipo;
 
     @Column(name = "saldo", nullable = false)
-    private Double saldo;
+    private String saldo;
 
     @Column(name = "agencia", length = 12, nullable = false)
     private String agencia;
@@ -43,7 +48,7 @@ public class Conta{
         this.id = id;
     }
 
-    public Conta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer usuario){
+    public Conta(Integer banco, Integer tipo, String saldo, String agencia, String conta, Integer usuario){
         this.banco = banco;
         this.tipo = tipo;
         this.saldo = saldo;
@@ -52,7 +57,7 @@ public class Conta{
         this.usuario = usuario;
     }
 
-    public Conta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer usuario, Integer id){
+    public Conta(Integer banco, Integer tipo, String saldo, String agencia, String conta, Integer usuario, Integer id){
         this.banco = banco;
         this.tipo = tipo;
         this.saldo = saldo;

@@ -4,6 +4,7 @@ import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class RendasManager implements RendasService{
@@ -46,7 +47,7 @@ public class RendasManager implements RendasService{
     }
 
     @Override
-    public Integer updateRendas(String nome, Integer tipo, Double valor, String data, Integer id, Integer usuario) {
+    public Integer updateRendas(String nome, Integer tipo, String valor, String data, Integer id, Integer usuario) {
         return this.repository.updateRendas(nome, tipo, valor, data, id, usuario);
     }
 }

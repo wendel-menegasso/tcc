@@ -4,13 +4,15 @@ import br.com.mba.engenharia.de.software.entity.contas.Conta;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Getter
 @NoArgsConstructor
 public class ContaDTORetorno {
     private Integer id;
     private Integer banco;
     private Integer tipo;
-    private Double saldo;
+    private String saldo;
     private String agencia;
     private String conta;
     private Integer usuario;

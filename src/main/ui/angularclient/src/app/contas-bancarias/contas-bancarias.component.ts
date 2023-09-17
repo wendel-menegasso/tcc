@@ -29,6 +29,8 @@ export class ContasBancariasComponent implements OnInit {
 	pag : Number = 1 ;
 	pageSize = 4;
 	contador : Number = 4;
+	token: string;
+	saldo: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -99,7 +101,7 @@ export class ContasBancariasComponent implements OnInit {
 			  
               account.id = this.contasBancarias[i].id;
               account.agencia = this.contasBancarias[i].agencia;
-              account.saldo = this.contasBancarias[i].saldo;
+			  account.saldo = this.contasBancarias[i].saldo;
               account.conta = this.contasBancarias[i].conta;
               account.usuario = this.contasBancarias[i].usuario;
               accounts[i] = account;
@@ -117,7 +119,10 @@ export class ContasBancariasComponent implements OnInit {
 		this.contasBancariasService.delete(id).subscribe(data => {
 			this.contas = data;
 			if (this.contas != null){
-				location.reload();
+				alert('Excluido com sucesso!');
+				this.token = '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111';
+				this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
+
 			}
 			else{
 				alert("Não foi possível excluir");

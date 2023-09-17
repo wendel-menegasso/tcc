@@ -4,6 +4,8 @@ import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Getter
 public class RendasAlterarDTO {
@@ -14,9 +16,9 @@ public class RendasAlterarDTO {
     private Integer tipo;
     private Integer usuario;
     private Integer origem;
-    private Double valor;
+    private String valor;
 
     public Renda parseRendasDTOToRenda(){
-        return new Renda(nome, valor, data, tipo, usuario, id);
+        return new Renda(nome, this.valor, data, tipo, usuario, id);
     }
 }

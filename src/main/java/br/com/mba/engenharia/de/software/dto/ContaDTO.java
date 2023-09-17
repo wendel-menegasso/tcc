@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 @Getter
 @NoArgsConstructor
@@ -15,17 +14,17 @@ public class ContaDTO {
     @NotNull
     private Integer tipo;
     @NotNull
-    private Double saldo;
+    private String saldo;
     @NotNull
     private String agencia;
     @NotNull
-    @Pattern(regexp = "[0-9-]")
     private String conta;
     @NotNull
     private Integer usuario;
 
     public Conta parseContaDTOToConta(){
-        return new Conta(this.banco, this.tipo, this.saldo, this.agencia, this.conta, this.usuario);
+        String conta = this.conta.replaceAll("-", "");
+        String agencia = this.agencia.replaceAll("-", "");
+        return new Conta(this.banco, this.tipo, this.saldo, agencia, conta, this.usuario);
     }
-
 }

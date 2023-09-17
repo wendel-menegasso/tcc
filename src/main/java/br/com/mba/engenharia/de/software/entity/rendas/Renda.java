@@ -8,6 +8,9 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Entity
 @Table(name = "rendas")
 @Getter
@@ -21,7 +24,7 @@ public class Renda {
     private String nome;
 
     @Column(name = "valor")
-    private Double valor;
+    private String valor;
 
     @Column(name = "data")
     private String data;
@@ -32,7 +35,7 @@ public class Renda {
     @Column(name = "usuario")
     private Integer usuario;
 
-    public Renda(String nome, Double valor, String data, Integer tipo, Integer usuario){
+    public Renda(String nome, String valor, String data, Integer tipo, Integer usuario){
         this.nome = nome;
         this.valor = valor;
         this.data = data;
@@ -40,7 +43,7 @@ public class Renda {
         this.usuario = usuario;
     }
 
-    public Renda(String nome, Double valor, String data, Integer tipo, Integer id, Integer usuario){
+    public Renda(String nome, String valor, String data, Integer tipo, Integer id, Integer usuario){
         this.nome = nome;
         this.valor = valor;
         this.data = data;

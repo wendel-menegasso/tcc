@@ -29,6 +29,8 @@ export class RendasComponent implements OnInit {
   pag : Number = 1 ;
   pageSize = 4;
   contador : Number = 4;
+  token: string;
+    valorRenda: string;
 
   constructor(    
     private route: ActivatedRoute,
@@ -99,7 +101,10 @@ export class RendasComponent implements OnInit {
     this.rendasService.delete(id).subscribe(data => {
         this.rendas = data;
         if (this.rendas != null){
-            location.reload();
+            alert("Excluido com sucesso");
+            this.token = '2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
+            this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
+
         }
         else{
             alert("Não foi possível excluir");

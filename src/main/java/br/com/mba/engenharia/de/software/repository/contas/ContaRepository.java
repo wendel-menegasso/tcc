@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @org.springframework.stereotype.Repository
@@ -13,7 +14,7 @@ public interface ContaRepository extends Repository<Conta, Long> {
     @Transactional
     @Modifying
     @Query("update Conta c set c.banco = ?1, c.tipo = ?2, c.saldo = ?3, c.agencia = ?4, c.conta = ?5 where c.id = ?6 and c.usuario = ?7")
-    Integer updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id, Integer usuario);
+    Integer updateConta(Integer banco, Integer tipo, String saldo, String agencia, String conta, Integer id, Integer usuario);
     @Transactional
     @Modifying
     @Query("delete from Conta c where c.id = ?1")

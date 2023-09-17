@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -87,7 +88,7 @@ public class ContaManager implements ContaService{
     }
 
     @Override
-    public Integer updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id, Integer usuario) {
+    public Integer updateConta(Integer banco, Integer tipo, String saldo, String agencia, String conta, Integer id, Integer usuario) {
         return contasRepository.updateConta(banco, tipo, saldo, agencia, conta, id, usuario);
     }
 }

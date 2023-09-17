@@ -64,7 +64,6 @@ public class ContaController{
         if (contaList.size() > 0){
             for (Conta conta : contaList){
                 contaDTORetornoList.add(conta.parseContaToContaDTORetorno());
-                logger.info(String.format("---"+conta.getConta()));
             }
             return ResponseEntity.ok(contaDTORetornoList);
         }

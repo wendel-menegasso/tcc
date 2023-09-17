@@ -16,14 +16,14 @@
                  class="form-control"
                  id="agencia"
                  name="agencia"
-                 placeholder="Agencia"
+                 placeholder="0000000"
                  required #name="ngModel">
           <label for="conta">Conta</label>
           <input type="text" [(ngModel)]="contas.conta"
                  class="form-control"
                  id="conta"
                  name="conta"
-                 placeholder="Contas"
+                 placeholder="0000000"
                  required #email="ngModel">
           <label for="tipo">Tipo</label>
           <select class="form-control" id="tipo" name="tipo" [(ngModel)]="contas.tipo">
@@ -62,7 +62,7 @@
                class="form-control"
                id="saldo"
                name="saldo"
-               placeholder="R$"
+               placeholder="R$1.000,00"
                required #name="ngModel">
         <button type="submit" (click)="onSubmit()"
                 class="btn btn-info">Salvar

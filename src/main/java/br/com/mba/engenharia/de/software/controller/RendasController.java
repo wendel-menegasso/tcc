@@ -8,21 +8,14 @@ import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
 import br.com.mba.engenharia.de.software.service.rendas.RendasManager;
 import br.com.mba.engenharia.de.software.service.rendas.RendasService;
-import net.bytebuddy.build.HashCodeAndEqualsPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController

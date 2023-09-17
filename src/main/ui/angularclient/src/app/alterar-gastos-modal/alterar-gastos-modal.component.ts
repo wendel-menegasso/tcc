@@ -19,6 +19,7 @@ export class AlterarGastosModalComponent implements OnInit {
   retornoGasto: Gastos;
   gastos: any[] = [];
   gastosCount = 0;
+  token: string;
 
   tipos = [
     { id: 1, name: "Mercado" },
@@ -43,6 +44,7 @@ export class AlterarGastosModalComponent implements OnInit {
   modelo_tipo = {
     tipo_id: 3
   };
+  valor: string;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -56,14 +58,23 @@ export class AlterarGastosModalComponent implements OnInit {
   }
 
   onSubmit(){
-    this.gastosService.alterarRendas(this.gasto).subscribe(data =>{
-      this.retornoGasto = data;
-      if (this.retornoGasto != null){
-        this.closePopup();
-        alert('Alterado com sucesso!');
-        location.reload();
-      }
-    })
+    this.gasto.usuario = this.idUsuario;
+    var regexp = new RegExp(/^[1-9]([0-9]+)*\.\d{2}/);
+    var gasto = regexp.test(this.gasto.valor);
+    if (gasto == true){
+      this.gastosService.alterarRendas(this.gasto).subscribe(data =>{
+        this.retornoGasto = data;
+        if (this.retornoGasto != null){
+          this.closePopup();
+          alert('Alterado com sucesso!');
+          this.token = '3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333';
+          this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
+        }
+      })
+    }
+    else{
+      alert("O campo valor deve ser preenchido no formato 1000.00");
+    }
   }
 
   displayStyle = "none";

@@ -18,6 +18,7 @@ export class AlterarRendasModalComponent implements OnInit {
   retornoRenda: Rendas;
   rendas: any[] = [];
   rendasCount = 0;
+  token: string;
 
   tipos = [
     { id: 1, name: "Salario" },
@@ -32,6 +33,7 @@ export class AlterarRendasModalComponent implements OnInit {
   modelo_tipo = {
     tipo_id: 3
   };
+  valor: string;
 
   constructor(private route: ActivatedRoute,
           private router: Router,
@@ -46,14 +48,23 @@ export class AlterarRendasModalComponent implements OnInit {
 
   onSubmit(){
     this.renda.usuario = this.idUsuario;
-    this.rendasService.alterarRendas(this.renda).subscribe(data =>{
-      this.retornoRenda = data;
-      if (this.retornoRenda != null){
-        this.closePopup();
-        alert('Alterado com sucesso!');
-        location.reload();
-      }
-    })
+    var regexp = new RegExp(/^[1-9]([0-9]+)*\.\d{2}/);
+    var gasto = regexp.test(this.renda.valor);
+    if (gasto == true){
+      this.rendasService.alterarRendas(this.renda).subscribe(data =>{
+        this.retornoRenda = data;
+        if (this.retornoRenda != null){
+          this.closePopup();
+          alert('Alterado com sucesso!');
+          this.token = '2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
+          this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
+  
+        }
+      })
+    }
+    else{
+      alert("O campo valor deve ser preenchido no formato 1000.00");     
+    }
   }
 
   displayStyle = "none";

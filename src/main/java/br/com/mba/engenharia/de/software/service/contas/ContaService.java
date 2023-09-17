@@ -4,6 +4,7 @@ import br.com.mba.engenharia.de.software.entity.contas.Conta;
 import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -21,5 +22,5 @@ public interface ContaService {
     int count();
     List<Conta> findAll(Integer usuario);
     Conta findById(Integer id);
-    Integer updateConta(Integer banco, Integer tipo, Double saldo, String agencia, String conta, Integer id, Integer usuario);
+    Integer updateConta(Integer banco, Integer tipo, String saldo, String agencia, String conta, Integer id, Integer usuario);
 }
