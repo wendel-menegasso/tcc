@@ -5,4 +5,5 @@ export class Gastos {
     valor: string;
     data: string;
     usuario: string;
+    origem: string;
 }

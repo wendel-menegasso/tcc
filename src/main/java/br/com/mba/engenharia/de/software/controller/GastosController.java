@@ -1,10 +1,9 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.dto.GastosDTO;
-import br.com.mba.engenharia.de.software.dto.GastosDTOFull;
-import br.com.mba.engenharia.de.software.dto.GastosRespostaDTO;
+import br.com.mba.engenharia.de.software.dto.*;
 import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
+import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.repository.gastos.GastosRepository;
 import br.com.mba.engenharia.de.software.service.gastos.GastosManager;
 import br.com.mba.engenharia.de.software.service.gastos.GastosService;
@@ -28,6 +27,9 @@ public class GastosController {
     @Autowired
     GastosRepository repository;
 
+    @Autowired
+    ContaRepository contaRepository;
+
     GastosService gastosService;
 
     @Bean
@@ -50,13 +52,30 @@ public class GastosController {
         GastosRespostaDTO gastosRespostaDTO = new GastosRespostaDTO(gastosRetorno);
 
         if (gastosRespostaDTO != null){
-            logger.info(String.format("Despesa cadastrada corretamente"));
-            return new ResponseEntity<>(gastosRetorno, HttpStatus.CREATED);
+            ContaController controller = new ContaController(contaRepository);
+            ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(gastosRetorno.getOrigem()), gastosRetorno.getUsuario());
+            ContaDTORetorno contaSelecionada = controller.pegaConta(contaDTOAlterar);
+
+            Double valorRenda = Double.parseDouble(gastosRetorno.getValor());
+            Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
+
+            Double valorAtualizado = valorConta - valorRenda;
+
+            contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
+
+            ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
+            ContaDTORetorno contaAlterada = controller.atualizaConta(contaDTOAlterarFull);
+
+            if (contaAlterada != null) {
+                logger.info(String.format("Despesa cadastrada corretamente"));
+                return ResponseEntity.ok(gastosRespostaDTO);
+            } else {
+                logger.info(String.format("Despesa cadastrada incorretamente"));
+                return ResponseEntity.ok(null);
+            }
         }
-        else{
-            logger.info(String.format("Despesa cadastrada incorretamente"));
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
+        logger.info(String.format("Despesa cadastrada incorretamente"));
+        return ResponseEntity.ok(null);
     }
 
     @PostMapping("/listarGasto")
@@ -76,14 +95,33 @@ public class GastosController {
         gastosService.setGastosRepository(repository);
         Renda renda = new Renda();
         renda.setId(Integer.parseInt(id));
+        Gastos gastoRetorno = gastosService.findById(renda.getId());
+        GastosRespostaDTO gastosRespostaDTO = gastoRetorno.parseGastosToGastosRespostaDTO();
         if (repository.delete(renda.getId()) > 0){
-            logger.info(String.format("Despesa deletada com sucesso"));
-            return new ResponseEntity<>(1, HttpStatus.OK);
+            ContaController controller = new ContaController(contaRepository);
+            ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(gastoRetorno.getOrigem()), gastoRetorno.getUsuario());
+            ContaDTORetorno contaSelecionada = controller.pegaConta(contaDTOAlterar);
+
+            Double valorGasto = Double.parseDouble(gastoRetorno.getValor());
+            Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
+
+            Double valorAtualizado = valorConta + valorGasto;
+
+            contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
+
+            ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
+            ContaDTORetorno contaAlterada = controller.atualizaConta(contaDTOAlterarFull);
+
+            if (contaAlterada != null) {
+                logger.info(String.format("Despesa deletada com sucesso"));
+                return ResponseEntity.ok(gastosRespostaDTO);
+            } else {
+                logger.info(String.format("Falha na exclusão"));
+                return ResponseEntity.ok(null);
+            }
         }
-        else{
-            logger.info(String.format("Falha na exclusão"));
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
+        logger.info(String.format("Falha na exclusão"));
+        return ResponseEntity.ok(null);
     }
 
     @PostMapping("/recebeDadosAlterarGasto")
@@ -95,11 +133,30 @@ public class GastosController {
     @PutMapping("alterarGasto")
     public ResponseEntity<?> alterarGasto(@RequestBody GastosDTOFull gastosDTOFull){
         gastosService.setGastosRepository(repository);
-        Gastos gastos = gastosDTOFull.parseGastosToDTOFullToGastos();
-        int retorno = gastosService.updateGastos(gastos.getNome(), gastos.getTipo(), gastos.getValor(),
-                gastos.getData(), gastos.getId());
+        Gastos gastoAlterado = gastosDTOFull.parseGastosToDTOFullToGastos();
+        Gastos gastoSemAlteracao = gastosService.findById(gastoAlterado.getId());
+
+
+        Double gastoAtualizado = Double.parseDouble(gastoAlterado.getValor()) - Double.parseDouble(gastoSemAlteracao.getValor());
+
+        int retorno = gastosService.updateGastos(gastoAlterado.getNome(), gastoAlterado.getTipo(), gastoAlterado.getValor(),
+                gastoAlterado.getData(), gastoAlterado.getId());
+        GastosRespostaDTO gastosRespostaDTO = new GastosRespostaDTO(gastoAlterado);
         if (retorno == 1){
-            GastosRespostaDTO gastosRespostaDTO = new GastosRespostaDTO(gastos);
+
+            ContaController controller = new ContaController(contaRepository);
+            ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(gastoSemAlteracao.getOrigem()), gastoSemAlteracao.getUsuario());
+            ContaDTORetorno contaSelecionada = controller.pegaConta(contaDTOAlterar);
+
+            Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
+
+            Double valorAtualizado = valorConta - gastoAtualizado;
+
+            contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
+
+            ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
+            ContaDTORetorno contaAlterada = controller.atualizaConta(contaDTOAlterarFull);
+
             logger.info(String.format("Gasto alterado com sucesso"));
             return new ResponseEntity<>(gastosRespostaDTO, HttpStatus.OK);
         }

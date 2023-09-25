@@ -32,7 +32,8 @@ public class ContaController{
         return contaManager;
     }
 
-    public ContaController() {
+    public ContaController(ContaRepository contaRepository) {
+        this.contaRepository = contaRepository;
         this.contaService = contaService();
     }
 
@@ -77,14 +78,20 @@ public class ContaController{
         contaService.setContaRepository(contaRepository);
         Conta contaRetorno = contaService.findById(Integer.parseInt(id));
         ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
-        Integer retorno = contaService.delete(Integer.parseInt(id));
-        if (retorno > 0){
-            logger.info(String.format("Usuário deletado com sucesso"));
-            return new ResponseEntity<>(contaDTORetorno, HttpStatus.OK);
+        try{
+            Integer retorno = contaService.delete(Integer.parseInt(id));
+            if (retorno > 0){
+                logger.info(String.format("Usuário deletado com sucesso"));
+                return new ResponseEntity<>(contaDTORetorno, HttpStatus.OK);
+            }
+            else{
+                logger.info(String.format("Falha na exclusão"));
+                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            }
         }
-        else{
-            logger.info(String.format("Falha na exclusão"));
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        catch (RuntimeException exception){
+            logger.info(exception.getMessage());
+            return ResponseEntity.ok(null);
         }
     }
     @PostMapping("/recebeDadosAlterarConta")
@@ -93,7 +100,7 @@ public class ContaController{
         Conta conta = contaDTOAlterar.parseContaDTOAlterarToConta();
         Conta contaRetorno = contaService.findById(conta.getId());
         ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
-        return new ResponseEntity<>(contaDTORetorno, HttpStatus.OK);
+        return ResponseEntity.ok(contaDTORetorno);
     }
 
     @PutMapping("alterarConta")
@@ -104,10 +111,32 @@ public class ContaController{
         ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
         Integer numeroDeRegistrosAlterados = contaRepository.updateConta(conta.getBanco(), conta.getTipo(), conta.getSaldo(), conta.getAgencia(), conta.getConta(), conta.getId(), conta.getUsuario());
         if (numeroDeRegistrosAlterados > 0){
-            return new ResponseEntity<>(contaDTORetorno, HttpStatus.OK);
+            return ResponseEntity.ok(contaDTORetorno);
         }
         else{
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            return ResponseEntity.ok(null);
+        }
+    }
+
+    public ContaDTORetorno pegaConta(ContaDTOAlterar contaDTOAlterar){
+        contaService.setContaRepository(contaRepository);
+        Conta conta = contaDTOAlterar.parseContaDTOAlterarToConta();
+        Conta contaRetorno = contaService.findById(conta.getId());
+        ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
+        return contaDTORetorno;
+    }
+
+    public ContaDTORetorno atualizaConta(ContaDTOAlterarFull contaDTOAlterarFull){
+        contaService.setContaRepository(contaRepository);
+        Conta conta = contaDTOAlterarFull.parseContaDTOToConta();
+        Conta contaRetorno = contaService.findById(conta.getId());
+        ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
+        Integer numeroDeRegistrosAlterados = contaRepository.updateConta(conta.getBanco(), conta.getTipo(), conta.getSaldo(), conta.getAgencia(), conta.getConta(), conta.getId(), conta.getUsuario());
+        if (numeroDeRegistrosAlterados > 0){
+            return contaDTORetorno;
+        }
+        else{
+            return null;
         }
     }
 

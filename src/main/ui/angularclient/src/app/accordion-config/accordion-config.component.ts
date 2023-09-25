@@ -59,10 +59,11 @@ export class NgbdAccordionConfig {
 			  }
 	  }
 
-	  Home() {
+	Home() {
+		this.getURL();
 		this.token = '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';
-		this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.id  } });;
-}
+		this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.chaveValor[1] } });;
+	}
 
 
 	Logout() {

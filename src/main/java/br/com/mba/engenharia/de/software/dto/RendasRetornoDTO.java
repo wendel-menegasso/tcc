@@ -16,6 +16,7 @@ public class RendasRetornoDTO {
     private Integer tipo;
     private Integer usuario;
     private String valor;
+    private Integer origem;
 
     public RendasRetornoDTO(Renda renda){
         this.id = renda.getId();
@@ -24,5 +25,6 @@ public class RendasRetornoDTO {
         this.tipo = renda.getTipo();
         this.usuario = renda.getUsuario();
         this.valor = renda.getValor();
+        this.origem = renda.getOrigem();
     }
 }

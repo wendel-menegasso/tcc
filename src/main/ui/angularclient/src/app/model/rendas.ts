@@ -5,5 +5,6 @@ export class Rendas {
     data: string;
     usuario: string;
     valor: string;
+    origem: string;
 }
 

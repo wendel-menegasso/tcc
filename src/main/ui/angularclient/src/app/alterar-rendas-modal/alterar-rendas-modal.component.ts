@@ -4,6 +4,8 @@ import { RendasService } from '../service/rendas-service';
 import { Rendas } from '../model/rendas';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ContasBancariasService } from '../service/contas-bancarias.service';
+import { ContasBancarias } from '../model/contas-bancarias';
 
 @Component({
   selector: 'app-alterar-rendas-modal',
@@ -19,6 +21,11 @@ export class AlterarRendasModalComponent implements OnInit {
   rendas: any[] = [];
   rendasCount = 0;
   token: string;
+  valorAtual: number;
+  valorAlterado: number;
+  diferencaDeValores: number;
+  contas: ContasBancarias;
+  contaRetorno: ContasBancarias;
 
   tipos = [
     { id: 1, name: "Salario" },
@@ -37,8 +44,9 @@ export class AlterarRendasModalComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
           private router: Router,
-            private rendasService: RendasService,
-            private location: Location) {
+          private rendasService: RendasService,
+          private contasService: ContasBancariasService,
+          private location: Location) {
           this.renda = new Rendas();
           this.rendasArg = new Rendas();
   }
@@ -54,17 +62,20 @@ export class AlterarRendasModalComponent implements OnInit {
       this.rendasService.alterarRendas(this.renda).subscribe(data =>{
         this.retornoRenda = data;
         if (this.retornoRenda != null){
-          this.closePopup();
-          alert('Alterado com sucesso!');
-          this.token = '2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
-          this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
-  
+              this.alterar();
         }
-      })
+    });
     }
     else{
       alert("O campo valor deve ser preenchido no formato 1000.00");     
     }
+  }
+
+  alterar(){
+    this.closePopup();
+    alert('Alterado com sucesso!');
+    this.token = '2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
+    this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
   }
 
   displayStyle = "none";
@@ -79,7 +90,7 @@ export class AlterarRendasModalComponent implements OnInit {
       
       const tipo = Number(this.renda.tipo);
       this.modelo_tipo.tipo_id = tipo;
-
+      this.valorAtual = Number(this.renda.valor);
       document.getElementById('tipo').nodeValue = this.renda.tipo;
       });
   }

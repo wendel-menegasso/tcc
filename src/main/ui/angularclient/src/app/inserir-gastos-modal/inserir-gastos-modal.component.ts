@@ -4,6 +4,8 @@ import { NgbModalConfig, NgbModal, NgbCalendar, NgbDate, NgbDateStruct, NgbInput
 import { Gastos } from '../model/gastos';
 import { GastosService } from '../service/gastos.service';
 import { Location } from '@angular/common';
+import { OrigensService } from '../service/origens.service';
+import { Origem } from '../model/origem';
 
 @Component({
   selector: 'app-inserir-gastos-modal',
@@ -19,10 +21,12 @@ export class InserirGastosModalComponent implements OnInit {
   gastosArray: any[] = [];
   gastosCount = 0;
   token: string;
+  origens: Origem[];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
       private gastosService: GastosService,
+      private origensService: OrigensService,
       private location: Location,
       config: NgbInputDatepickerConfig, 
       calendar: NgbCalendar) {
@@ -121,6 +125,13 @@ gotoGastosList() {
   this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
 
 }
+
+carregaOrigem(){
+  this.origensService.findAll(this.idUsuario).subscribe(data => {
+    this.origens = data;
+    });
+}
+
   displayStyle = "none";
 
 openPopup() {
@@ -131,6 +142,7 @@ closePopup() {
 }
 
 ngOnInit(): void {
+  this.carregaOrigem();
 }
 @Input() idUsuario : string;
 }

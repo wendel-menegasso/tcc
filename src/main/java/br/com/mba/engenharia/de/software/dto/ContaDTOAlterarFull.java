@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @Getter
 @NoArgsConstructor
@@ -30,6 +27,28 @@ public class ContaDTOAlterarFull {
     public Conta parseContaDTOToConta(){
         String conta = this.conta.replaceAll("-", "");
         String agencia = this.agencia.replaceAll("-", "");
-        return new Conta(this.banco, this.tipo, this.saldo, agencia, conta, this.usuario, this.id);
+        String saldoAtual = parseSaldoToCurrencyValue(this.saldo);
+        return new Conta(this.banco, this.tipo, saldoAtual, agencia, conta, this.usuario, this.id);
     }
+
+    public String parseSaldoToCurrencyValue(String saldoAntigo){
+        if (saldoAntigo.indexOf(".") == saldoAntigo.length() -3) {
+            return saldoAntigo;
+        }
+        if (saldoAntigo.indexOf(".") == saldoAntigo.length() -2){
+            return saldoAntigo + "0";
+        }
+        return saldoAntigo + ".00";
+    }
+
+    public ContaDTOAlterarFull(ContaDTORetorno contaDTORetorno){
+        this.agencia = contaDTORetorno.getAgencia();
+        this.conta = contaDTORetorno.getConta();
+        this.banco = contaDTORetorno.getBanco();
+        this.id = contaDTORetorno.getId();
+        this.tipo = contaDTORetorno.getTipo();
+        this.saldo = contaDTORetorno.getSaldo();
+        this.usuario = contaDTORetorno.getUsuario();
+    }
+
 }

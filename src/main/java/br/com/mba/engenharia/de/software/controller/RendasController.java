@@ -1,10 +1,8 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.dto.RendasAlterarDTO;
-import br.com.mba.engenharia.de.software.dto.RendasDTO;
-import br.com.mba.engenharia.de.software.dto.RendasDTOFull;
-import br.com.mba.engenharia.de.software.dto.RendasRetornoDTO;
+import br.com.mba.engenharia.de.software.dto.*;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
+import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
 import br.com.mba.engenharia.de.software.service.rendas.RendasManager;
 import br.com.mba.engenharia.de.software.service.rendas.RendasService;
@@ -26,6 +24,9 @@ public class RendasController{
     @Autowired
     RendasRepository repository;
 
+    @Autowired
+    ContaRepository contaRepository;
+
     RendasService rendasService;
 
     @Bean
@@ -40,47 +41,83 @@ public class RendasController{
 
     @PostMapping("/criarRenda")
     public ResponseEntity<?> salvar(@RequestBody RendasDTO rendasDTO){
-        Renda renda = rendasDTO.parseRendasDTOToRenda();
         rendasService.setRendasRepository(repository);
-        renda.setId(rendasService.count());
-        Renda rendaRetorno = rendasService.save(renda);
-        RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
+        Renda rendas = rendasDTO.parseRendasDTOToRenda();
 
-        if (rendasRetornoDTO != null){
-            logger.info(String.format("Renda cadastrada corretamente"));
-            return new ResponseEntity<>(rendasRetornoDTO, HttpStatus.CREATED);
+        rendas.setId(rendasService.count());
+        Renda rendasRetorno = rendasService.save(rendas);
+        RendasRetornoDTO rendasRespostaDTO = new RendasRetornoDTO(rendasRetorno);
+
+        if (rendasRespostaDTO != null){
+            ContaController controller = new ContaController(contaRepository);
+            ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(rendasRetorno.getOrigem()), rendasRetorno.getUsuario());
+            ContaDTORetorno contaSelecionada = controller.pegaConta(contaDTOAlterar);
+
+            Double valorRenda = Double.parseDouble(rendasRetorno.getValor());
+            Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
+
+            Double valorAtualizado = valorConta + valorRenda;
+
+            contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
+
+            ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
+            ContaDTORetorno contaAlterada = controller.atualizaConta(contaDTOAlterarFull);
+
+            if (contaAlterada != null) {
+                logger.info(String.format("Despesa cadastrada corretamente"));
+                return ResponseEntity.ok(rendasRespostaDTO);
+            } else {
+                logger.info(String.format("Despesa cadastrada incorretamente"));
+                return ResponseEntity.ok(null);
+            }
         }
-        else{
-            logger.info(String.format("Renda não cadastrada"));
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
+        logger.info(String.format("Despesa cadastrada incorretamente"));
+        return ResponseEntity.ok(null);
+
     }
 
     @PostMapping("/listarRenda")
-    public ResponseEntity<?> listarConta(@RequestBody String req){
+    public ResponseEntity<?> listarRenda(@RequestBody String req){
         rendasService.setRendasRepository(repository);
         List<Renda> rendaList = rendasService.findAll(Integer.parseInt(req));
         return ResponseEntity.ok(rendaList);
     }
 
     @DeleteMapping("/deletarRenda/{id}")
-    public ResponseEntity<?> deletarConta(@PathVariable("id") String id){
+    public ResponseEntity<?> deletarRenda(@PathVariable("id") String id){
         rendasService.setRendasRepository(repository);
         Renda renda = new Renda();
         renda.setId(Integer.parseInt(id));
         Renda rendaRetorno = rendasService.findById(renda.getId());
         RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
-        if (rendasService.delete(renda.getId()) > 0){
-            logger.info(String.format("Renda deletada com sucesso"));
-            return new ResponseEntity<>(rendasRetornoDTO, HttpStatus.OK);
+        if (rendasService.delete(renda.getId()) > 0) {
+            ContaController controller = new ContaController(contaRepository);
+            ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(rendaRetorno.getOrigem()), rendaRetorno.getUsuario());
+            ContaDTORetorno contaSelecionada = controller.pegaConta(contaDTOAlterar);
+
+            Double valorRenda = Double.parseDouble(rendaRetorno.getValor());
+            Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
+
+            Double valorAtualizado = valorConta - valorRenda;
+
+            contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
+
+            ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
+            ContaDTORetorno contaAlterada = controller.atualizaConta(contaDTOAlterarFull);
+
+            if (contaAlterada != null) {
+                logger.info(String.format("Renda deletada com sucesso"));
+                return ResponseEntity.ok(rendasRetornoDTO);
+            } else {
+                logger.info(String.format("Falha na exclusão"));
+                return ResponseEntity.ok(null);
+            }
         }
-        else{
-            logger.info(String.format("Falha na exclusão"));
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
+        logger.info(String.format("Falha na exclusão"));
+        return ResponseEntity.ok(null);
     }
     @PostMapping("/recebeDadosAlterarRenda")
-    public ResponseEntity<?> recebeDadosAlterarConta(@RequestBody RendasDTOFull rendasDTOFull){
+    public ResponseEntity<?> recebeDadosAlterarRenda(@RequestBody RendasDTOFull rendasDTOFull){
         Renda renda = rendasDTOFull.parseRendasDTOToRenda();
         rendasService.setRendasRepository(repository);
         Renda rendaRetorno  = rendasService.findById(renda.getId());
@@ -94,18 +131,35 @@ public class RendasController{
     }
 
     @PutMapping("alterarRenda")
-    public ResponseEntity<?> alterarConta(@RequestBody RendasAlterarDTO rendasAlterarDTO){
+    public ResponseEntity<?> alterarRenda(@RequestBody RendasAlterarDTO rendasAlterarDTO){
         Renda renda = rendasAlterarDTO.parseRendasDTOToRenda();
         rendasService.setRendasRepository(repository);
         Renda rendaRetorno = rendasService.findById(renda.getId());
+
+        Double rendaAtualizada = Double.parseDouble(rendaRetorno.getValor()) - Double.parseDouble(renda.getValor());
+
         RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
         Integer retorno = repository.updateRendas(renda.getNome(), renda.getTipo(), renda.getValor(),
                 renda.getData(), renda.getId(), renda.getUsuario());
         if (retorno > 0){
-            return new ResponseEntity<>(rendasRetornoDTO, HttpStatus.OK);
+            ContaController controller = new ContaController(contaRepository);
+            ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(rendaRetorno.getOrigem()), rendaRetorno.getUsuario());
+            ContaDTORetorno contaSelecionada = controller.pegaConta(contaDTOAlterar);
+
+            Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
+
+            Double valorAtualizado = valorConta - rendaAtualizada;
+
+            contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
+
+            ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
+            ContaDTORetorno contaAlterada = controller.atualizaConta(contaDTOAlterarFull);
+            logger.info(String.format("Renda alterada com sucesso!"));
+            return ResponseEntity.ok(rendasRetornoDTO);
         }
         else{
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            logger.info(String.format("Não foi possivel alterar a renda"));
+            return ResponseEntity.ok(null);
         }
     }
 

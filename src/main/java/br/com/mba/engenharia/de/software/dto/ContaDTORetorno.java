@@ -27,4 +27,8 @@ public class ContaDTORetorno {
         this.usuario = conta.getUsuario();
     }
 
+    public void setSaldo(String saldo){
+        this.saldo = saldo;
+    }
+
 }

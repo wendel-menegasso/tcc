@@ -78,6 +78,12 @@
             <option
                     class="form-control">Outros</option>
           </select>
+          <label for="origem">Origem</label>
+          <select class="form-control" id="origem" name="origem" [(ngModel)]="gastos.origem">
+                <option class="form-control" disabled>Escolha a origem:</option>
+                <option class="form-control" *ngFor="let origem of origens" [value]="origem.id">{{ origem.origem }}</option>
+              </select>
+
                <button type="submit" (click)="onSubmit()"
                 class="btn btn-info">Salvar
         </button>

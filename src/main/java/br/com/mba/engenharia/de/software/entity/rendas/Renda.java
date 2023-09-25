@@ -35,21 +35,26 @@ public class Renda {
     @Column(name = "usuario")
     private Integer usuario;
 
-    public Renda(String nome, String valor, String data, Integer tipo, Integer usuario){
+    @Column(name = "origem", nullable = false)
+    private Integer origem;
+
+    public Renda(String nome, String valor, String data, Integer tipo, Integer usuario, Integer origem){
         this.nome = nome;
         this.valor = valor;
         this.data = data;
         this.tipo = tipo;
         this.usuario = usuario;
+        this.origem = origem;
     }
 
-    public Renda(String nome, String valor, String data, Integer tipo, Integer id, Integer usuario){
+    public Renda(String nome, String valor, String data, Integer tipo, Integer id, Integer usuario, Integer origem){
         this.nome = nome;
         this.valor = valor;
         this.data = data;
         this.tipo = tipo;
         this.id = id;
         this.usuario = usuario;
+        this.origem = origem;
     }
 
     public Renda(Integer id, Integer usuario){

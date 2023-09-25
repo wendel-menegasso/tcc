@@ -4,6 +4,10 @@ import { NgbModalConfig, NgbModal, NgbCalendar, NgbDate, NgbDateStruct, NgbInput
 import { Rendas } from '../model/rendas';
 import { RendasService } from '../service/rendas-service';
 import { Location } from '@angular/common';
+import { Origem } from '../model/origem';
+import { OrigensService } from '../service/origens.service';
+import { ContasBancariasService } from '../service/contas-bancarias.service';
+import { ContasBancarias } from '../model/contas-bancarias';
 
 @Component({
   selector: 'app-inserir-rendas-modal',
@@ -19,12 +23,18 @@ export class InserirRendasModalComponent implements OnInit {
   rendasArray: any[] = [];
   rendasasCount = 0;
   token: string;
+  origens: Origem[];
+  contas: ContasBancarias;
+  conta: ContasBancarias;
+  contaRetorno: ContasBancarias;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
       private rendasService: RendasService,
+      private contasService: ContasBancariasService,
       private location: Location,
       config: NgbInputDatepickerConfig, 
+      private origensService: OrigensService,
       calendar: NgbCalendar) {
     this.rendas = new Rendas();
 
@@ -75,10 +85,11 @@ onSubmit() {
     this.rendasService.save(this.rendas).subscribe(data => {
       this.rendas = data;
       if (this.rendas != null){
-          this.gotoRendasList();
-      }
-      });
-  }
+
+                      this.gotoRendasList();
+                    }
+                });
+              }
   else{
     alert("O campo valor deve ser preenchido no formato 1000.00");   
   }
@@ -91,6 +102,15 @@ onSubmit() {
     this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
 
   }
+
+  carregaOrigem(){
+    this.origensService.findAll(this.idUsuario).subscribe(data => {
+      this.origens = data;
+      });
+  }
+
+
+
     displayStyle = "none";
 
   openPopup() {
@@ -101,8 +121,8 @@ onSubmit() {
   }
 
   ngOnInit(): void {
+    this.carregaOrigem();
   }
-
   @Input() idUsuario : string;
 
 }

@@ -15,11 +15,16 @@ export class GastosService {
   private alterarUrl: string;
 
   constructor(private http: HttpClient) {
-    this.findUrl = 'http://localhost:9090/listarGasto';
-    this.saveGastosUrl = 'http://localhost:9090/criarGasto';
-    this.deleteUrl = 'http://localhost:9090/deletarGasto/';
-    this.recebeDadosAlterarGastosUrl = 'http://localhost:9090/recebeDadosAlterarGasto';
-    this.alterarUrl = 'http://localhost:9090/alterarGasto';
+    //this.findUrl = 'http://localhost:9090/listarGasto';
+    //this.saveGastosUrl = 'http://localhost:9090/criarGasto';
+    //this.deleteUrl = 'http://localhost:9090/deletarGasto/';
+    //this.recebeDadosAlterarGastosUrl = 'http://localhost:9090/recebeDadosAlterarGasto';
+    //this.alterarUrl = 'http://localhost:9090/alterarGasto';
+    this.findUrl = 'http://20.124.3.145:9090/listarGasto';
+    this.saveGastosUrl = 'http://20.124.3.145:9090/criarGasto';
+    this.deleteUrl = 'http://20.124.3.145:9090/deletarGasto/';
+    this.recebeDadosAlterarGastosUrl = 'http://20.124.3.145:9090/recebeDadosAlterarGasto';
+    this.alterarUrl = 'http://20.124.3.145:9090/alterarGasto';
   }
 
   public findAll(user: string): Observable<Gastos[]> {

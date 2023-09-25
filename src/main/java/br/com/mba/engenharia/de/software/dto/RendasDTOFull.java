@@ -13,7 +13,7 @@ public class RendasDTOFull {
     private String size;
 
     public Renda parseRendasDTOToRenda(){
-        return new Renda(Integer.parseInt(usuario), Integer.parseInt(id));
+        return new Renda(Integer.parseInt(id), Integer.parseInt(usuario));
     }
 
 }

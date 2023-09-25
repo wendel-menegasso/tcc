@@ -1,4 +1,4 @@
-<button class="btn btn-lg btn-outline-primary" (click)="openPopup()">Criar Conta</button>
+<button class="btn btn-lg btn-outline-primary" (click)="openPopup()">Criar Renda</button>
 <div
   class="modal"
   tabindex="-1"
@@ -59,6 +59,11 @@
             <option
                     class="form-control">Outros</option>
           </select>
+          <label for="origem">Origem</label>
+          <select class="form-control" id="origem" name="origem" [(ngModel)]="rendas.origem">
+                <option class="form-control" disabled>Escolha a origem:</option>
+                <option class="form-control" *ngFor="let origem of origens" [value]="origem.id">{{ origem.origem }}</option>
+              </select>
         <button type="submit" (click)="onSubmit()"
                 class="btn btn-info">Salvar
         </button>

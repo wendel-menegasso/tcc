@@ -6,6 +6,9 @@ import { Subject } from 'rxjs';
 import { Rendas } from '../model/rendas';
 import { Location } from '@angular/common';
 import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
+import { ContasBancariasService } from '../service/contas-bancarias.service';
+import { ContasBancarias } from '../model/contas-bancarias';
+
 
 @Component({
   selector: 'app-rendas',
@@ -30,12 +33,19 @@ export class RendasComponent implements OnInit {
   pageSize = 4;
   contador : Number = 4;
   token: string;
-    valorRenda: string;
+  valorRenda: string;
+  valorASerDevolvido: string;
+  conta: ContasBancarias;
+  array: string[];
+  contaAAlterar: ContasBancarias;
+  contaRetorno: ContasBancarias;
+  index: any;
 
   constructor(    
     private route: ActivatedRoute,
     private router: Router,
     private rendasService: RendasService,
+    private contasService: ContasBancariasService,
     private location: Location,
     config: NgbPaginationConfig) {
         this.rendasDelete = new Rendas();
@@ -85,6 +95,7 @@ export class RendasComponent implements OnInit {
             renda.valor = this.rendas[i].valor;
             renda.usuario = this.rendas[i].usuario;
             renda.data = this.rendas[i].data;
+            renda.origem = this.rendas[i].origem;
             rendaArray[i] = renda;
         }
 
@@ -99,17 +110,20 @@ export class RendasComponent implements OnInit {
 
   excluir(id: string){
     this.rendasService.delete(id).subscribe(data => {
-        this.rendas = data;
-        if (this.rendas != null){
-            alert("Excluido com sucesso");
-            this.token = '2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
-            this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
-
+        this.rendas[0] = data;
+        if (this.rendas[0] != null){
+            this.link();
         }
         else{
             alert("Não foi possível excluir");
         }
-        });
+      });
+}
+
+link(){
+  alert("Excluido com sucesso");
+  this.token = '2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
+  this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.idUsuario  } });
 }
 
   ngOnDestroy() {

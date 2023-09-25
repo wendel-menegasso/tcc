@@ -19,6 +19,18 @@ public class RendasAlterarDTO {
     private String valor;
 
     public Renda parseRendasDTOToRenda(){
-        return new Renda(nome, this.valor, data, tipo, usuario, id);
+        String valorAtualizado = parseSaldoToCurrencyValue(this.valor);
+        return new Renda(nome, valorAtualizado, data, tipo,id, usuario, origem);
     }
+
+    public String parseSaldoToCurrencyValue(String saldoAntigo){
+        if (saldoAntigo.indexOf(".") == saldoAntigo.length() -3) {
+            return saldoAntigo;
+        }
+        if (saldoAntigo.indexOf(".") == saldoAntigo.length() -2){
+            return saldoAntigo + "0";
+        }
+        return saldoAntigo + ".00";
+    }
+
 }
