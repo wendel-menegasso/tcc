@@ -1,14 +1,11 @@
 package br.com.mba.engenharia.de.software.controller;
 
 import br.com.mba.engenharia.de.software.entity.usuarios.Users;
-import br.com.mba.engenharia.de.software.model.login.Login;
+import br.com.mba.engenharia.de.software.entity.login.Login;
 import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
-import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.repository.usuario.UsuarioRepositoryNovo;
 import br.com.mba.engenharia.de.software.security.Criptrografia;
 import br.com.mba.engenharia.de.software.security.GerarToken;
-import br.com.mba.engenharia.de.software.service.contas.ContaManager;
-import br.com.mba.engenharia.de.software.service.contas.ContaService;
 import br.com.mba.engenharia.de.software.service.usuarios.UserManager;
 import br.com.mba.engenharia.de.software.service.usuarios.UserService;
 import org.slf4j.Logger;

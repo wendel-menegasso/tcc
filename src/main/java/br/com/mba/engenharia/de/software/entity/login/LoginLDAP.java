@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.model.login;
+package br.com.mba.engenharia.de.software.entity.login;
 
 public class LoginLDAP  implements Login{
     @Override
