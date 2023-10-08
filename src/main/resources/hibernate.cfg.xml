@@ -5,9 +5,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://root:fsa41306@localhost:3306/tcc</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">fsa41306</property>
+        <property name="connection.url">jdbc:mysql://wendel:Fsa41306@tccbd.mysql.database.azure.com:3306/tcc</property>
+        <property name="connection.username">wendel</property>
+        <property name="connection.password">Fsa41306</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="current_session_context_class">thread</property>
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
