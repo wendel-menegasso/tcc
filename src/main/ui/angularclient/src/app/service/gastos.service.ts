@@ -13,22 +13,29 @@ export class GastosService {
   private deleteUrl: string;
   private recebeDadosAlterarGastosUrl: string;
   private alterarUrl: string;
+  private gerarRelatorioGasto: string;
 
   constructor(private http: HttpClient) {
-    //this.findUrl = 'http://localhost:9090/listarGasto';
-    //this.saveGastosUrl = 'http://localhost:9090/criarGasto';
-    //this.deleteUrl = 'http://localhost:9090/deletarGasto/';
-    //this.recebeDadosAlterarGastosUrl = 'http://localhost:9090/recebeDadosAlterarGasto';
-    //this.alterarUrl = 'http://localhost:9090/alterarGasto';
-    this.findUrl = 'http://20.124.3.145:9090/listarGasto';
-    this.saveGastosUrl = 'http://20.124.3.145:9090/criarGasto';
-    this.deleteUrl = 'http://20.124.3.145:9090/deletarGasto/';
-    this.recebeDadosAlterarGastosUrl = 'http://20.124.3.145:9090/recebeDadosAlterarGasto';
-    this.alterarUrl = 'http://20.124.3.145:9090/alterarGasto';
+    this.findUrl = 'http://localhost:9090/listarGasto';
+    this.saveGastosUrl = 'http://localhost:9090/criarGasto';
+    this.deleteUrl = 'http://localhost:9090/deletarGasto/';
+    this.recebeDadosAlterarGastosUrl = 'http://localhost:9090/recebeDadosAlterarGasto';
+    this.alterarUrl = 'http://localhost:9090/alterarGasto';
+    this.gerarRelatorioGasto = 'http://localhost:9090/gerarRelatorioGasto';
+    
+    //this.findUrl = 'http://20.124.3.145:9090/listarGasto';
+    //this.saveGastosUrl = 'http://20.124.3.145:9090/criarGasto';
+    //this.deleteUrl = 'http://20.124.3.145:9090/deletarGasto/';
+    //this.recebeDadosAlterarGastosUrl = 'http://20.124.3.145:9090/recebeDadosAlterarGasto';
+    //this.alterarUrl = 'http://20.124.3.145:9090/alterarGasto';
   }
 
   public findAll(user: string): Observable<Gastos[]> {
     return this.http.post<Gastos[]>(this.findUrl, user);
+  }
+
+  public gerarRelatorio(gastos: Gastos): Observable<any> {
+    return this.http.post<any>(this.gerarRelatorioGasto, gastos);
   }
 
   public save(gastos: Gastos) : Observable<Gastos> {

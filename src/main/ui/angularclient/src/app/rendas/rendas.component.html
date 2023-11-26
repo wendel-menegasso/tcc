@@ -15,7 +15,7 @@
           <td>{{renda.tipo}}</td>
           <td>{{renda.data}}</td>
           <td>R${{renda.valor}}</td>
-          <td><button type="button" class="btn btn-danger"
+          <td><button type="button" class="btn-sm btn-danger"
           (click)="excluir(renda.id)"> Excluir</button></td>
           <td><app-alterar-rendas-modal [idRenda]=renda.id [idUsuario]=idUser></app-alterar-rendas-modal></td>
         </tr>
@@ -27,3 +27,5 @@
     [(page)]="page"
     [pageSize]="4"
     [collectionSize]="rendas.length"></ngb-pagination>
+    <td><button type="button" class="btn-sm btn-secondary"
+      (click)="exportar()"> Exportar</button></td>

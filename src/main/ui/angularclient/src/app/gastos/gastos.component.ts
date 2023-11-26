@@ -30,6 +30,7 @@ export class GastosComponent implements OnInit {
   contador : Number = 4;
   token: string;
     valorGasto: string;
+    gasto: Gastos;
 
   constructor(    
     private route: ActivatedRoute,
@@ -40,6 +41,7 @@ export class GastosComponent implements OnInit {
         this.gastosDelete = new Gastos();
         config.size = 'sm';
         config.boundaryLinks = true;
+        this.gasto = new Gastos();
       }
   ngOnInit(): void {
     this.query = location.search.slice(1);
@@ -123,8 +125,15 @@ export class GastosComponent implements OnInit {
         for (var i=0; i<this.gastosCount;i++){
             this.gastos.push(gastoArray[i]);
         }
+        this.gasto.usuario = this.idUser;
     });
   }
+
+  exportar(){
+    this.gastosService.gerarRelatorio(this.gasto).pipe(takeUntil(this.destroy$)).subscribe((file: File) => {
+        alert("Exportado com sucesso!");
+  });
+}
 
   excluir(id: string){
     this.gastosService.delete(id).subscribe(data => {

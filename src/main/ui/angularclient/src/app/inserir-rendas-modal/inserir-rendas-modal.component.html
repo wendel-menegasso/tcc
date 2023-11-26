@@ -1,4 +1,4 @@
-<button class="btn btn-lg btn-outline-primary" (click)="openPopup()">Criar Renda</button>
+<button class="btn btn-sm btn-outline-primary" (click)="openPopup()">Criar Renda</button>
 <div
   class="modal"
   tabindex="-1"
@@ -65,12 +65,12 @@
                 <option class="form-control" *ngFor="let origem of origens" [value]="origem.id">{{ origem.origem }}</option>
               </select>
         <button type="submit" (click)="onSubmit()"
-                class="btn btn-info">Salvar
+                class="btn-sm btn-info">Salvar
         </button>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger"
+        <button type="button" class="btn-sm btn-danger"
                 (click)="closePopup()">
           Close
         </button>

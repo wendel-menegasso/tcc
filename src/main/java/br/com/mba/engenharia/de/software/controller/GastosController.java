@@ -5,16 +5,21 @@ import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.repository.gastos.GastosRepository;
+import br.com.mba.engenharia.de.software.service.gastos.CSVGastosService;
 import br.com.mba.engenharia.de.software.service.gastos.GastosManager;
 import br.com.mba.engenharia.de.software.service.gastos.GastosService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +35,9 @@ public class GastosController {
     @Autowired
     ContaRepository contaRepository;
 
+    @Autowired
+    CSVGastosService fileService;
+
     GastosService gastosService;
 
     @Bean
@@ -38,8 +46,15 @@ public class GastosController {
         return gastosManager;
     }
 
+    @Bean
+    public CSVGastosService csvGastosService() {
+        fileService = new CSVGastosService();
+        return fileService;
+    }
+
     public GastosController() {
         this.gastosService = gastosService();
+        this.fileService = csvGastosService();
     }
 
     @PostMapping("/criarGasto")
@@ -88,6 +103,18 @@ public class GastosController {
             gastosRespostaDTOList.add(gastosRespostaDTO);
         }
         return ResponseEntity.ok(gastosRespostaDTOList);
+    }
+
+    @PostMapping("/gerarRelatorioGasto")
+    public ResponseEntity<?> gerarRelatorioGasto(@RequestBody GastosDTOFull gastosDTOFull) throws IOException {
+        fileService.setUsuario(Integer.parseInt(String.valueOf(gastosDTOFull.getUsuario())));
+        String filename = "gastos.csv";
+        InputStreamResource file = new InputStreamResource(fileService.load(filename));
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .contentType(MediaType.parseMediaType("application/csv"))
+                .body(file);
     }
 
     @DeleteMapping("/deletarGasto/{id}")

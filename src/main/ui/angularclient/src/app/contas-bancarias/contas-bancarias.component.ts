@@ -115,6 +115,12 @@ export class ContasBancariasComponent implements OnInit {
   		    }
       });
     }
+
+	exportar(){
+		this.contasBancariasService.gerarRelatorio(this.conta).pipe(takeUntil(this.destroy$)).subscribe((file: File) => {
+			alert("Exportado com sucesso!");
+	  });
+	}
 	excluir(id: string){
 		this.contasBancariasService.delete(id).subscribe(data => {
 			this.contas = data;

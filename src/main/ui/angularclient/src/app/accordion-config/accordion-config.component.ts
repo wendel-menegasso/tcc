@@ -59,6 +59,17 @@ export class NgbdAccordionConfig {
 			  }
 	  }
 
+	  Dashboard() {
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
+				this.router.navigate(['/dashboard'], { queryParams: { 'id': this.idURL  } });
+		}
+		else{
+				this.router.navigate(['/dashboard'], { queryParams: { 'id': this.id  } });
+		}
+}
+
 	Home() {
 		this.getURL();
 		this.token = '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';

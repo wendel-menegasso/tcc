@@ -40,6 +40,7 @@ export class RendasComponent implements OnInit {
   contaAAlterar: ContasBancarias;
   contaRetorno: ContasBancarias;
   index: any;
+  renda: Rendas;
 
   constructor(    
     private route: ActivatedRoute,
@@ -51,6 +52,7 @@ export class RendasComponent implements OnInit {
         this.rendasDelete = new Rendas();
         config.size = 'sm';
         config.boundaryLinks = true;
+        this.renda = new Rendas();
       }
   ngOnInit(): void {
     this.query = location.search.slice(1);
@@ -105,6 +107,13 @@ export class RendasComponent implements OnInit {
         for (var i=0; i<this.rendasCount;i++){
             this.rendas.push(rendaArray[i]);
         }
+        this.renda.usuario = this.idUser;
+    });
+  }
+
+  exportar(){
+    this.rendasService.gerarRelatorio(this.renda).pipe(takeUntil(this.destroy$)).subscribe((file: File) => {
+        alert("Exportado com sucesso!");
     });
   }
 

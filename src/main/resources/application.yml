@@ -1,7 +1,7 @@
 spring:
   flyway:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://tccbd.mysql.database.azure.com:3306/tcc?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://root:fsa41306@127.0.0.1:3306/tcc?useTimezone=true&serverTimezone=UTC
     user: wendel
     password: Fsa41306
     schemas: tcc

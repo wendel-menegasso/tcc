@@ -28,9 +28,9 @@
         <class>br.com.mba.engenharia.de.software.entity.usuarios.Usuario</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://wendel:Fsa41306@tccbd.mysql.database.azure.com:3306/tcc" />
-            <property name="javax.persistence.jdbc.user" value="wendel" />
-            <property name="javax.persistence.jdbc.password" value="Fsa41306" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://root:fsa41306@127.0.0.1:3306/tcc" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="fsa41306" />
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.show_sql" value="true" />

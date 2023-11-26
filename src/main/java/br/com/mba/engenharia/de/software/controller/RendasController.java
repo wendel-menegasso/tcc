@@ -4,16 +4,21 @@ import br.com.mba.engenharia.de.software.dto.*;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
+import br.com.mba.engenharia.de.software.service.rendas.CSVRendasService;
 import br.com.mba.engenharia.de.software.service.rendas.RendasManager;
 import br.com.mba.engenharia.de.software.service.rendas.RendasService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -27,6 +32,9 @@ public class RendasController{
     @Autowired
     ContaRepository contaRepository;
 
+    @Autowired
+    CSVRendasService fileService;
+
     RendasService rendasService;
 
     @Bean
@@ -35,8 +43,15 @@ public class RendasController{
         return rendasManager;
     }
 
+    @Bean
+    public CSVRendasService csvRendasService() {
+        fileService = new CSVRendasService();
+        return fileService;
+    }
+
     public RendasController() {
         this.rendasService = rendasService();
+        this.fileService = csvRendasService();
     }
 
     @PostMapping("/criarRenda")
@@ -81,6 +96,18 @@ public class RendasController{
         rendasService.setRendasRepository(repository);
         List<Renda> rendaList = rendasService.findAll(Integer.parseInt(req));
         return ResponseEntity.ok(rendaList);
+    }
+
+    @PostMapping("/gerarRelatorioRenda")
+    public ResponseEntity<?> gerarRelatorioRenda(@RequestBody RendaDTOFull rendasDTOFull) throws IOException {
+        fileService.setUsuario(Integer.parseInt(String.valueOf(rendasDTOFull.getUsuario())));
+        String filename = "rendas.csv";
+        InputStreamResource file = new InputStreamResource(fileService.load(filename));
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .contentType(MediaType.parseMediaType("application/csv"))
+                .body(file);
     }
 
     @DeleteMapping("/deletarRenda/{id}")

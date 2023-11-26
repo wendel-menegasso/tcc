@@ -1,4 +1,4 @@
-<button class="btn btn-lg btn-outline-primary" (click)="openPopup()">Inserir Gasto</button>
+<button class="btn btn-sm btn-outline-primary" (click)="openPopup()">Inserir Gasto</button>
 <div
   class="modal"
   tabindex="-1"
@@ -23,7 +23,7 @@
                                         [(ngModel)]="model"
                                         ngbDatepicker
                                         #d="ngbDatepicker">
-                                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+                                <button class="btn-sm btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
                         </div>
                 </div>
         </form>
@@ -85,7 +85,7 @@
               </select>
 
                <button type="submit" (click)="onSubmit()"
-                class="btn btn-info">Salvar
+                class="btn-sm btn-info">Salvar
         </button>
 
       </div>
