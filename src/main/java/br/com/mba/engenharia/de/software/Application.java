@@ -18,7 +18,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
                                        "br.com.mba.engenharia.de.software.service.contas.CSVContasService"})
 @ComponentScan(basePackageClasses = {Renda.class, Conta.class, Usuario.class,
                                      LoginController.class, UsuarioController.class, ContaController.class, RendasController.class,
-        GastosController.class, Gastos.class, OrigensController.class})
+        GastosController.class, Gastos.class, OrigensController.class, DashboradController.class})
 public class Application{
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

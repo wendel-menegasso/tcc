@@ -34,6 +34,8 @@ import { GastosUsuarioComponent } from './gastos-usuario/gastos-usuario.componen
 import { InserirGastosModalComponent } from './inserir-gastos-modal/inserir-gastos-modal.component';
 import { AlterarGastosModalComponent } from './alterar-gastos-modal/alterar-gastos-modal.component';
 import { OrigemComponent } from './origem/origem.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { OrigemComponent } from './origem/origem.component';
     InserirGastosModalComponent,
     AlterarGastosModalComponent,
     OrigemComponent,
+    DashboardComponent,
+    DashboardUsuarioComponent,
   ],
   imports: [
     BrowserModule,

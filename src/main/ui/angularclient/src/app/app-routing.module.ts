@@ -17,6 +17,8 @@ import { RendasComponent } from './rendas/rendas.component';
 import { RendasUsuarioComponent } from './rendas-usuario/rendas-usuario.component';
 import { GastosUsuarioComponent } from './gastos-usuario/gastos-usuario.component';
 import { GastosComponent } from './gastos/gastos.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario.component';
 
 const routes: Routes = [
     { path: 'login', component: AppComponent },
@@ -36,6 +38,8 @@ const routes: Routes = [
     { path: 'ganhosObtidos', component: RendasComponent},
     { path: 'gastos', component: GastosUsuarioComponent},
     { path: 'gastosObtidos', component: GastosComponent},
+    { path: 'dashboard', component: DashboardComponent},
+    { path: 'dashboardObtidos', component: DashboardUsuarioComponent},
 ];
 
 
