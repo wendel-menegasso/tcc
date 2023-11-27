@@ -112,7 +112,22 @@ export class RendasComponent implements OnInit {
   }
 
   exportar(){
-    this.rendasService.gerarRelatorio(this.renda).pipe(takeUntil(this.destroy$)).subscribe((file: File) => {
+    this.rendasService.gerarRelatorio(this.renda).subscribe((response: Blob) => {
+          // Cria um objeto de URL temporário para o blob
+        const url = window.URL.createObjectURL(response);
+
+         const link = document.createElement('a');
+         link.href = url;
+         // Define o nome do arquivo para o link
+         link.download = 'rendas.csv';
+      
+         // Adiciona o link ao DOM e aciona o clique para iniciar o download
+         document.body.appendChild(link);
+         link.click();
+      
+         // Remove o link do DOM
+         document.body.removeChild(link);  
+
         alert("Exportado com sucesso!");
     });
   }

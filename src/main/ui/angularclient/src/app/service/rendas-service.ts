@@ -34,7 +34,10 @@ export class RendasService {
   }
 
   public gerarRelatorio(rendas: Rendas): Observable<any> {
-    return this.http.post<any>(this.gerarRelatorioRenda, rendas);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post(this.gerarRelatorioRenda, rendas, { responseType: 'blob', headers });
   }
 
   public save(rendas: Rendas) : Observable<Rendas> {

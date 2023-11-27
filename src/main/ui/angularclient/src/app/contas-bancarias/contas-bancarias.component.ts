@@ -117,8 +117,22 @@ export class ContasBancariasComponent implements OnInit {
     }
 
 	exportar(){
-		this.contasBancariasService.gerarRelatorio(this.conta).pipe(takeUntil(this.destroy$)).subscribe((file: File) => {
-			alert("Exportado com sucesso!");
+		this.contasBancariasService.gerarRelatorio(this.conta).subscribe((response: Blob) => {
+          // Cria um objeto de URL temporário para o blob
+		  const url = window.URL.createObjectURL(response);
+
+		  const link = document.createElement('a');
+		  link.href = url;
+		  // Define o nome do arquivo para o link
+		  link.download = 'contas.csv';
+  
+		  // Adiciona o link ao DOM e aciona o clique para iniciar o download
+		  document.body.appendChild(link);
+		  link.click();
+  
+		  // Remove o link do DOM
+		  document.body.removeChild(link);      
+		  alert("Exportado com sucesso!");			
 	  });
 	}
 	excluir(id: string){

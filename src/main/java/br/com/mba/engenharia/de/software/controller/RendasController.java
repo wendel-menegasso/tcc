@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -99,15 +101,24 @@ public class RendasController{
     }
 
     @PostMapping("/gerarRelatorioRenda")
-    public ResponseEntity<?> gerarRelatorioRenda(@RequestBody RendaDTOFull rendasDTOFull) throws IOException {
+    public ResponseEntity<FileSystemResource> gerarRelatorioRenda(@RequestBody RendaDTOFull rendasDTOFull) throws IOException {
         fileService.setUsuario(Integer.parseInt(String.valueOf(rendasDTOFull.getUsuario())));
         String filename = "rendas.csv";
         InputStreamResource file = new InputStreamResource(fileService.load(filename));
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
-                .contentType(MediaType.parseMediaType("application/csv"))
-                .body(file);
+        FileSystemResource fileSystemResource = new FileSystemResource(new File(filename));
+
+        // Configura os cabeçalhos da resposta
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileSystemResource.getFilename());
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        headers.add(HttpHeaders.CONTENT_LENGTH, String.valueOf(fileSystemResource.contentLength()));
+
+        // Cria o ResponseEntity com o objeto FileSystemResource e os cabeçalhos
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(fileSystemResource);
     }
 
     @DeleteMapping("/deletarRenda/{id}")

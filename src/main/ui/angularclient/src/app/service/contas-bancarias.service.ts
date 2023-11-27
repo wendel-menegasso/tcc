@@ -34,7 +34,10 @@ export class ContasBancariasService {
   }
 
   public gerarRelatorio(contas: ContasBancarias): Observable<any> {
-    return this.http.post<any>(this.gerarRelatorioConta, contas);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post(this.gerarRelatorioConta, contas, { responseType: 'blob', headers });
   }
 
   public save(contas: ContasBancarias) : Observable<ContasBancarias> {

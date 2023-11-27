@@ -22,7 +22,7 @@ export class GastosService {
     this.recebeDadosAlterarGastosUrl = 'http://localhost:9090/recebeDadosAlterarGasto';
     this.alterarUrl = 'http://localhost:9090/alterarGasto';
     this.gerarRelatorioGasto = 'http://localhost:9090/gerarRelatorioGasto';
-    
+
     //this.findUrl = 'http://20.124.3.145:9090/listarGasto';
     //this.saveGastosUrl = 'http://20.124.3.145:9090/criarGasto';
     //this.deleteUrl = 'http://20.124.3.145:9090/deletarGasto/';
@@ -34,8 +34,11 @@ export class GastosService {
     return this.http.post<Gastos[]>(this.findUrl, user);
   }
 
-  public gerarRelatorio(gastos: Gastos): Observable<any> {
-    return this.http.post<any>(this.gerarRelatorioGasto, gastos);
+  public gerarRelatorio(gastos: Gastos): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post(this.gerarRelatorioGasto, gastos, { responseType: 'blob', headers });
   }
 
   public save(gastos: Gastos) : Observable<Gastos> {
