@@ -96,7 +96,7 @@ public class GastosController {
     }
 
     @PostMapping("/listarGasto")
-    public ResponseEntity<?> listarGasto(@RequestBody String idUsuario) {
+    public ResponseEntity<List<GastosRespostaDTO>> listarGasto(@RequestBody String idUsuario) {
         gastosService.setGastosRepository(repository);
         List<Gastos> gastosList = gastosService.findAll(Integer.parseInt(idUsuario));
         List<GastosRespostaDTO> gastosRespostaDTOList = new ArrayList<>();

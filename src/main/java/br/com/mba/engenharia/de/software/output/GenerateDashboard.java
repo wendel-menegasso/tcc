@@ -9,20 +9,18 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import java.io.IOException;
 
 public class GenerateDashboard {
-    public String generatePlot() throws IOException {
-        int[] dados = {10, 20, 30, 40, 50};
+    public String generatePlot1(double totalRendas, double totalGastos) throws IOException {
 
         // Cria um conjunto de dados para o gráfico
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        for (int i = 0; i < dados.length; i++) {
-            dataset.addValue(dados[i], "Categoria", "Item " + (i + 1));
-        }
+        dataset.addValue(totalRendas, "Diferença entre ganhos e gastos", "Total Rendas");
+        dataset.addValue(totalGastos, "Diferença entre ganhos e gastos", "Total Gastos");
 
         // Cria o gráfico de barras
         JFreeChart chart = ChartFactory.createBarChart(
-                "Meu Gráfico de Barras", // Título do gráfico
-                "Itens", // Rótulo do eixo X
+                "Diferença Gastos e Ganhos", // Título do gráfico
+                "Gastos e Ganhos", // Rótulo do eixo X
                 "Valores", // Rótulo do eixo Y
                 dataset, // Conjunto de dados
                 PlotOrientation.VERTICAL, // Orientação do gráfico

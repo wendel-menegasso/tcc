@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   }
   
     download(): void {
-      this.downloadService.downloadFile().subscribe(
+      this.downloadService.downloadFile(this.idUser).subscribe(
         (response: Blob) => {
 
           // Cria um objeto de URL temporário para o blob

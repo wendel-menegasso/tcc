@@ -94,7 +94,7 @@ public class RendasController{
     }
 
     @PostMapping("/listarRenda")
-    public ResponseEntity<?> listarRenda(@RequestBody String req){
+    public ResponseEntity<List<Renda>> listarRenda(@RequestBody String req){
         rendasService.setRendasRepository(repository);
         List<Renda> rendaList = rendasService.findAll(Integer.parseInt(req));
         return ResponseEntity.ok(rendaList);
