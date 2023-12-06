@@ -1,4 +1,4 @@
-<button class="btn btn-lg btn-outline-primary" (click)="openPopup()">Alterar</button>
+<button class="btn btn-sm btn-outline-primary" (click)="openPopup()">Alterar</button>
 <div
   class="modal"
   tabindex="-1"
@@ -39,10 +39,10 @@
                required #name="ngModel"
                value={{renda.valor}}>       
         <button type="submit" (click)="onSubmit()"
-                class="btn btn-info">Salvar</button>
+                class="btn-sm btn-info">Salvar</button>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger"
+        <button type="button" class="btn-sm btn-danger"
                 (click)="closePopup()">
           Close
         </button>

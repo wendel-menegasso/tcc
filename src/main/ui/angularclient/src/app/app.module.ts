@@ -11,7 +11,7 @@ import { MenuComponent } from './menu/menu.component';
 import { FalhaDeLoginComponent } from './falha-de-login/falha-de-login.component';
 import { MasterComponent } from './master/master.component';
 import { NgbdAccordionConfig } from './accordion-config/accordion-config.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CriarUsuarioComponent } from './criar-usuario/criar-usuario.component';
 import { UsuarioService } from './service/usuario-service.service';
 import { DesbloquearUsuarioComponent } from './desbloquear-usuario/desbloquear-usuario.component';
@@ -34,6 +34,13 @@ import { GastosUsuarioComponent } from './gastos-usuario/gastos-usuario.componen
 import { InserirGastosModalComponent } from './inserir-gastos-modal/inserir-gastos-modal.component';
 import { AlterarGastosModalComponent } from './alterar-gastos-modal/alterar-gastos-modal.component';
 import { OrigemComponent } from './origem/origem.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario.component';
+import { VeiculosComponent } from './veiculos/veiculos.component';
+import { InserirVeiculosComponent } from './inserir-veiculos/inserir-veiculos.component';
+import { AlterarVeiculosComponent } from './alterar-veiculos/alterar-veiculos.component';
+import { VeiculosUsuarioComponent } from './veiculos-usuario/veiculos-usuario.component';
+import { VeiculosService } from './service/veiculos.service';
 
 @NgModule({
   declarations: [
@@ -63,6 +70,12 @@ import { OrigemComponent } from './origem/origem.component';
     InserirGastosModalComponent,
     AlterarGastosModalComponent,
     OrigemComponent,
+    DashboardComponent,
+    DashboardUsuarioComponent,
+    VeiculosComponent,
+    InserirVeiculosComponent,
+    AlterarVeiculosComponent,
+    VeiculosUsuarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +84,7 @@ import { OrigemComponent } from './origem/origem.component';
     NgbModule,
     FormsModule
   ],
-  providers: [UserService,UsuarioService,ContasBancariasService,RendasService],
+  providers: [UserService,UsuarioService,ContasBancariasService,RendasService,VeiculosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

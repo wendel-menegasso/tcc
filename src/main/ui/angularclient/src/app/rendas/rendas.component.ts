@@ -40,6 +40,7 @@ export class RendasComponent implements OnInit {
   contaAAlterar: ContasBancarias;
   contaRetorno: ContasBancarias;
   index: any;
+  renda: Rendas;
 
   constructor(    
     private route: ActivatedRoute,
@@ -51,6 +52,7 @@ export class RendasComponent implements OnInit {
         this.rendasDelete = new Rendas();
         config.size = 'sm';
         config.boundaryLinks = true;
+        this.renda = new Rendas();
       }
   ngOnInit(): void {
     this.query = location.search.slice(1);
@@ -105,6 +107,28 @@ export class RendasComponent implements OnInit {
         for (var i=0; i<this.rendasCount;i++){
             this.rendas.push(rendaArray[i]);
         }
+        this.renda.usuario = this.idUser;
+    });
+  }
+
+  exportar(){
+    this.rendasService.gerarRelatorio(this.renda).subscribe((response: Blob) => {
+          // Cria um objeto de URL temporário para o blob
+        const url = window.URL.createObjectURL(response);
+
+         const link = document.createElement('a');
+         link.href = url;
+         // Define o nome do arquivo para o link
+         link.download = 'rendas.csv';
+      
+         // Adiciona o link ao DOM e aciona o clique para iniciar o download
+         document.body.appendChild(link);
+         link.click();
+      
+         // Remove o link do DOM
+         document.body.removeChild(link);  
+
+        alert("Exportado com sucesso!");
     });
   }
 

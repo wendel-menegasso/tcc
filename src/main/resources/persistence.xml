@@ -28,7 +28,7 @@
         <class>br.com.mba.engenharia.de.software.entity.usuarios.Usuario</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://root:fsa41306@localhost:3306/tcc" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://root:fsa41306@127.0.0.1:3306/tcc" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="fsa41306" />
 

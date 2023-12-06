@@ -19,7 +19,7 @@
       <td>{{conta.banco}}</td>
       <td>R${{conta.saldo}}</td>
       <td>{{conta.tipo}}</td>
-      <td><button type="button" class="btn btn-danger"
+      <td><button type="button" class="btn-sm btn-danger"
       (click)="excluir(conta.id)"> Excluir</button></td>
       <td><app-alterar-contas-modal [idConta]=conta.id [idUsuario]=valor></app-alterar-contas-modal></td>
     </tr>
@@ -31,3 +31,5 @@
 [(page)]="page"
 [pageSize]="4"
 [collectionSize]="contasBancarias.length"></ngb-pagination>
+<td><button type="button" class="btn-sm btn-secondary"
+  (click)="exportar()"> Exportar</button></td>

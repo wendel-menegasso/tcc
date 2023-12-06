@@ -1,8 +1,8 @@
 spring:
   flyway:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/tcc?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
-    user: root
-    password: fsa41306
+    url: jdbc:mysql://root:fsa41306@127.0.0.1:3306/tcc?useTimezone=true&serverTimezone=UTC
+    user: wendel
+    password: Fsa41306
     schemas: tcc
 #    baseline-on-migrate: true

@@ -5,16 +5,23 @@ import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.repository.gastos.GastosRepository;
+import br.com.mba.engenharia.de.software.service.gastos.CSVGastosService;
 import br.com.mba.engenharia.de.software.service.gastos.GastosManager;
 import br.com.mba.engenharia.de.software.service.gastos.GastosService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,16 +37,24 @@ public class GastosController {
     @Autowired
     ContaRepository contaRepository;
 
+    CSVGastosService fileService;
+
     GastosService gastosService;
 
     @Bean
     public GastosService gastosService(){
-        GastosManager gastosManager = new GastosManager(repository);
-        return gastosManager;
+        return new GastosManager(repository);
+    }
+
+    @Bean
+    public CSVGastosService csvGastosService() {
+        fileService = new CSVGastosService();
+        return fileService;
     }
 
     public GastosController() {
         this.gastosService = gastosService();
+        this.fileService = csvGastosService();
     }
 
     @PostMapping("/criarGasto")
@@ -79,7 +94,7 @@ public class GastosController {
     }
 
     @PostMapping("/listarGasto")
-    public ResponseEntity<?> listarGasto(@RequestBody String idUsuario) {
+    public ResponseEntity<List<GastosRespostaDTO>> listarGasto(@RequestBody String idUsuario) {
         gastosService.setGastosRepository(repository);
         List<Gastos> gastosList = gastosService.findAll(Integer.parseInt(idUsuario));
         List<GastosRespostaDTO> gastosRespostaDTOList = new ArrayList<>();
@@ -88,6 +103,27 @@ public class GastosController {
             gastosRespostaDTOList.add(gastosRespostaDTO);
         }
         return ResponseEntity.ok(gastosRespostaDTOList);
+    }
+
+    @PostMapping("/gerarRelatorioGasto")
+    public ResponseEntity<FileSystemResource> gerarRelatorioGasto(@RequestBody GastosDTOFull gastosDTOFull) throws IOException {
+        fileService.setUsuario(Integer.parseInt(String.valueOf(gastosDTOFull.getUsuario())));
+        String filename = "gastos.csv";
+        InputStreamResource file = new InputStreamResource(fileService.load(filename));
+
+        FileSystemResource fileSystemResource = new FileSystemResource(new File(filename));
+
+        // Configura os cabeçalhos da resposta
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileSystemResource.getFilename());
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        headers.add(HttpHeaders.CONTENT_LENGTH, String.valueOf(fileSystemResource.contentLength()));
+
+        // Cria o ResponseEntity com o objeto FileSystemResource e os cabeçalhos
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(fileSystemResource);
     }
 
     @DeleteMapping("/deletarGasto/{id}")
