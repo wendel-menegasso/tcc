@@ -37,15 +37,13 @@ public class GastosController {
     @Autowired
     ContaRepository contaRepository;
 
-    @Autowired
     CSVGastosService fileService;
 
     GastosService gastosService;
 
     @Bean
     public GastosService gastosService(){
-        GastosManager gastosManager = new GastosManager(repository);
-        return gastosManager;
+        return new GastosManager(repository);
     }
 
     @Bean

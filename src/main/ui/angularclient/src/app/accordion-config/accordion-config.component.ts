@@ -69,6 +69,16 @@ export class NgbdAccordionConfig {
 				this.router.navigate(['/dashboard'], { queryParams: { 'id': this.id  } });
 		}
 }
+Veiculos() {
+	this.getURL();
+	this.id = this.idUsuarioMenu;
+	if (this.id === undefined){
+			this.router.navigate(['/veiculos'], { queryParams: { 'id': this.idURL  } });
+	}
+	else{
+			this.router.navigate(['/veiculos'], { queryParams: { 'id': this.id  } });
+	}
+}
 
 	Home() {
 		this.getURL();

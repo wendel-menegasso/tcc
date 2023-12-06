@@ -1,0 +1,56 @@
+<button class="btn btn-sm btn-outline-primary" (click)="openPopup()">Inserir Veiculo</button>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Inserir Veiculo</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="placa">Placa</label>
+          <input type="text" [(ngModel)]="veiculo.placa"
+                 class="form-control"
+                 id="placa"
+                 name="placa"
+                 placeholder="Placa">
+          <label for="modelo">Modelo</label>
+          <input type="text" [(ngModel)]="veiculo.modelo"
+                 class="form-control"
+                 id="modelo"
+                 name="modelo"
+                 placeholder="Modelo"
+                 required #email="ngModel"
+                 value={{veiculo.modelo}}>
+        <label for="marca">Marca</label>
+        <input type="text" [(ngModel)]="veiculo.marca"
+               class="form-control"
+               id="marca"
+               name="marca"
+               placeholder="Marca"
+               required #name="ngModel"
+               value={{veiculo.marca}}>
+        <label for="ano">Ano</label>
+        <input type="text" [(ngModel)]="veiculo.ano"
+                class="form-control"
+                id="ano"
+                name="ano"
+                placeholder="Ano"
+                required #name="ngModel"
+                value={{veiculo.ano}}>               
+        <button type="submit" (click)="onSubmit()"
+                class="btn-sm btn-info">Salvar</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-sm btn-danger"
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+      </div>
+      </div>
+  </div>
+  </div>

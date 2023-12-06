@@ -1,0 +1,31 @@
+  <div id="tabela">
+    <h2>Veiculos</h2>
+      <table border="1px">
+        <thead>
+        <tr>
+          <th>Placa</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Ano</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let veiculo of veiculos | slice: (page-1) * pageSize : page * pageSize">
+          <td>{{veiculo.placa}}</td>
+          <td>{{veiculo.marca}}</td>
+          <td>{{veiculo.modelo}}</td>
+          <td>{{veiculo.ano}}</td>
+          <td><button type="button" class="btn-sm btn-danger"
+          (click)="excluir(veiculo.id)"> Excluir</button></td>
+          <td><app-alterar-veiculos [idVeiculo]=veiculo.id [idUsuario]=idUser></app-alterar-veiculos></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-inserir-veiculos [idUsuario]=idUser></app-inserir-veiculos>
+    <ngb-pagination
+    [(page)]="page"
+    [pageSize]="4"
+    [collectionSize]="veiculos.length"></ngb-pagination>
+    <td><button type="button" class="btn-sm btn-secondary"
+      (click)="exportar()"> Exportar</button></td>

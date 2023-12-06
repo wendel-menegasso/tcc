@@ -41,8 +41,7 @@ public class RendasController{
 
     @Bean
     public RendasService rendasService(){
-        RendasManager rendasManager = new RendasManager(repository);
-        return rendasManager;
+        return new RendasManager(repository);
     }
 
     @Bean

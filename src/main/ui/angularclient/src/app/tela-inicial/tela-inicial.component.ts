@@ -35,6 +35,9 @@ constructor( private route: ActivatedRoute,
       if (this.token === '3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333'){
           this.router.navigate(['/gastos'], { queryParams: { 'id': this.id  } });
       }
+      if (this.token === '5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555'){
+        this.router.navigate(['/veiculos'], { queryParams: { 'id': this.id  } });
+    }
     }
   );
   

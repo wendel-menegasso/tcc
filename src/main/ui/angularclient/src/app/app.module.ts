@@ -36,6 +36,11 @@ import { AlterarGastosModalComponent } from './alterar-gastos-modal/alterar-gast
 import { OrigemComponent } from './origem/origem.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario.component';
+import { VeiculosComponent } from './veiculos/veiculos.component';
+import { InserirVeiculosComponent } from './inserir-veiculos/inserir-veiculos.component';
+import { AlterarVeiculosComponent } from './alterar-veiculos/alterar-veiculos.component';
+import { VeiculosUsuarioComponent } from './veiculos-usuario/veiculos-usuario.component';
+import { VeiculosService } from './service/veiculos.service';
 
 @NgModule({
   declarations: [
@@ -67,6 +72,10 @@ import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario
     OrigemComponent,
     DashboardComponent,
     DashboardUsuarioComponent,
+    VeiculosComponent,
+    InserirVeiculosComponent,
+    AlterarVeiculosComponent,
+    VeiculosUsuarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +84,7 @@ import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario
     NgbModule,
     FormsModule
   ],
-  providers: [UserService,UsuarioService,ContasBancariasService,RendasService],
+  providers: [UserService,UsuarioService,ContasBancariasService,RendasService,VeiculosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

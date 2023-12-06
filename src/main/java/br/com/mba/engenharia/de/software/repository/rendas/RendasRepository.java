@@ -1,13 +1,11 @@
 package br.com.mba.engenharia.de.software.repository.rendas;
 
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @org.springframework.stereotype.Repository
