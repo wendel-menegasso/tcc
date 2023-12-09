@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.dto;
+package br.com.mba.engenharia.de.software.dto.rendas;
 
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import lombok.Getter;

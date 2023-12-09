@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.dto;
+package br.com.mba.engenharia.de.software.dto.veiculos;
 
 import br.com.mba.engenharia.de.software.entity.veiculos.Veiculos;
 import lombok.AllArgsConstructor;

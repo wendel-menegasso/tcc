@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.dto;
+package br.com.mba.engenharia.de.software.dto.contas;
 
 import lombok.Getter;
 

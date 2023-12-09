@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.dto;
+package br.com.mba.engenharia.de.software.dto.gastos;
 
 import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import lombok.Getter;

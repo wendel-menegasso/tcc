@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.dto;
+package br.com.mba.engenharia.de.software.dto.origens;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

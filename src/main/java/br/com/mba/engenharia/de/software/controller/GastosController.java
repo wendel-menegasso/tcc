@@ -1,6 +1,11 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.dto.*;
+import br.com.mba.engenharia.de.software.dto.contas.ContaDTOAlterar;
+import br.com.mba.engenharia.de.software.dto.contas.ContaDTOAlterarFull;
+import br.com.mba.engenharia.de.software.dto.contas.ContaDTORetorno;
+import br.com.mba.engenharia.de.software.dto.gastos.GastosDTO;
+import br.com.mba.engenharia.de.software.dto.gastos.GastosDTOFull;
+import br.com.mba.engenharia.de.software.dto.gastos.GastosRespostaDTO;
 import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;

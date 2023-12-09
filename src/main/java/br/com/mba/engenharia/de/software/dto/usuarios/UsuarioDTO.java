@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.dto;
+package br.com.mba.engenharia.de.software.dto.usuarios;
 
 import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
 import lombok.Getter;
