@@ -3,7 +3,6 @@ package br.com.mba.engenharia.de.software.service.gastos;
 import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import br.com.mba.engenharia.de.software.repository.gastos.GastosRepository;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class GastosManager implements GastosService{

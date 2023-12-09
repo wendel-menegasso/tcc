@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class CSVHelper<T> {
+public class CSVHelper {
 
     public static ByteArrayInputStream contaToCSV(List<Conta> contaList, String filename) throws IOException {
         final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL);

@@ -1,7 +1,6 @@
 package br.com.mba.engenharia.de.software.service.imoveis;
 
 import br.com.mba.engenharia.de.software.entity.imoveis.Imoveis;
-import br.com.mba.engenharia.de.software.repository.gastos.GastosRepository;
 import br.com.mba.engenharia.de.software.repository.imoveis.ImoveisRepository;
 
 import java.util.List;
