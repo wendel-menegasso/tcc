@@ -41,6 +41,10 @@ import { InserirVeiculosComponent } from './inserir-veiculos/inserir-veiculos.co
 import { AlterarVeiculosComponent } from './alterar-veiculos/alterar-veiculos.component';
 import { VeiculosUsuarioComponent } from './veiculos-usuario/veiculos-usuario.component';
 import { VeiculosService } from './service/veiculos.service';
+import { AlterarImoveisComponent } from './alterar-imoveis/alterar-imoveis.component';
+import { InserirImoveisComponent } from './inserir-imoveis/inserir-imoveis.component';
+import { ImoveisComponent } from './imoveis/imoveis.component';
+import { ImoveisUsuarioComponent } from './imoveis-usuario/imoveis-usuario.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +80,10 @@ import { VeiculosService } from './service/veiculos.service';
     InserirVeiculosComponent,
     AlterarVeiculosComponent,
     VeiculosUsuarioComponent,
+    AlterarImoveisComponent,
+    InserirImoveisComponent,
+    ImoveisComponent,
+    ImoveisUsuarioComponent,
   ],
   imports: [
     BrowserModule,
