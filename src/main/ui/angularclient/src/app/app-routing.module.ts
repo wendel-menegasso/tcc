@@ -21,6 +21,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
 import { VeiculosUsuarioComponent } from './veiculos-usuario/veiculos-usuario.component';
+import { ImoveisComponent } from './imoveis/imoveis.component';
+import { ImoveisUsuarioComponent } from './imoveis-usuario/imoveis-usuario.component';
 
 const routes: Routes = [
     { path: 'login', component: AppComponent },
@@ -44,6 +46,8 @@ const routes: Routes = [
     { path: 'dashboardObtidos', component: DashboardUsuarioComponent},
     { path: 'veiculos', component: VeiculosComponent},
     { path: 'veiculosObtidos', component: VeiculosUsuarioComponent},
+    { path: 'imoveis', component: ImoveisComponent},
+    { path: 'imoveisObtidos', component: ImoveisUsuarioComponent},
 ];
 
 

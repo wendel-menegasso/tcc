@@ -23,62 +23,74 @@ export class NgbdAccordionConfig {
 	constructor(config: NgbAccordionConfig,
 		private route: ActivatedRoute,
 		private router: Router) {
-	 // customize default values of accordions used by this component tree
-	 config.closeOthers = true;
-	 config.type = 'info';
-}
+		// customize default values of accordions used by this component tree
+		config.closeOthers = true;
+		config.type = 'info';
+	}
 
 	Contas() {
 		this.getURL();
 		this.id = this.idUsuarioMenu;
 		if (this.id === undefined){
-				this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.idURL  } });
+			this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.idURL  } });
 		}
 		else{
-			  this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.id  } });
+			this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.id  } });
 		}
-  }
-	  Ganhos() {
-			  this.getURL();
-			  this.id = this.idUsuarioMenu;
-			  if (this.id === undefined){
-					  this.router.navigate(['/ganhos'], { queryParams: { 'id': this.idURL  } });
-			  }
-			  else{
-					  this.router.navigate(['/ganhos'], { queryParams: { 'id': this.id  } });
-			  }
-	  }
-	  Gastos() {
-			  this.getURL();
-			  this.id = this.idUsuarioMenu;
-			  if (this.id === undefined){
-					  this.router.navigate(['/gastos'], { queryParams: { 'id': this.idURL  } });
-			  }
-			  else{
-					  this.router.navigate(['/gastos'], { queryParams: { 'id': this.id  } });
-			  }
-	  }
-
-	  Dashboard() {
+  	}
+	Ganhos() {
 		this.getURL();
 		this.id = this.idUsuarioMenu;
 		if (this.id === undefined){
-				this.router.navigate(['/dashboard'], { queryParams: { 'id': this.idURL  } });
+			this.router.navigate(['/ganhos'], { queryParams: { 'id': this.idURL  } });
 		}
 		else{
-				this.router.navigate(['/dashboard'], { queryParams: { 'id': this.id  } });
+			this.router.navigate(['/ganhos'], { queryParams: { 'id': this.id  } });
 		}
-}
-Veiculos() {
-	this.getURL();
-	this.id = this.idUsuarioMenu;
-	if (this.id === undefined){
+	}
+	Gastos() {
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
+			this.router.navigate(['/gastos'], { queryParams: { 'id': this.idURL  } });
+		}
+		else{
+		  	this.router.navigate(['/gastos'], { queryParams: { 'id': this.id  } });
+		}
+	}
+
+	Dashboard() {
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
+			this.router.navigate(['/dashboard'], { queryParams: { 'id': this.idURL  } });
+		}
+		else{
+			this.router.navigate(['/dashboard'], { queryParams: { 'id': this.id  } });
+		}
+	}
+
+	Veiculos() {
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
 			this.router.navigate(['/veiculos'], { queryParams: { 'id': this.idURL  } });
-	}
-	else{
+			}
+		else{
 			this.router.navigate(['/veiculos'], { queryParams: { 'id': this.id  } });
+		}
 	}
-}
+
+	Imoveis() {
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
+			this.router.navigate(['/imoveis'], { queryParams: { 'id': this.idURL  } });
+			}
+		else{
+			this.router.navigate(['/imoveis'], { queryParams: { 'id': this.id  } });
+		}
+	}
 
 	Home() {
 		this.getURL();
