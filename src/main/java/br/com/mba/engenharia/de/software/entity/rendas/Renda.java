@@ -1,15 +1,12 @@
 package br.com.mba.engenharia.de.software.entity.rendas;
 
-import br.com.mba.engenharia.de.software.dto.RendasRetornoDTO;
+import br.com.mba.engenharia.de.software.dto.rendas.RendasRetornoDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @Entity
 @Table(name = "rendas")

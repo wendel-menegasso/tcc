@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { VeiculosService } from '../service/veiculos.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Veiculos } from '../model/veiculos';
-import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 
 
@@ -13,7 +12,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./veiculos-usuario.component.css']
 })
 export class VeiculosUsuarioComponent implements OnInit {
-  veiculo: Veiculos;
+  veiculoExportar: Veiculos;
   veiculosDelete: Veiculos;
   query: string;
   chaveValor: string[];
@@ -28,15 +27,13 @@ export class VeiculosUsuarioComponent implements OnInit {
   pageSize = 4;
 
   constructor(    
-    private route: ActivatedRoute,
     private router: Router,
     private veiculosService: VeiculosService,
-    private location: Location,
     config: NgbPaginationConfig) {
         this.veiculosDelete = new Veiculos();
         config.size = 'sm';
         config.boundaryLinks = true;
-        this.veiculo = new Veiculos();
+        this.veiculoExportar = new Veiculos();
       }
 
       ngOnInit(): void {
@@ -55,8 +52,8 @@ export class VeiculosUsuarioComponent implements OnInit {
       }
 
       exportar(){
-        this.veiculo.usuario = this.idUser;
-        this.veiculosService.gerarRelatorio(this.veiculo).subscribe((response: Blob) => {
+        this.veiculoExportar.usuario = this.idUser;
+        this.veiculosService.gerarRelatorio(this.veiculoExportar).subscribe((response: Blob) => {
               // Cria um objeto de URL temporário para o blob
             const url = window.URL.createObjectURL(response);
     

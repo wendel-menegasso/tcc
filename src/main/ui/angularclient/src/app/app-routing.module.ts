@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { MenuComponent } from './menu/menu.component';
-import { MasterComponent } from './master/master.component';
 import { FalhaDeLoginComponent} from './falha-de-login/falha-de-login.component';
 import { AppComponent } from './app.component';
 import { CriarUsuarioComponent } from './criar-usuario/criar-usuario.component';
@@ -21,6 +20,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
 import { VeiculosUsuarioComponent } from './veiculos-usuario/veiculos-usuario.component';
+import { ImoveisComponent } from './imoveis/imoveis.component';
+import { ImoveisUsuarioComponent } from './imoveis-usuario/imoveis-usuario.component';
 
 const routes: Routes = [
     { path: 'login', component: AppComponent },
@@ -44,6 +45,8 @@ const routes: Routes = [
     { path: 'dashboardObtidos', component: DashboardUsuarioComponent},
     { path: 'veiculos', component: VeiculosComponent},
     { path: 'veiculosObtidos', component: VeiculosUsuarioComponent},
+    { path: 'imoveis', component: ImoveisComponent},
+    { path: 'imoveisObtidos', component: ImoveisUsuarioComponent},
 ];
 
 

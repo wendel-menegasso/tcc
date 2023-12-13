@@ -1,6 +1,6 @@
 package br.com.mba.engenharia.de.software.entity.usuarios;
 
-import br.com.mba.engenharia.de.software.dto.UsuarioDTORetorno;
+import br.com.mba.engenharia.de.software.dto.usuarios.UsuarioDTORetorno;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

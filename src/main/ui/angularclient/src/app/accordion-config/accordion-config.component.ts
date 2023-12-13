@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -19,66 +19,79 @@ export class NgbdAccordionConfig {
 	chaveValor: string[];
 	chave: string;
 	valor: string;
+	url: string[];
 
 	constructor(config: NgbAccordionConfig,
 		private route: ActivatedRoute,
 		private router: Router) {
-	 // customize default values of accordions used by this component tree
-	 config.closeOthers = true;
-	 config.type = 'info';
-}
+		// customize default values of accordions used by this component tree
+		config.closeOthers = true;
+		config.type = 'info';
+	}
 
 	Contas() {
 		this.getURL();
 		this.id = this.idUsuarioMenu;
 		if (this.id === undefined){
-				this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.idURL  } });
+			this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.idURL  } });
 		}
 		else{
-			  this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.id  } });
+			this.router.navigate(['/contasBancarias'], { queryParams: { 'id': this.id  } });
 		}
-  }
-	  Ganhos() {
-			  this.getURL();
-			  this.id = this.idUsuarioMenu;
-			  if (this.id === undefined){
-					  this.router.navigate(['/ganhos'], { queryParams: { 'id': this.idURL  } });
-			  }
-			  else{
-					  this.router.navigate(['/ganhos'], { queryParams: { 'id': this.id  } });
-			  }
-	  }
-	  Gastos() {
-			  this.getURL();
-			  this.id = this.idUsuarioMenu;
-			  if (this.id === undefined){
-					  this.router.navigate(['/gastos'], { queryParams: { 'id': this.idURL  } });
-			  }
-			  else{
-					  this.router.navigate(['/gastos'], { queryParams: { 'id': this.id  } });
-			  }
-	  }
-
-	  Dashboard() {
+  	}
+	Ganhos() {
 		this.getURL();
 		this.id = this.idUsuarioMenu;
 		if (this.id === undefined){
-				this.router.navigate(['/dashboard'], { queryParams: { 'id': this.idURL  } });
+			this.router.navigate(['/ganhos'], { queryParams: { 'id': this.idURL  } });
 		}
 		else{
-				this.router.navigate(['/dashboard'], { queryParams: { 'id': this.id  } });
+			this.router.navigate(['/ganhos'], { queryParams: { 'id': this.id  } });
 		}
-}
-Veiculos() {
-	this.getURL();
-	this.id = this.idUsuarioMenu;
-	if (this.id === undefined){
+	}
+	Gastos() {
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
+			this.router.navigate(['/gastos'], { queryParams: { 'id': this.idURL  } });
+		}
+		else{
+		  	this.router.navigate(['/gastos'], { queryParams: { 'id': this.id  } });
+		}
+	}
+
+	Dashboard() {
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
+			this.router.navigate(['/dashboard'], { queryParams: { 'id': this.idURL  } });
+		}
+		else{
+			this.router.navigate(['/dashboard'], { queryParams: { 'id': this.id  } });
+		}
+	}
+
+	Imovel(){
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
+			this.router.navigate(['/imoveis'], { queryParams: { 'id': this.idURL  } });
+		}
+		else{
+			this.router.navigate(['/imoveis'], { queryParams: { 'id': this.id  } });
+		}
+	}
+
+	Veiculos() {
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
 			this.router.navigate(['/veiculos'], { queryParams: { 'id': this.idURL  } });
-	}
-	else{
+			}
+		else{
 			this.router.navigate(['/veiculos'], { queryParams: { 'id': this.id  } });
+		}
 	}
-}
 
 	Home() {
 		this.getURL();
@@ -86,11 +99,12 @@ Veiculos() {
 		this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.chaveValor[1] } });;
 	}
 
-
 	Logout() {
 		window.location.href = "";
 	}
+
 	@Input() idUsuarioMenu : string;
+	
 	getURL(){
 		this.query = location.search.slice(1);
 		this.chaveValor = this.query.split('=');

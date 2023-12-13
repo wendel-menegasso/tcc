@@ -1,0 +1,37 @@
+<div id="tabela">
+  <h2>Imóveis</h2>
+    <table border="1px">
+      <thead>
+      <tr>
+        <th>Logradouro</th>
+        <th>Rua</th>
+        <th>CEP</th>
+        <th>Bairro</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>Pais</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let imovel of imoveis | slice: (page-1) * pageSize : page * pageSize">
+        <td>{{imovel.logradouro}}</td>
+        <td>{{imovel.rua}}</td>
+        <td>{{imovel.cep}}</td>
+        <td>{{imovel.bairro}}</td>
+        <td>{{imovel.cidade}}</td>
+        <td>{{imovel.estado}}</td>
+        <td>{{imovel.pais}}</td>
+                <td><button type="button" class="btn-sm btn-danger"
+        (click)="excluir(imovel.id)"> Excluir</button></td>
+        <td><app-alterar-imoveis [idImoveis]=imovel.id [idUsuario]=idUser></app-alterar-imoveis></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-inserir-imoveis [idUsuario]=idUser></app-inserir-imoveis>
+  <ngb-pagination
+  [(page)]="page"
+  [pageSize]="4"
+  [collectionSize]="imoveis.length"></ngb-pagination>
+  <td><button type="button" class="btn-sm btn-secondary"
+    (click)="exportar()"> Exportar</button></td>

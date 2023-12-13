@@ -1,9 +1,7 @@
 package br.com.mba.engenharia.de.software.service.rendas;
 
-import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.output.CSVHelper;
-import br.com.mba.engenharia.de.software.repository.gastos.GastosRepository;
 import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 

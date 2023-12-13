@@ -1,6 +1,6 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.dto.OrigensDTO;
+import br.com.mba.engenharia.de.software.dto.origens.OrigensDTO;
 import br.com.mba.engenharia.de.software.entity.contas.BancoDescr;
 import br.com.mba.engenharia.de.software.entity.contas.Conta;
 import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;

@@ -1,8 +1,6 @@
 package br.com.mba.engenharia.de.software.entity.contas;
 
-import br.com.mba.engenharia.de.software.dto.ContaDTORetorno;
-import br.com.mba.engenharia.de.software.dto.GastosRespostaDTO;
-import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
+import br.com.mba.engenharia.de.software.dto.contas.ContaDTORetorno;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,9 +9,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @Entity
 @Table(name = "conta")

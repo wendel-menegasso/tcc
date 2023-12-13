@@ -1,7 +1,7 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.dto.UsuarioDTO;
-import br.com.mba.engenharia.de.software.dto.UsuarioDTORetorno;
+import br.com.mba.engenharia.de.software.dto.usuarios.UsuarioDTO;
+import br.com.mba.engenharia.de.software.dto.usuarios.UsuarioDTORetorno;
 import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
 import br.com.mba.engenharia.de.software.output.SenderMail;
 import br.com.mba.engenharia.de.software.repository.usuario.UsuarioRepositoryNovo;

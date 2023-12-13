@@ -1,8 +1,8 @@
 package br.com.mba.engenharia.de.software.entity.veiculos;
 
-import br.com.mba.engenharia.de.software.dto.VeiculosDTO;
-import br.com.mba.engenharia.de.software.dto.VeiculosDTOFull;
-import br.com.mba.engenharia.de.software.dto.VeiculosRespostaDTO;
+import br.com.mba.engenharia.de.software.dto.veiculos.VeiculosDTO;
+import br.com.mba.engenharia.de.software.dto.veiculos.VeiculosDTOFull;
+import br.com.mba.engenharia.de.software.dto.veiculos.VeiculosRespostaDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

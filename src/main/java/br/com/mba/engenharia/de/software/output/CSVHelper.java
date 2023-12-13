@@ -2,6 +2,7 @@ package br.com.mba.engenharia.de.software.output;
 
 import br.com.mba.engenharia.de.software.entity.contas.Conta;
 import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
+import br.com.mba.engenharia.de.software.entity.imoveis.Imoveis;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.entity.veiculos.Veiculos;
 import org.apache.commons.csv.CSVFormat;
@@ -12,7 +13,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class CSVHelper<T> {
+public class CSVHelper {
 
     public static ByteArrayInputStream contaToCSV(List<Conta> contaList, String filename) throws IOException {
         final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL);
@@ -104,6 +105,34 @@ public class CSVHelper<T> {
                         veiculos.getModelo(),
                         veiculos.getMarca(),
                         veiculos.getAno()
+                );
+
+                csvPrinter.printRecord(data);
+            }
+
+            csvPrinter.flush();
+            return new ByteArrayInputStream(out.toByteArray());
+        } catch (IOException e) {
+            throw new RuntimeException("fail to import data to CSV file: " + e.getMessage());
+        }
+    }
+
+    public static ByteArrayInputStream imovelToCSV(List<Imoveis> imoveisList, String filename) throws IOException {
+        final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL);
+
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+             CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(filename), format);) {
+            for (Imoveis imovel : imoveisList) {
+                List<? extends Serializable> data = Arrays.asList(
+                        String.valueOf(imovel.getId()),
+                        imovel.getCep(),
+                        imovel.getLogradouro(),
+                        imovel.getRua(),
+                        imovel.getNumero(),
+                        imovel.getBairro(),
+                        imovel.getCidade(),
+                        imovel.getEstado(),
+                        imovel.getPais()
                 );
 
                 csvPrinter.printRecord(data);

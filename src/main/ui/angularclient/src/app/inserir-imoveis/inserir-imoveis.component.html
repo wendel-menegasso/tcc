@@ -1,0 +1,80 @@
+<button class="btn btn-sm btn-outline-primary" (click)="openPopup()">Inserir</button>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Inserir Imoveis</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="logradouro">Logradouro</label>
+          <input type="text" [(ngModel)]="imovel.logradouro"
+                 class="form-control"
+                 id="logradouro"
+                 name="logradouro"
+                 placeholder="Logradouro">
+          <label for="rua">Rua</label>
+          <input type="text" [(ngModel)]="imovel.rua"
+                 class="form-control"
+                 id="rua"
+                 name="rua"
+                 placeholder="Rua"
+                 required #email="ngModel">
+        <label for="numero">Número</label>
+        <input type="text" [(ngModel)]="imovel.numero"
+               class="form-control"
+               id="numero"
+               name="numero"
+               placeholder="Número"
+               required #name="ngModel">
+               <label for="bairro">Bairro</label>
+               <input type="text" [(ngModel)]="imovel.bairro"
+                      class="form-control"
+                      id="bairro"
+                      name="bairro"
+                      placeholder="Bairro">
+               <label for="cidade">Cidade</label>
+               <input type="text" [(ngModel)]="imovel.cidade"
+                      class="form-control"
+                      id="cidade"
+                      name="cidade"
+                      placeholder="Cidade"
+                      required #email="ngModel">
+             <label for="estado">Estado</label>
+             <input type="text" [(ngModel)]="imovel.estado"
+                    class="form-control"
+                    id="estado"
+                    name="estado"
+                    placeholder="Estado"
+                    required #name="ngModel">
+                    <label for="pais">País</label>
+                    <input type="text" [(ngModel)]="imovel.pais"
+                           class="form-control"
+                           id="pais"
+                           name="pais"
+                           placeholder="Pais">
+                  <label for="cep">CEP</label>  
+                  <input type="text" [(ngModel)]="imovel.cep"
+                  class="form-control"
+                  id="cep'"
+                  name="cep"
+                  placeholder="CEP"
+                  required #email="ngModel">      
+        <button type="submit" (click)="onSubmit()"
+                class="btn-sm btn-info">Salvar</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-sm btn-danger"
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+      </div>
+      </div>
+  </div>
+  </div>
+

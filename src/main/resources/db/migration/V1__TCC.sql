@@ -4,7 +4,7 @@ create table cidade (id int primary key, estado int, descr varchar(40));
 create table empresa (id int primary key, nome varchar(50), cnpj varchar(14), ie varchar(14), numeroFuncionarios int, nomeFantasia varchar(50), faturamento double, usuario int);
 create table estado (id int primary key, descr varchar(40));
 create table modelo (id int primary key, fabricante int, descr varchar(30));
-create table imoveis (id int primary key, tipo int, valor double, cep int, estado int, cidade int, bairro varchar(50), rua varchar(60), numero int, complemento varchar(50), usuario int);
+create table imoveis (id int primary key, pais varchar(50), estado varchar(50), cidade varchar(50), bairro varchar(50), rua varchar(60), numero varchar(50), cep varchar(50), usuario int);
 create table fabricantes (id int primary key, descr varchar(30));
 create table despesas (id int primary key, nome varchar(50), valor double, mes int, ano int, dia int, tipo int, repeticao int, origem int, usuario int);
 create table repeticao (id int primary key, descr varchar(50));
@@ -15,7 +15,6 @@ create table tipoVeiculos (id int primary key, descr varchar(30) not null);
 create table tipoRenda (id int primary key, descr varchar(50) not null);
 create table tipoConta (id int primary key, descr varchar(25) not null);
 create table tipoDespesas (id int primary key, descr varchar(40) not null);
-create table tipoImovel (id int primary key, descr varchar(50) not null);
 
 insert into estado (id, descr) values (1, "Acre (AC)"),
 (2, "Alagoas (AL)"),

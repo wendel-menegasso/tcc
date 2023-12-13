@@ -37,7 +37,10 @@ constructor( private route: ActivatedRoute,
       }
       if (this.token === '5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555'){
         this.router.navigate(['/veiculos'], { queryParams: { 'id': this.id  } });
-    }
+      }
+      if (this.token === '6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666'){
+        this.router.navigate(['/imoveis'], { queryParams: { 'id': this.id  } });
+      }
     }
   );
   

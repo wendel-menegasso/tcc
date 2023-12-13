@@ -1,6 +1,5 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.dto.GastosRespostaDTO;
 import br.com.mba.engenharia.de.software.entity.despesas.Gastos;
 import br.com.mba.engenharia.de.software.entity.rendas.Renda;
 import br.com.mba.engenharia.de.software.output.GenerateDashboard;

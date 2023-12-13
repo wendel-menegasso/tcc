@@ -1,8 +1,8 @@
 package br.com.mba.engenharia.de.software.controller;
 
-import br.com.mba.engenharia.de.software.dto.VeiculosDTO;
-import br.com.mba.engenharia.de.software.dto.VeiculosDTOFull;
-import br.com.mba.engenharia.de.software.dto.VeiculosRespostaDTO;
+import br.com.mba.engenharia.de.software.dto.veiculos.VeiculosDTO;
+import br.com.mba.engenharia.de.software.dto.veiculos.VeiculosDTOFull;
+import br.com.mba.engenharia.de.software.dto.veiculos.VeiculosRespostaDTO;
 import br.com.mba.engenharia.de.software.entity.veiculos.Veiculos;
 import br.com.mba.engenharia.de.software.repository.veiculos.VeiculosRepository;
 import br.com.mba.engenharia.de.software.service.veiculos.CSVVeiculosService;
