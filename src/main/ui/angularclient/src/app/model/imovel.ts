@@ -8,6 +8,5 @@ export class Imovel {
     cidade: string;
     estado: string;
     pais: string;
-    tipoImovel: string;
     usuario: string;
 }

@@ -5,10 +5,9 @@ import br.com.mba.engenharia.de.software.entity.imoveis.Imoveis;
 public class ImoveisRetornoDTO {
     private int id;
     private String cep;
-    private int logradouro;
+    private String logradouro;
     private String rua;
-    private int numero;
-    private int tipoImovel;
+    private String numero;
     private String bairro;
     private String cidade;
     private String estado;
@@ -21,7 +20,6 @@ public class ImoveisRetornoDTO {
         this.logradouro = imoveisRetorno.getLogradouro();
         this.rua = imoveisRetorno.getRua();
         this.numero = imoveisRetorno.getNumero();
-        this.tipoImovel = imoveisRetorno.getTipoImovel();
         this.bairro = imoveisRetorno.getBairro();
         this.cidade = imoveisRetorno.getCidade();
         this.estado = imoveisRetorno.getEstado();

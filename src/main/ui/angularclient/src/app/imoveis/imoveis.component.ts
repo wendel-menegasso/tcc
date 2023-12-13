@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-imoveis',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImoveisComponent implements OnInit {
 
-  constructor() { }
+  id: string;
+  query: string;
+  chaveValor: string[];
+  chave: string;
+  valor: string;
 
-  ngOnInit(): void {
+  constructor(    
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router) {
+
   }
 
+  ngOnInit(): void {
+    this.query = location.search.slice(1);
+    this.chaveValor = this.query.split('=');
+    this.chave = this.chaveValor[0];
+    this.valor = this.chaveValor[1];
+    this.id = this.valor;
+  }
 }

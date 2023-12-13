@@ -28,8 +28,8 @@ public interface ImoveisRepository extends Repository<Imoveis, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Imoveis i set i.cep = ?1, i.logradouro= ?2, i.rua = ?3, i.numero = ?4, i.tipoImovel = ?5, i.bairro = ?6, i.cidade = ?7, i.estado = ?8, i.pais = ?9 " +
-            "where i.usuario = ?10 and i.id = ?11")
-    Integer updateImoveis(String cep, int logradouro, String rua, int numero, int tipoImovel, String bairro, String cidade, String estado, String pais, int usuario, int id);
+    @Query("update Imoveis i set i.cep = ?1, i.logradouro= ?2, i.rua = ?3, i.numero = ?4, i.bairro = ?5, i.cidade = ?6, i.estado = ?7, i.pais = ?8 " +
+            "where i.usuario = ?9 and i.id = ?10")
+    Integer updateImoveis(String cep, String logradouro, String rua, String numero, String bairro, String cidade, String estado, String pais, int usuario, int id);
 
 }

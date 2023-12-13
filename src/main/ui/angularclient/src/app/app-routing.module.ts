@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { MenuComponent } from './menu/menu.component';
-import { MasterComponent } from './master/master.component';
 import { FalhaDeLoginComponent} from './falha-de-login/falha-de-login.component';
 import { AppComponent } from './app.component';
 import { CriarUsuarioComponent } from './criar-usuario/criar-usuario.component';

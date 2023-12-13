@@ -22,13 +22,11 @@ public class Imoveis {
     @Column(name = "cep")
     private String cep;
     @Column(name = "logradouro")
-    private int logradouro;
+    private String logradouro;
     @Column(name = "rua")
     private String rua;
     @Column(name = "numero")
-    private int numero;
-    @Column(name = "tipoImovel")
-    private int tipoImovel;
+    private String numero;
     @Column(name = "bairro")
     private String bairro;
     @Column(name = "cidade")
@@ -49,8 +47,8 @@ public class Imoveis {
         this.numero = imoveisDTOFull.getNumero();
         this.pais = imoveisDTOFull.getPais();
         this.rua = imoveisDTOFull.getRua();
-        this.tipoImovel = imoveisDTOFull.getTipoImovel();
         this.usuario = imoveisDTOFull.getUsuario();
+        this.id = imoveisDTOFull.getId();
     }
 
     public Imoveis(ImoveisAlterarDTO imoveisAlterarDTO) {
@@ -62,8 +60,8 @@ public class Imoveis {
         this.numero = imoveisAlterarDTO.getNumero();
         this.pais = imoveisAlterarDTO.getPais();
         this.rua = imoveisAlterarDTO.getRua();
-        this.tipoImovel = imoveisAlterarDTO.getTipoImovel();
         this.usuario = imoveisAlterarDTO.getUsuario();
+        this.id = imoveisAlterarDTO.getId();
     }
 
     public void setId(Integer id){
@@ -79,7 +77,6 @@ public class Imoveis {
         this.numero = imoveisDTO.getNumero();
         this.pais = imoveisDTO.getPais();
         this.rua = imoveisDTO.getRua();
-        this.tipoImovel = imoveisDTO.getTipoImovel();
         this.usuario = imoveisDTO.getUsuario();
     }
 

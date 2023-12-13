@@ -132,8 +132,7 @@ public class CSVHelper {
                         imovel.getBairro(),
                         imovel.getCidade(),
                         imovel.getEstado(),
-                        imovel.getPais(),
-                        imovel.getTipoImovel()
+                        imovel.getPais()
                 );
 
                 csvPrinter.printRecord(data);

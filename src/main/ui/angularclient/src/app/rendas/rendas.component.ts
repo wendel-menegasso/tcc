@@ -54,6 +54,7 @@ export class RendasComponent implements OnInit {
         config.boundaryLinks = true;
         this.renda = new Rendas();
       }
+      
   ngOnInit(): void {
     this.query = location.search.slice(1);
     this.chaveValor = this.query.split('=');

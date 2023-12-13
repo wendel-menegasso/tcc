@@ -35,10 +35,3 @@ insert into tipoveiculos (id, descr) values (1, "aviao"),
 (8, "moto"),
 (9, "onibus");
 
-insert into tipoimovel (id, descr) values (1, "apartamento"),
-(2, "casa"),
-(3, "chacara"),
-(4, "fazenda"),
-(5, "kitnet"),
-(6, "predio");
-

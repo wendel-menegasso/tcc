@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -19,6 +19,7 @@ export class NgbdAccordionConfig {
 	chaveValor: string[];
 	chave: string;
 	valor: string;
+	url: string[];
 
 	constructor(config: NgbAccordionConfig,
 		private route: ActivatedRoute,
@@ -70,6 +71,17 @@ export class NgbdAccordionConfig {
 		}
 	}
 
+	Imovel(){
+		this.getURL();
+		this.id = this.idUsuarioMenu;
+		if (this.id === undefined){
+			this.router.navigate(['/imoveis'], { queryParams: { 'id': this.idURL  } });
+		}
+		else{
+			this.router.navigate(['/imoveis'], { queryParams: { 'id': this.id  } });
+		}
+	}
+
 	Veiculos() {
 		this.getURL();
 		this.id = this.idUsuarioMenu;
@@ -81,28 +93,18 @@ export class NgbdAccordionConfig {
 		}
 	}
 
-	Imoveis() {
-		this.getURL();
-		this.id = this.idUsuarioMenu;
-		if (this.id === undefined){
-			this.router.navigate(['/imoveis'], { queryParams: { 'id': this.idURL  } });
-			}
-		else{
-			this.router.navigate(['/imoveis'], { queryParams: { 'id': this.id  } });
-		}
-	}
-
 	Home() {
 		this.getURL();
 		this.token = '4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444';
 		this.router.navigate(['/home'], { queryParams: { token: this.token, 'id': this.chaveValor[1] } });;
 	}
 
-
 	Logout() {
 		window.location.href = "";
 	}
+
 	@Input() idUsuarioMenu : string;
+	
 	getURL(){
 		this.query = location.search.slice(1);
 		this.chaveValor = this.query.split('=');

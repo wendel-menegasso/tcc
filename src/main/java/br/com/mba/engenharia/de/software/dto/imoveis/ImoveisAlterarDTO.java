@@ -5,11 +5,11 @@ import lombok.Getter;
 
 @Getter
 public class ImoveisAlterarDTO {
+    private int id;
     private String cep;
-    private int logradouro;
+    private String logradouro;
     private String rua;
-    private int numero;
-    private int tipoImovel;
+    private String numero;
     private String bairro;
     private String cidade;
     private String estado;

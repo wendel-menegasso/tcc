@@ -45,11 +45,11 @@ export class ImoveisService {
     return this.http.delete<any>(this.deleteUrl+id, { headers: headers });
   }
 
-  public recebeDadosAlterarRendas(imovel: Imovel) : Observable<Imovel> {
+  public recebeDadosAlterarImoveis(imovel: Imovel) : Observable<Imovel> {
     return this.http.post<Imovel>(this.recebeDadosAlterarImoveisUrl, imovel);
   }
 
-  public alterarRendas(imovel: Imovel) : Observable<Imovel>{
+  public alterarImoveis(imovel: Imovel) : Observable<Imovel>{
     return this.http.put<Imovel>(this.alterarUrl, imovel);
   }
 

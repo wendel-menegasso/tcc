@@ -53,7 +53,7 @@ public class GastosController {
 
     @Bean
     public CSVGastosService csvGastosService() {
-        fileService = new CSVGastosService();
+        this.fileService = new CSVGastosService();
         return fileService;
     }
 

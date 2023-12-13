@@ -25,7 +25,7 @@ public class ImoveisManager implements ImoveisService{
 
     @Override
     public List<Imoveis> findAll(Integer idUser) {
-        return findAll(idUser);
+        return repository.findAll(idUser);
     }
 
     @Override

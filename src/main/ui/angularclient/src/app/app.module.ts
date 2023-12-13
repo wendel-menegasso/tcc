@@ -45,6 +45,7 @@ import { AlterarImoveisComponent } from './alterar-imoveis/alterar-imoveis.compo
 import { InserirImoveisComponent } from './inserir-imoveis/inserir-imoveis.component';
 import { ImoveisComponent } from './imoveis/imoveis.component';
 import { ImoveisUsuarioComponent } from './imoveis-usuario/imoveis-usuario.component';
+import { ImoveisService } from './service/imoveis.service';
 
 @NgModule({
   declarations: [
@@ -90,9 +91,9 @@ import { ImoveisUsuarioComponent } from './imoveis-usuario/imoveis-usuario.compo
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [UserService,UsuarioService,ContasBancariasService,RendasService,VeiculosService],
+  providers: [UserService,UsuarioService,ContasBancariasService,RendasService,VeiculosService,ImoveisService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
