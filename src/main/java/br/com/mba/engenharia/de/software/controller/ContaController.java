@@ -55,6 +55,11 @@ public class ContaController {
         this.fileService = csvContasService();
     }
 
+    public ContaController(){
+        this.contaService = contaService();
+        this.fileService = csvContasService();
+    }
+
     @PostMapping("/criarConta")
     public ResponseEntity<?> salvar(@RequestBody ContaDTO contaDTO) {
         Conta conta = contaDTO.parseContaDTOToConta();

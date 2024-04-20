@@ -1,6 +1,7 @@
 package br.com.mba.engenharia.de.software.dto.contas;
 
 import br.com.mba.engenharia.de.software.entity.contas.Conta;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ContaDTORetorno {
     private Integer id;
     private Integer banco;
