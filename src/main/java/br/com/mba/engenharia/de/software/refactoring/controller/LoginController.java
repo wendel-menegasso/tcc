@@ -3,11 +3,11 @@ package br.com.mba.engenharia.de.software.refactoring.controller;
 import br.com.mba.engenharia.de.software.refactoring.entity.login.Login;
 import br.com.mba.engenharia.de.software.refactoring.entity.usuarios.Users;
 import br.com.mba.engenharia.de.software.refactoring.entity.usuarios.Usuario;
-import br.com.mba.engenharia.de.software.repository.usuario.UsuarioRepositoryNovo;
-import br.com.mba.engenharia.de.software.security.Criptrografia;
-import br.com.mba.engenharia.de.software.security.GerarToken;
-import br.com.mba.engenharia.de.software.service.usuarios.UserManager;
-import br.com.mba.engenharia.de.software.service.usuarios.UserService;
+import br.com.mba.engenharia.de.software.refactoring.repository.usuario.UsuarioRepository;
+import br.com.mba.engenharia.de.software.refactoring.security.Criptrografia;
+import br.com.mba.engenharia.de.software.refactoring.security.GerarToken;
+import br.com.mba.engenharia.de.software.refactoring.service.usuarios.UserManager;
+import br.com.mba.engenharia.de.software.refactoring.service.usuarios.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-import static br.com.mba.engenharia.de.software.controller.UserLinks.AUTHENTICATE;
+import static br.com.mba.engenharia.de.software.refactoring.controller.UserLinks.AUTHENTICATE;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -27,7 +27,7 @@ public class LoginController{
     private static final Logger logger = LoggerFactory.getLogger(Login.class);
 
     @Autowired
-    UsuarioRepositoryNovo usuarioRepositoryNovo;
+    UsuarioRepository usuarioRepositoryNovo;
 
     UserService userService;
 

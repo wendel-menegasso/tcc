@@ -1,6 +1,6 @@
 package br.com.mba.engenharia.de.software.refactoring.repository.usuario;
 
-import br.com.mba.engenharia.de.software.entity.usuarios.Usuario;
+import br.com.mba.engenharia.de.software.refactoring.entity.usuarios.Usuario;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
