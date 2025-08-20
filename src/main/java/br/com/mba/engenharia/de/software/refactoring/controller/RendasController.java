@@ -5,15 +5,12 @@ import br.com.mba.engenharia.de.software.refactoring.dto.contas.ContaDTOAlterarF
 import br.com.mba.engenharia.de.software.refactoring.dto.contas.ContaDTORetorno;
 import br.com.mba.engenharia.de.software.refactoring.dto.rendas.*;
 import br.com.mba.engenharia.de.software.refactoring.entity.rendas.Renda;
+import br.com.mba.engenharia.de.software.refactoring.service.GenericService;
 import br.com.mba.engenharia.de.software.repository.contas.ContaRepository;
 import br.com.mba.engenharia.de.software.repository.rendas.RendasRepository;
-import br.com.mba.engenharia.de.software.service.rendas.CSVRendasService;
-import br.com.mba.engenharia.de.software.service.rendas.RendasManager;
-import br.com.mba.engenharia.de.software.service.rendas.RendasService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +25,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-public class RendasController{
+public class RendasController {
     private static final Logger logger = LoggerFactory.getLogger(Renda.class);
 
     @Autowired
@@ -38,75 +35,49 @@ public class RendasController{
     ContaRepository contaRepository;
 
     @Autowired
-    CSVRendasService fileService;
-
-    RendasService rendasService;
-
-    @Bean
-    public RendasService rendasService(){
-        return new RendasManager(repository);
-    }
-
-    @Bean
-    public CSVRendasService csvRendasService() {
-        fileService = new CSVRendasService();
-        return fileService;
-    }
-
-    public RendasController() {
-        this.rendasService = rendasService();
-        this.fileService = csvRendasService();
-    }
+    GenericService genericService;
 
     @PostMapping("/criarRenda")
-    public ResponseEntity<?> salvar(@RequestBody RendasDTO rendasDTO){
-        rendasService.setRendasRepository(repository);
+    public ResponseEntity<?> salvar(@RequestBody RendasDTO rendasDTO) {
         Renda rendas = rendasDTO.parseRendasDTOToRenda();
 
-        rendas.setId(rendasService.count());
-        Renda rendasRetorno = rendasService.save(rendas);
+        rendas.setId(repository.count());
+        Renda rendasRetorno = repository.save(rendas);
         RendasRetornoDTO rendasRespostaDTO = new RendasRetornoDTO(rendasRetorno);
 
-        if (rendasRespostaDTO != null){
-            ContaController controller = new ContaController(contaRepository);
-            ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(rendasRetorno.getOrigem()), rendasRetorno.getUsuario());
-            ContaDTORetorno contaSelecionada = controller.pegaConta(contaDTOAlterar);
+        ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(rendasRetorno.getOrigem()), rendasRetorno.getUsuario());
+        ContaDTORetorno contaSelecionada = genericService.pegaConta(contaDTOAlterar);
 
-            Double valorRenda = Double.parseDouble(rendasRetorno.getValor());
-            Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
+        Double valorRenda = Double.parseDouble(rendasRetorno.getValor());
+        Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
 
-            Double valorAtualizado = valorConta + valorRenda;
+        Double valorAtualizado = valorConta + valorRenda;
 
-            contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
+        contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
 
-            ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
-            ContaDTORetorno contaAlterada = controller.atualizaConta(contaDTOAlterarFull);
+        ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
+        ContaDTORetorno contaAlterada = genericService.atualizaConta(contaDTOAlterarFull);
 
-            if (contaAlterada != null) {
-                logger.info(String.format("Despesa cadastrada corretamente"));
-                return ResponseEntity.ok(rendasRespostaDTO);
-            } else {
-                logger.info(String.format("Despesa cadastrada incorretamente"));
-                return ResponseEntity.ok(null);
-            }
+        if (contaAlterada != null) {
+            logger.info(String.format("Despesa cadastrada corretamente"));
+            return ResponseEntity.ok(rendasRespostaDTO);
+        } else {
+            logger.info(String.format("Despesa cadastrada incorretamente"));
+            return ResponseEntity.ok(null);
         }
-        logger.info(String.format("Despesa cadastrada incorretamente"));
-        return ResponseEntity.ok(null);
 
     }
 
     @PostMapping("/listarRenda")
-    public ResponseEntity<List<Renda>> listarRenda(@RequestBody String req){
-        rendasService.setRendasRepository(repository);
-        List<Renda> rendaList = rendasService.findAll(Integer.parseInt(req));
+    public ResponseEntity<List<Renda>> listarRenda(@RequestBody String req) {
+        List<Renda> rendaList = repository.findAll(Integer.parseInt(req));
         return ResponseEntity.ok(rendaList);
     }
 
     @PostMapping("/gerarRelatorioRenda")
     public ResponseEntity<FileSystemResource> gerarRelatorioRenda(@RequestBody RendaDTOFull rendasDTOFull) throws IOException {
-        fileService.setUsuario(Integer.parseInt(String.valueOf(rendasDTOFull.getUsuario())));
         String filename = "rendas.csv";
-        InputStreamResource file = new InputStreamResource(fileService.load(filename));
+        InputStreamResource file = new InputStreamResource(genericService.load(filename));
 
         FileSystemResource fileSystemResource = new FileSystemResource(new File(filename));
 
@@ -124,16 +95,14 @@ public class RendasController{
     }
 
     @DeleteMapping("/deletarRenda/{id}")
-    public ResponseEntity<?> deletarRenda(@PathVariable("id") String id){
-        rendasService.setRendasRepository(repository);
+    public ResponseEntity<?> deletarRenda(@PathVariable("id") String id) {
         Renda renda = new Renda();
         renda.setId(Integer.parseInt(id));
-        Renda rendaRetorno = rendasService.findById(renda.getId());
+        Renda rendaRetorno = repository.findById(renda.getId());
         RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
-        if (rendasService.delete(renda.getId()) > 0) {
-            ContaController controller = new ContaController(contaRepository);
+        if (repository.delete(renda.getId()) > 0) {
             ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(rendaRetorno.getOrigem()), rendaRetorno.getUsuario());
-            ContaDTORetorno contaSelecionada = controller.pegaConta(contaDTOAlterar);
+            ContaDTORetorno contaSelecionada = genericService.pegaConta(contaDTOAlterar);
 
             Double valorRenda = Double.parseDouble(rendaRetorno.getValor());
             Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
@@ -143,7 +112,7 @@ public class RendasController{
             contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
 
             ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
-            ContaDTORetorno contaAlterada = controller.atualizaConta(contaDTOAlterarFull);
+            ContaDTORetorno contaAlterada = genericService.atualizaConta(contaDTOAlterarFull);
 
             if (contaAlterada != null) {
                 logger.info(String.format("Renda deletada com sucesso"));
@@ -156,35 +125,32 @@ public class RendasController{
         logger.info(String.format("Falha na exclusão"));
         return ResponseEntity.ok(null);
     }
+
     @PostMapping("/recebeDadosAlterarRenda")
-    public ResponseEntity<?> recebeDadosAlterarRenda(@RequestBody RendasDTOFull rendasDTOFull){
+    public ResponseEntity<?> recebeDadosAlterarRenda(@RequestBody RendasDTOFull rendasDTOFull) {
         Renda renda = rendasDTOFull.parseRendasDTOToRenda();
-        rendasService.setRendasRepository(repository);
-        Renda rendaRetorno  = rendasService.findById(renda.getId());
+        Renda rendaRetorno = repository.findById(renda.getId());
         RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
-        if (rendasRetornoDTO != null){
+        if (rendasRetornoDTO != null) {
             return ResponseEntity.ok(rendasRetornoDTO);
-        }
-        else{
+        } else {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
     }
 
     @PutMapping("alterarRenda")
-    public ResponseEntity<?> alterarRenda(@RequestBody RendasAlterarDTO rendasAlterarDTO){
+    public ResponseEntity<?> alterarRenda(@RequestBody RendasAlterarDTO rendasAlterarDTO) {
         Renda renda = rendasAlterarDTO.parseRendasDTOToRenda();
-        rendasService.setRendasRepository(repository);
-        Renda rendaRetorno = rendasService.findById(renda.getId());
+        Renda rendaRetorno = repository.findById(renda.getId());
 
         Double rendaAtualizada = Double.parseDouble(rendaRetorno.getValor()) - Double.parseDouble(renda.getValor());
 
         RendasRetornoDTO rendasRetornoDTO = rendaRetorno.parseRendaToRendasRetornoDTO();
         Integer retorno = repository.updateRendas(renda.getNome(), renda.getTipo(), renda.getValor(),
                 renda.getData(), renda.getId(), renda.getUsuario());
-        if (retorno > 0){
-            ContaController controller = new ContaController(contaRepository);
+        if (retorno > 0) {
             ContaDTOAlterar contaDTOAlterar = new ContaDTOAlterar(String.valueOf(rendaRetorno.getOrigem()), rendaRetorno.getUsuario());
-            ContaDTORetorno contaSelecionada = controller.pegaConta(contaDTOAlterar);
+            ContaDTORetorno contaSelecionada = genericService.pegaConta(contaDTOAlterar);
 
             Double valorConta = Double.parseDouble(contaSelecionada.getSaldo());
 
@@ -193,11 +159,10 @@ public class RendasController{
             contaSelecionada.setSaldo(String.valueOf(valorAtualizado));
 
             ContaDTOAlterarFull contaDTOAlterarFull = new ContaDTOAlterarFull(contaSelecionada);
-            ContaDTORetorno contaAlterada = controller.atualizaConta(contaDTOAlterarFull);
+            ContaDTORetorno contaAlterada = genericService.atualizaConta(contaDTOAlterarFull);
             logger.info(String.format("Renda alterada com sucesso!"));
             return ResponseEntity.ok(rendasRetornoDTO);
-        }
-        else{
+        } else {
             logger.info(String.format("Não foi possivel alterar a renda"));
             return ResponseEntity.ok(null);
         }
