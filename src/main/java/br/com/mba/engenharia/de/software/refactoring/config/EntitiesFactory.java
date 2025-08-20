@@ -14,39 +14,38 @@ import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 @Configuration
 public class EntitiesFactory {
 
-    @Bean
-    public ContaRepository contasRepository(EntityManager entityManager){
-        JpaRepositoryFactory jpaRepositoryFactory = new JpaRepositoryFactory(entityManager);
-        return jpaRepositoryFactory.getRepository(ContaRepository.class);
+    private <T> T createRepository(EntityManager entityManager, Class<T> repositoryClass) {
+        JpaRepositoryFactory factory = new JpaRepositoryFactory(entityManager);
+        return factory.getRepository(repositoryClass);
     }
 
     @Bean
-    public GastosRepository gastosRepository(EntityManager entityManager){
-        JpaRepositoryFactory jpaRepositoryFactory = new JpaRepositoryFactory(entityManager);
-        return jpaRepositoryFactory.getRepository(GastosRepository.class);
+    public ContaRepository contasRepository(EntityManager entityManager) {
+        return createRepository(entityManager, ContaRepository.class);
     }
 
     @Bean
-    public ImoveisRepository imoveisRepository(EntityManager entityManager){
-        JpaRepositoryFactory jpaRepositoryFactory = new JpaRepositoryFactory(entityManager);
-        return jpaRepositoryFactory.getRepository(ImoveisRepository.class);
+    public GastosRepository gastosRepository(EntityManager entityManager) {
+        return createRepository(entityManager, GastosRepository.class);
     }
 
     @Bean
-    public RendasRepository rendasRepository(EntityManager entityManager){
-        JpaRepositoryFactory jpaRepositoryFactory = new JpaRepositoryFactory(entityManager);
-        return jpaRepositoryFactory.getRepository(RendasRepository.class);
+    public ImoveisRepository imoveisRepository(EntityManager entityManager) {
+        return createRepository(entityManager, ImoveisRepository.class);
     }
 
     @Bean
-    public UsuarioRepository usuarioRepository(EntityManager entityManager){
-        JpaRepositoryFactory jpaRepositoryFactory = new JpaRepositoryFactory(entityManager);
-        return jpaRepositoryFactory.getRepository(UsuarioRepository.class);
+    public RendasRepository rendasRepository(EntityManager entityManager) {
+        return createRepository(entityManager, RendasRepository.class);
     }
 
     @Bean
-    public VeiculosRepository veiculosRepository(EntityManager entityManager){
-        JpaRepositoryFactory jpaRepositoryFactory = new JpaRepositoryFactory(entityManager);
-        return jpaRepositoryFactory.getRepository(VeiculosRepository.class);
+    public UsuarioRepository usuarioRepository(EntityManager entityManager) {
+        return createRepository(entityManager, UsuarioRepository.class);
+    }
+
+    @Bean
+    public VeiculosRepository veiculosRepository(EntityManager entityManager) {
+        return createRepository(entityManager, VeiculosRepository.class);
     }
 }
