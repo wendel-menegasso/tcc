@@ -5,6 +5,7 @@ import br.com.mba.engenharia.de.software.refactoring.dto.imoveis.ImoveisDTO;
 import br.com.mba.engenharia.de.software.refactoring.dto.imoveis.ImoveisDTOFull;
 import br.com.mba.engenharia.de.software.refactoring.dto.imoveis.ImoveisRetornoDTO;
 import br.com.mba.engenharia.de.software.refactoring.entity.imoveis.Imoveis;
+import br.com.mba.engenharia.de.software.refactoring.service.GenericService;
 import br.com.mba.engenharia.de.software.repository.imoveis.ImoveisRepository;
 import br.com.mba.engenharia.de.software.service.imoveis.CSVImoveisService;
 import br.com.mba.engenharia.de.software.service.imoveis.ImoveisManager;
@@ -28,38 +29,20 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 public class ImoveisController{
-    private static final Logger logger = LoggerFactory.getLogger(Imoveis.class);
+    private static final Logger logger = LoggerFactory.getLogger(ImoveisController.class);
 
     @Autowired
     ImoveisRepository repository;
 
-    CSVImoveisService fileService;
-
-    ImoveisService imoveisService;
-
-    @Bean
-    public ImoveisService imoveisService(){
-        return new ImoveisManager(repository);
-    }
-
-    @Bean
-    public CSVImoveisService csvImoveisService() {
-        this.fileService = new CSVImoveisService();
-        return fileService;
-    }
-
-    public ImoveisController() {
-        this.imoveisService = imoveisService();
-        this.fileService = csvImoveisService();
-    }
+    @Autowired
+    GenericService fileService;
 
     @PostMapping("/criarImovel")
     public ResponseEntity<Imoveis> salvar(@RequestBody ImoveisDTO imoveisDTO){
-        imoveisService.setRepository(repository);
         Imoveis imoveis = imoveisDTO.parseImoveisDTOToImovel();
 
-        imoveis.setId(imoveisService.count() + 1);
-        Imoveis imoveisRetorno = imoveisService.save(imoveis);
+        imoveis.setId(repository.count() + 1);
+        Imoveis imoveisRetorno = repository.save(imoveis);
         ImoveisRetornoDTO imoveisRetornoDTO = new ImoveisRetornoDTO(imoveisRetorno);
 
 
@@ -70,8 +53,7 @@ public class ImoveisController{
 
     @PostMapping("/listarImovel")
     public ResponseEntity<List<Imoveis>> listarImoveis(@RequestBody String req){
-        imoveisService.setRepository(repository);
-        List<Imoveis> imoveisList = imoveisService.findAll(Integer.parseInt(req));
+        List<Imoveis> imoveisList = repository.findAll(Integer.parseInt(req));
         return ResponseEntity.ok(imoveisList);
     }
 
@@ -98,12 +80,11 @@ public class ImoveisController{
 
     @DeleteMapping("/deletarImovel/{id}")
     public ResponseEntity<?> deletarImovel(@PathVariable("id") String id){
-        imoveisService.setRepository(repository);
         Imoveis imoveis = new Imoveis();
         imoveis.setId(Integer.parseInt(id));
-        Imoveis imoveisRetorno = imoveisService.findById(imoveis.getId());
+        Imoveis imoveisRetorno = repository.findById(imoveis.getId());
         ImoveisRetornoDTO imoveisRetornoDTO = imoveisRetorno.parseImoveisToImoveisRetornoDTO();
-        if (imoveisService.delete(imoveis.getId()) > 0) {
+        if (repository.delete(imoveis.getId()) > 0) {
             logger.info(String.format("Imovel excluído com sucesso"));
             return ResponseEntity.ok(imoveisRetorno);
         }
@@ -113,8 +94,7 @@ public class ImoveisController{
     @PostMapping("/recebeDadosAlterarImovel")
     public ResponseEntity<?> recebeDadosAlterarRenda(@RequestBody ImoveisDTOFull imoveisDTOFull){
         Imoveis imoveis = imoveisDTOFull.parseImoveisDTOFullToImovel();
-        imoveisService.setRepository(repository);
-        Imoveis imoveisRetorno  = imoveisService.findById(imoveis.getId());
+        Imoveis imoveisRetorno  = repository.findById(imoveis.getId());
         ImoveisRetornoDTO imoveisRetornoDTO = imoveisRetorno.parseImoveisToImoveisRetornoDTO();
         if (imoveisRetornoDTO != null){
             return ResponseEntity.ok(imoveisRetorno);
@@ -127,8 +107,7 @@ public class ImoveisController{
     @PutMapping("alterarImovel")
     public ResponseEntity<?> alterarRenda(@RequestBody ImoveisAlterarDTO imoveisAlterarDTO){
         Imoveis imoveis = imoveisAlterarDTO.parseImoveisAlterarDTOToImovel();
-        imoveisService.setRepository(repository);
-        Imoveis imoveisRetorno = imoveisService.findById(imoveis.getId());
+        Imoveis imoveisRetorno = repository.findById(imoveis.getId());
 
         ImoveisRetornoDTO imoveisRetornoDTO = imoveisRetorno.parseImoveisToImoveisRetornoDTO();
         Integer retorno = repository.updateImoveis(imoveis.getCep(), imoveis.getLogradouro(), imoveis.getRua(),

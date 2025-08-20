@@ -11,19 +11,4 @@ import java.util.List;
 
 public class CSVImoveisService {
 
-    @Autowired
-    ImoveisRepository repository;
-
-    private int usuario;
-
-    public void setUsuario(int i) {
-        this.usuario = usuario;
-    }
-
-    public ByteArrayInputStream load(String filename) throws IOException {
-        List<Imoveis> imoveis = repository.findAll(usuario);
-
-        ByteArrayInputStream in = CSVHelper.imovelToCSV(imoveis,filename);
-        return in;
-    }
 }

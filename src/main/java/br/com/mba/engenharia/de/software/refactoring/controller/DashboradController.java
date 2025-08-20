@@ -3,6 +3,7 @@ package br.com.mba.engenharia.de.software.refactoring.controller;
 import br.com.mba.engenharia.de.software.refactoring.output.GenerateDashboard;
 import br.com.mba.engenharia.de.software.refactoring.repository.gastos.GastosRepository;
 import br.com.mba.engenharia.de.software.refactoring.repository.rendas.RendasRepository;
+import br.com.mba.engenharia.de.software.refactoring.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
@@ -26,13 +27,16 @@ public class DashboradController {
     @Autowired
     GastosRepository gastosRepository;
 
-    @PostMapping
+    @Autowired
+    GenericService genericService;
+
+    @PostMapping("/graficos")
     public ResponseEntity<FileSystemResource> downloadArquivo(@RequestBody String usuario) throws IOException {
         // Localização do arquivo que você deseja transferir
         GenerateDashboard generateDashboard = new GenerateDashboard();
 
-        double totalRendas = pegaDadosDasRendas(usuario);
-        double totalGastos = pegaDadosDosGastos(usuario);
+        double totalRendas = genericService.pegaDadosDasRendas(usuario);
+        double totalGastos = genericService.pegaDadosDosGastos(usuario);
 
         String filePath = generateDashboard.generatePlot1(totalRendas, totalGastos);
 
@@ -51,21 +55,5 @@ public class DashboradController {
                 .headers(headers)
                 .body(fileSystemResource);
     }
-
-    private double pegaDadosDasRendas(String usuario){
-        return rendasRepository.findAll(Integer.parseInt(usuario)).stream()
-                .mapToDouble(renda -> Double.parseDouble(renda.getValor()))
-                .sum();
-
-    }
-
-    private double pegaDadosDosGastos(String usuario){
-        return gastosRepository.findAll(Integer.parseInt(usuario))
-                .stream()
-                .mapToDouble(gastos->Double.parseDouble(gastos.getValor()))
-                .sum();
-    }
-
-
 }
 

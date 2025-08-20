@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 public class GastosController {
 
-    private static final Logger logger = LoggerFactory.getLogger(Gastos.class);
+    private static final Logger logger = LoggerFactory.getLogger(GastosController.class);
 
     @Autowired
     GastosRepository repository;
@@ -37,7 +37,7 @@ public class GastosController {
     @Autowired
     GenericService servicao;
 
-    @PostMapping
+    @PostMapping("/criarGasto")
     public ResponseEntity<?> salvar(@RequestBody GastosDTO gastosDTO) {
         Gastos gastos = gastosDTO.parseGastosToDTOGastos();
 
@@ -67,7 +67,7 @@ public class GastosController {
         }
     }
 
-    @GetMapping("/{id}")
+    @PostMapping("/listarGasto")
     public ResponseEntity<List<GastosRespostaDTO>> listarGasto(@PathVariable("id") String idUsuario) {
         return ResponseEntity.ok(repository.findAll(Integer.parseInt(idUsuario))
                 .stream()
@@ -94,7 +94,7 @@ public class GastosController {
                 .body(fileSystemResource);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletarGasto/{id}")
     public ResponseEntity<?> deletarGasto(@PathVariable("id") String id) {
         Renda renda = new Renda();
         renda.setId(Integer.parseInt(id));

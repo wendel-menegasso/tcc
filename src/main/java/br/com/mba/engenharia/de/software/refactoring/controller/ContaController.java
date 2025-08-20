@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin(origins = "*")
 public class ContaController {
-    private static final Logger logger = LoggerFactory.getLogger(Conta.class);
+    private static final Logger logger = LoggerFactory.getLogger(ContaController.class);
 
     @Autowired
     ContaRepository contaRepository;
@@ -30,7 +30,7 @@ public class ContaController {
     @Autowired
     CSVContasService fileService;
 
-    @PostMapping
+    @PostMapping("/criarConta")
     public ResponseEntity<?> salvar(@RequestBody ContaDTO contaDTO) {
         Conta conta = contaDTO.parseContaDTOToConta();
         Conta contaRetorno = contaRepository.save(conta);
@@ -65,7 +65,7 @@ public class ContaController {
                 .body(fileSystemResource);
     }
 
-    @GetMapping("/{usuario}")
+    @PostMapping("/listarConta")
     public ResponseEntity<?> listarConta(@PathVariable("usuario") String user) {
         Integer usuario = Integer.parseInt(user);
         List<Conta> contaList = contaRepository.findAll(usuario);
@@ -75,7 +75,7 @@ public class ContaController {
                 .collect(Collectors.toList());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletarConta/{id}")
     public ResponseEntity<?> deletarConta(@PathVariable("id") String id) {
         Conta contaRetorno = contaRepository.findById(Integer.parseInt(id));
         ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
@@ -94,7 +94,15 @@ public class ContaController {
         }
     }
 
-    @PutMapping
+    @PostMapping("/recebeDadosAlterarConta")
+    public ResponseEntity<?> recebeDadosAlterarConta(@RequestBody ContaDTOAlterar contaDTOAlterar) {
+        Conta conta = contaDTOAlterar.parseContaDTOAlterarToConta();
+        Conta contaRetorno = contaRepository.findById(conta.getId());
+        ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
+        return ResponseEntity.ok(contaDTORetorno);
+    }
+
+    @PutMapping("alterarConta")
     public ResponseEntity<?> alterarConta(@RequestBody ContaDTOAlterarFull contaDTOAlterarFull) {
         Conta conta = contaDTOAlterarFull.parseContaDTOToConta();
         Conta contaRetorno = contaRepository.findById(conta.getId());
