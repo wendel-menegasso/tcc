@@ -106,24 +106,4 @@ public class ContaController {
             return ResponseEntity.ok(null);
         }
     }
-
-    private ContaDTORetorno pegaConta(ContaDTOAlterar contaDTOAlterar) {
-        Conta conta = contaDTOAlterar.parseContaDTOAlterarToConta();
-        Conta contaRetorno = contaRepository.findById(conta.getId());
-        ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
-        return contaDTORetorno;
-    }
-
-    private ContaDTORetorno atualizaConta(ContaDTOAlterarFull contaDTOAlterarFull) {
-        Conta conta = contaDTOAlterarFull.parseContaDTOToConta();
-        Conta contaRetorno = contaRepository.findById(conta.getId());
-        ContaDTORetorno contaDTORetorno = contaRetorno.parseContaToContaDTORetorno();
-        Integer numeroDeRegistrosAlterados = contaRepository.updateConta(conta.getBanco(), conta.getTipo(), conta.getSaldo(), conta.getAgencia(), conta.getConta(), conta.getId(), conta.getUsuario());
-        if (numeroDeRegistrosAlterados > 0) {
-            return contaDTORetorno;
-        } else {
-            return null;
-        }
-    }
-
 }
