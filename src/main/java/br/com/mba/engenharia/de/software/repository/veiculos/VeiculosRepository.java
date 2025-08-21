@@ -1,6 +1,6 @@
 package br.com.mba.engenharia.de.software.repository.veiculos;
 
-import br.com.mba.engenharia.de.software.entity.veiculos.Veiculos;
+import br.com.mba.engenharia.de.software.refactoring.entity.veiculos.Veiculos;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;

@@ -4,14 +4,11 @@ import br.com.mba.engenharia.de.software.refactoring.dto.veiculos.VeiculosDTO;
 import br.com.mba.engenharia.de.software.refactoring.dto.veiculos.VeiculosDTOFull;
 import br.com.mba.engenharia.de.software.refactoring.dto.veiculos.VeiculosRespostaDTO;
 import br.com.mba.engenharia.de.software.refactoring.entity.veiculos.Veiculos;
+import br.com.mba.engenharia.de.software.refactoring.service.GenericService;
 import br.com.mba.engenharia.de.software.repository.veiculos.VeiculosRepository;
-import br.com.mba.engenharia.de.software.service.veiculos.CSVVeiculosService;
-import br.com.mba.engenharia.de.software.service.veiculos.VeiculosManager;
-import br.com.mba.engenharia.de.software.service.veiculos.VeiculosService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -34,37 +31,13 @@ public class VeiculosController {
     @Autowired
     VeiculosRepository veiculosRepository;
 
-    @Autowired
-    CSVVeiculosService fileService;
-
-    VeiculosService veiculosService;
-
-    @Bean
-    public VeiculosService veiculosService(){
-        VeiculosManager veiculosManager = new VeiculosManager();
-        veiculosManager.setVeiculosRepository(veiculosRepository);
-        return veiculosManager;
-    }
-
-    @Bean
-    public CSVVeiculosService csvGastosService() {
-        fileService = new CSVVeiculosService();
-        return fileService;
-    }
-
-    public VeiculosController() {
-        this.veiculosService = veiculosService();
-        this.fileService = csvGastosService();
-    }
-
     @PostMapping("/criarVeiculo")
     public ResponseEntity<?> salvar(@RequestBody VeiculosDTO veiculosDTO){
-        veiculosService.setVeiculosRepository(veiculosRepository);
 
         Veiculos veiculos = veiculosDTO.parseGastosToDTOGastos();
-        veiculos.setId(veiculosService.count()+1);
+        veiculos.setId(veiculosRepository.count()+1);
 
-        Veiculos veiculosRetorno = veiculosService.save(veiculos);
+        Veiculos veiculosRetorno = veiculosRepository.save(veiculos);
         VeiculosRespostaDTO veiculosRespostaDTO = new VeiculosRespostaDTO(veiculosRetorno);
 
         logger.info(String.format("Veículo cadastrado corretamente"));
@@ -73,8 +46,7 @@ public class VeiculosController {
 
     @PostMapping("/listarVeiculo")
     public ResponseEntity<List<VeiculosRespostaDTO>> listarVeiculo(@RequestBody String idUsuario) {
-        veiculosService.setVeiculosRepository(veiculosRepository);
-        List<Veiculos> veiculosList = veiculosService.findAll(Integer.parseInt(idUsuario));
+        List<Veiculos> veiculosList = veiculosRepository.findAll(Integer.parseInt(idUsuario));
         List<VeiculosRespostaDTO> veiculosRespostaDTOList = new ArrayList<>();
         for (Veiculos veiculos : veiculosList) {
             VeiculosRespostaDTO gastosRespostaDTO = veiculos.parseGastosToGastosRespostaDTO();
@@ -85,10 +57,9 @@ public class VeiculosController {
 
     @PostMapping("/gerarRelatorioVeiculo")
     public ResponseEntity<FileSystemResource> gerarRelatorioVeiculo(@RequestBody VeiculosDTOFull veiculosDTOFull) throws IOException {
-        fileService.setUsuario(Integer.parseInt(String.valueOf(veiculosDTOFull.getUsuario())));
         String filename = "veiculos.csv";
-        InputStreamResource file = new InputStreamResource(fileService.load(filename));
-
+        GenericService genericService = new GenericService();
+        InputStreamResource file = new InputStreamResource(genericService.load(filename));
         FileSystemResource fileSystemResource = new FileSystemResource(new File(filename));
 
         // Configura os cabeçalhos da resposta
@@ -106,12 +77,11 @@ public class VeiculosController {
 
     @DeleteMapping("/deletarVeiculo/{id}")
     public ResponseEntity<?> deletarVeiculo(@PathVariable("id") String id){
-        veiculosService.setVeiculosRepository(veiculosRepository);
 
-        Veiculos veiculoRetorno = veiculosService.findById(Integer.parseInt(id));
+        Veiculos veiculoRetorno = veiculosRepository.findById(Integer.parseInt(id));
         VeiculosRespostaDTO veiculosRespostaDTO = veiculoRetorno.parseGastosToGastosRespostaDTO();
 
-        veiculosService.delete(Integer.parseInt(id));
+        veiculosRepository.delete(Integer.parseInt(id));
 
         logger.info(String.format("Veículo deletado com sucesso"));
         return ResponseEntity.ok(veiculosRespostaDTO);
@@ -120,18 +90,16 @@ public class VeiculosController {
 
     @PostMapping("/recebeDadosAlterarVeiculo")
     public ResponseEntity<?> recebeDadosAlterarVeiculo(@RequestBody Veiculos veiculos){
-        veiculosService.setVeiculosRepository(veiculosRepository);
-        return ResponseEntity.ok(veiculosService.findById(veiculos.getId()));
+        return ResponseEntity.ok(veiculosRepository.findById(veiculos.getId()));
     }
 
     @PutMapping("alterarVeiculo")
     public ResponseEntity<?> alterarVeiculo(@RequestBody VeiculosDTOFull veiculosDTOFull){
-        veiculosService.setVeiculosRepository(veiculosRepository);
         Veiculos veiculosAlterado = veiculosDTOFull.parseGastosToDTOFullToGastos();
-        Veiculos veiculosSemAlteracao = veiculosService.findById(veiculosAlterado.getId());
+        Veiculos veiculosSemAlteracao = veiculosRepository.findById(veiculosAlterado.getId());
 
         VeiculosRespostaDTO veiculosRespostaDTO = new VeiculosRespostaDTO(veiculosAlterado);
-        veiculosService.updateVeiculos(veiculosAlterado.getPlaca(), veiculosAlterado.getModelo(), veiculosAlterado.getMarca(),
+        veiculosRepository.updateVeiculos(veiculosAlterado.getPlaca(), veiculosAlterado.getModelo(), veiculosAlterado.getMarca(),
                 veiculosAlterado.getAno(), veiculosAlterado.getId(), veiculosAlterado.getUsuario());
 
         logger.info(String.format("Veículo alterado com sucesso"));

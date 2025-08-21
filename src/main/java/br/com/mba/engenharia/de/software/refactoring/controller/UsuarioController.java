@@ -4,17 +4,14 @@ import br.com.mba.engenharia.de.software.refactoring.dto.usuarios.UsuarioDTO;
 import br.com.mba.engenharia.de.software.refactoring.dto.usuarios.UsuarioDTORetorno;
 import br.com.mba.engenharia.de.software.refactoring.entity.usuarios.Usuario;
 import br.com.mba.engenharia.de.software.refactoring.output.SenderMail;
-import br.com.mba.engenharia.de.software.repository.usuario.UsuarioRepositoryNovo;
-import br.com.mba.engenharia.de.software.security.ComplexidadeSenha;
-import br.com.mba.engenharia.de.software.security.Criptrografia;
-import br.com.mba.engenharia.de.software.security.GerarToken;
-import br.com.mba.engenharia.de.software.service.usuarios.UserManager;
-import br.com.mba.engenharia.de.software.service.usuarios.UserService;
-import br.com.mba.engenharia.de.software.utils.ValidadorCPF;
+import br.com.mba.engenharia.de.software.refactoring.repository.usuario.UsuarioRepository;
+import br.com.mba.engenharia.de.software.refactoring.security.ComplexidadeSenha;
+import br.com.mba.engenharia.de.software.refactoring.security.Criptrografia;
+import br.com.mba.engenharia.de.software.refactoring.security.GerarToken;
+import br.com.mba.engenharia.de.software.refactoring.utils.ValidadorCPF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,19 +27,7 @@ public class UsuarioController{
     private static final Logger logger = LoggerFactory.getLogger(Usuario.class);
 
     @Autowired
-    UsuarioRepositoryNovo usuarioRepositoryNovo;
-
-    UserService userService = userService();
-
-    @Bean
-    public UserService userService(){
-        UserManager userManager = new UserManager(usuarioRepositoryNovo);
-        return userManager;
-    }
-
-    public UsuarioController() {
-        this.userService = userService();
-    }
+    UsuarioRepository usuarioRepositoryNovo;
 
     @PostMapping("/enviarCadastro")
     public ResponseEntity<?> enviarCadastro(@RequestBody UsuarioDTO usuarioDTO) throws IOException {
@@ -70,9 +55,8 @@ public class UsuarioController{
         }
         usuario.setToken(gerarToken.gerarToken());
         usuario.setStatus("0");
-        userService.setRepository(usuarioRepositoryNovo);
-        usuario.setId(userService.count());
-        Usuario usuarioRetorno = userService.save(usuario);
+        usuario.setId(usuarioRepositoryNovo.count());
+        Usuario usuarioRetorno = usuarioRepositoryNovo.save(usuario);
         UsuarioDTORetorno usuarioDTORetorno = usuarioRetorno.parseUsuarioToUsuarioDTORetorno();
             if (SenderMail.sendEmail(usuario)){
                 logger.info(String.format("Usuário cadastrado corretamente!"));
@@ -91,9 +75,8 @@ public class UsuarioController{
         user.setCPF(usuarioDTO.getCpf());
         Criptrografia criptrografia = new Criptrografia();
         user.setSenha(criptrografia.criptografar(usuarioDTO.getSenha()));
-        userService.setRepository(usuarioRepositoryNovo);
-        Usuario usuarioRetorno = userService.findByTokenUsernameAndSenha(user.getToken(), user.getUsername(), "0", user.getSenha());
-        Integer retorno = userService.findByTokenUsernameSenhaAndStatusAndUpdateStatus(usuarioRetorno.getToken(),
+        Usuario usuarioRetorno = usuarioRepositoryNovo.findByTokenUsernameAndSenha(user.getToken(), user.getUsername(), "0", user.getSenha());
+        Integer retorno = usuarioRepositoryNovo.findByTokenUsernameSenhaAndStatusAndUpdateStatus(usuarioRetorno.getToken(),
                 usuarioRetorno.getUsername(), usuarioRetorno.getSenha(), "0");
         UsuarioDTORetorno usuarioDTORetorno = usuarioRetorno.parseUsuarioToUsuarioDTORetorno();
         if (retorno > 0){
