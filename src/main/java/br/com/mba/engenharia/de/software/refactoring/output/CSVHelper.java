@@ -15,32 +15,6 @@ import java.util.List;
 
 public class CSVHelper {
 
-    public static ByteArrayInputStream contaToCSV(List<Conta> contaList, String filename) throws IOException {
-        final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL);
-
-        try (ByteArrayOutputStream out = new ByteArrayOutputStream();
-             CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(filename), format);) {
-            for (Conta conta : contaList) {
-                List<? extends Serializable> data = Arrays.asList(
-                        String.valueOf(conta.getId()),
-                        conta.getConta(),
-                        conta.getAgencia(),
-                        conta.getSaldo(),
-                        conta.getBanco(),
-                        conta.getTipo(),
-                        conta.getUsuario()
-                );
-
-                csvPrinter.printRecord(data);
-            }
-
-            csvPrinter.flush();
-            return new ByteArrayInputStream(out.toByteArray());
-        } catch (IOException e) {
-            throw new RuntimeException("fail to import data to CSV file: " + e.getMessage());
-        }
-    }
-
     public static ByteArrayInputStream rendaToCSV(List<Renda> rendasList, String filename) throws IOException {
         final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL);
 
