@@ -1,4 +1,4 @@
-package br.com.mba.engenharia.de.software.repository.rendas;
+package br.com.mba.engenharia.de.software.refactoring.repository.rendas;
 
 import br.com.mba.engenharia.de.software.refactoring.entity.rendas.Renda;
 import org.springframework.data.jpa.repository.Modifying;

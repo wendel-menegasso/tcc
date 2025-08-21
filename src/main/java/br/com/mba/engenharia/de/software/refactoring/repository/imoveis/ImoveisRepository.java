@@ -1,6 +1,6 @@
-package br.com.mba.engenharia.de.software.repository.imoveis;
+package br.com.mba.engenharia.de.software.refactoring.repository.imoveis;
 
-import br.com.mba.engenharia.de.software.refactoring.entity.imoveis.Imoveis;
+import br.com.mba.engenharia.de.software.entity.imoveis.Imoveis;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
