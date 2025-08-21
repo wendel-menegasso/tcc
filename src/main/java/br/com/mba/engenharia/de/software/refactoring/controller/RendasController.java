@@ -26,16 +26,16 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 public class RendasController {
-    private static final Logger logger = LoggerFactory.getLogger(Renda.class);
+    private static final Logger logger = LoggerFactory.getLogger(RendasController.class);
 
     @Autowired
-    RendasRepository repository;
+    private RendasRepository repository;
 
     @Autowired
-    ContaRepository contaRepository;
+    private ContaRepository contaRepository;
 
     @Autowired
-    GenericService genericService;
+    private GenericService genericService;
 
     @PostMapping("/criarRenda")
     public ResponseEntity<?> salvar(@RequestBody RendasDTO rendasDTO) {

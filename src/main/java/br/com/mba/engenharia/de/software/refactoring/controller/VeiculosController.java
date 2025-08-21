@@ -26,10 +26,10 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class VeiculosController {
 
-    private static final Logger logger = LoggerFactory.getLogger(Veiculos.class);
+    private static final Logger logger = LoggerFactory.getLogger(VeiculosController.class);
 
     @Autowired
-    VeiculosRepository veiculosRepository;
+    private VeiculosRepository veiculosRepository;
 
     @PostMapping("/criarVeiculo")
     public ResponseEntity<?> salvar(@RequestBody VeiculosDTO veiculosDTO){

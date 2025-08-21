@@ -24,12 +24,12 @@ import static br.com.mba.engenharia.de.software.refactoring.controller.UserLinks
 @CrossOrigin(origins = "*")
 public class LoginController{
 
-    private static final Logger logger = LoggerFactory.getLogger(Login.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    UsuarioRepository usuarioRepositoryNovo;
+    private UsuarioRepository usuarioRepositoryNovo;
 
-    UserService userService;
+    private UserService userService;
 
     @Bean
     public UserService userService(){

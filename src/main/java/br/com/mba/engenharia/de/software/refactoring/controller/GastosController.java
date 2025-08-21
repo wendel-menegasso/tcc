@@ -32,10 +32,10 @@ public class GastosController {
     private static final Logger logger = LoggerFactory.getLogger(GastosController.class);
 
     @Autowired
-    GastosRepository repository;
+    private GastosRepository repository;
 
     @Autowired
-    GenericService servicao;
+    private GenericService servicao;
 
     @PostMapping("/criarGasto")
     public ResponseEntity<?> salvar(@RequestBody GastosDTO gastosDTO) {

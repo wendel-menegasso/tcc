@@ -3,7 +3,7 @@ package br.com.mba.engenharia.de.software.refactoring.controller;
 import br.com.mba.engenharia.de.software.refactoring.dto.contas.*;
 import br.com.mba.engenharia.de.software.refactoring.entity.contas.Conta;
 import br.com.mba.engenharia.de.software.refactoring.repository.contas.ContaRepository;
-import br.com.mba.engenharia.de.software.refactoring.service.contas.CSVContasService;
+import br.com.mba.engenharia.de.software.refactoring.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +25,10 @@ public class ContaController {
     private static final Logger logger = LoggerFactory.getLogger(ContaController.class);
 
     @Autowired
-    ContaRepository contaRepository;
+    private ContaRepository contaRepository;
 
     @Autowired
-    CSVContasService fileService;
+    private GenericService fileService;
 
     @PostMapping("/criarConta")
     public ResponseEntity<?> salvar(@RequestBody ContaDTO contaDTO) {

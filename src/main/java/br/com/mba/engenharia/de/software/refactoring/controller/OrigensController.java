@@ -24,16 +24,16 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 public class OrigensController {
 
-    private static final Logger logger = LoggerFactory.getLogger(Conta.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrigensController.class);
 
     @Autowired
-    ContaRepository contaRepository;
+    private ContaRepository contaRepository;
 
     @Autowired
-    RendasRepository rendasRepository;
+    private RendasRepository rendasRepository;
 
     @Autowired
-    GastosRepository gastosRepository;
+    private GastosRepository gastosRepository;
 
     @PostMapping("/carregarOrigem")
     public ResponseEntity<?> listarOrigens(@RequestBody String user){

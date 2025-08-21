@@ -24,10 +24,10 @@ import java.io.IOException;
 @RestController
 @CrossOrigin(origins = "*")
 public class UsuarioController{
-    private static final Logger logger = LoggerFactory.getLogger(Usuario.class);
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
 
     @Autowired
-    UsuarioRepository usuarioRepositoryNovo;
+    private UsuarioRepository usuarioRepository;
 
     @PostMapping("/enviarCadastro")
     public ResponseEntity<?> enviarCadastro(@RequestBody UsuarioDTO usuarioDTO) throws IOException {
@@ -55,8 +55,8 @@ public class UsuarioController{
         }
         usuario.setToken(gerarToken.gerarToken());
         usuario.setStatus("0");
-        usuario.setId(usuarioRepositoryNovo.count());
-        Usuario usuarioRetorno = usuarioRepositoryNovo.save(usuario);
+        usuario.setId(usuarioRepository.count());
+        Usuario usuarioRetorno = usuarioRepository.save(usuario);
         UsuarioDTORetorno usuarioDTORetorno = usuarioRetorno.parseUsuarioToUsuarioDTORetorno();
             if (SenderMail.sendEmail(usuario)){
                 logger.info(String.format("Usuário cadastrado corretamente!"));
@@ -75,8 +75,8 @@ public class UsuarioController{
         user.setCPF(usuarioDTO.getCpf());
         Criptrografia criptrografia = new Criptrografia();
         user.setSenha(criptrografia.criptografar(usuarioDTO.getSenha()));
-        Usuario usuarioRetorno = usuarioRepositoryNovo.findByTokenUsernameAndSenha(user.getToken(), user.getUsername(), "0", user.getSenha());
-        Integer retorno = usuarioRepositoryNovo.findByTokenUsernameSenhaAndStatusAndUpdateStatus(usuarioRetorno.getToken(),
+        Usuario usuarioRetorno = usuarioRepository.findByTokenUsernameAndSenha(user.getToken(), user.getUsername(), "0", user.getSenha());
+        Integer retorno = usuarioRepository.findByTokenUsernameSenhaAndStatusAndUpdateStatus(usuarioRetorno.getToken(),
                 usuarioRetorno.getUsername(), usuarioRetorno.getSenha(), "0");
         UsuarioDTORetorno usuarioDTORetorno = usuarioRetorno.parseUsuarioToUsuarioDTORetorno();
         if (retorno > 0){

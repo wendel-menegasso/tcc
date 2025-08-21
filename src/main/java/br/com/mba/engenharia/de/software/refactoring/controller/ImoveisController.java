@@ -32,10 +32,10 @@ public class ImoveisController{
     private static final Logger logger = LoggerFactory.getLogger(ImoveisController.class);
 
     @Autowired
-    ImoveisRepository repository;
+    private ImoveisRepository repository;
 
     @Autowired
-    GenericService fileService;
+    private GenericService fileService;
 
     @PostMapping("/criarImovel")
     public ResponseEntity<Imoveis> salvar(@RequestBody ImoveisDTO imoveisDTO){

@@ -4,6 +4,8 @@ import br.com.mba.engenharia.de.software.refactoring.output.GenerateDashboard;
 import br.com.mba.engenharia.de.software.refactoring.repository.gastos.GastosRepository;
 import br.com.mba.engenharia.de.software.refactoring.repository.rendas.RendasRepository;
 import br.com.mba.engenharia.de.software.refactoring.service.GenericService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
@@ -21,14 +23,16 @@ import java.io.IOException;
 @CrossOrigin(origins = "*")
 public class DashboradController {
 
-    @Autowired
-    RendasRepository rendasRepository;
+    private static final Logger logger = LoggerFactory.getLogger(DashboradController.class);
 
     @Autowired
-    GastosRepository gastosRepository;
+    private RendasRepository rendasRepository;
 
     @Autowired
-    GenericService genericService;
+    private GastosRepository gastosRepository;
+
+    @Autowired
+    private GenericService genericService;
 
     @PostMapping("/graficos")
     public ResponseEntity<FileSystemResource> downloadArquivo(@RequestBody String usuario) throws IOException {
