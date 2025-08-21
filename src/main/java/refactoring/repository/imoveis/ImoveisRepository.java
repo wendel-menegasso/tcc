@@ -1,10 +1,10 @@
-package br.com.mba.engenharia.de.software.repository.imoveis;
+package refactoring.repository.imoveis;
 
-import refactoring.entity.imoveis.Imoveis;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import refactoring.entity.imoveis.Imoveis;
 
 import java.util.List;
 

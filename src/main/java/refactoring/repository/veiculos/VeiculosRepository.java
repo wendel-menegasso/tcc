@@ -1,10 +1,10 @@
-package br.com.mba.engenharia.de.software.repository.veiculos;
+package refactoring.repository.veiculos;
 
-import refactoring.entity.veiculos.Veiculos;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.repository.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import refactoring.entity.veiculos.Veiculos;
 
 import java.util.List;
 
