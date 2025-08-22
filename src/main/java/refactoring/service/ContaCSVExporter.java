@@ -1,5 +1,7 @@
 package refactoring.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import refactoring.config.EntitiesFactory;
 import refactoring.entity.contas.Conta;
 import lombok.Getter;
@@ -12,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Getter
+@Service
 public class ContaCSVExporter<T> implements CSVExporter<T> {
 
     private EntitiesFactory<T> repository;

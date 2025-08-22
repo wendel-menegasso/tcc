@@ -1,14 +1,17 @@
 package refactoring.controller;
 
+import refactoring.config.EntitiesFactory;
 import refactoring.dto.contas.ContaDTOAlterar;
 import refactoring.dto.contas.ContaDTOAlterarFull;
 import refactoring.dto.contas.ContaDTORetorno;
 import refactoring.dto.gastos.GastosDTO;
 import refactoring.dto.gastos.GastosDTOFull;
 import refactoring.dto.gastos.GastosRespostaDTO;
+import refactoring.entity.contas.Conta;
 import refactoring.entity.despesas.Gastos;
 import refactoring.entity.rendas.Renda;
 import refactoring.repository.gastos.GastosRepository;
+import refactoring.service.ExportCSVService;
 import refactoring.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +39,9 @@ public class GastosController {
 
     @Autowired
     private GenericService servicao;
+
+    @Autowired
+    EntitiesFactory<Gastos> entitiesFactory;
 
     @PostMapping("/criarGasto")
     public ResponseEntity<?> salvar(@RequestBody GastosDTO gastosDTO) {
@@ -77,7 +83,9 @@ public class GastosController {
 
     @PostMapping("/gerarRelatorioGasto")
     public ResponseEntity<FileSystemResource> gerarRelatorioGasto(@RequestBody GastosDTOFull gastosDTOFull) throws IOException {
+        ExportCSVService<Gastos> fileService = new ExportCSVService<>(gastosDTOFull.getUsuario(), entitiesFactory);
         String filename = "gastos.csv";
+        fileService.load(Gastos.class, filename);
 
         FileSystemResource fileSystemResource = new FileSystemResource(new File(filename));
 

@@ -1,8 +1,11 @@
 package refactoring.controller;
 
+import refactoring.config.EntitiesFactory;
 import refactoring.dto.contas.*;
 import refactoring.entity.contas.Conta;
 import refactoring.repository.contas.ContaRepository;
+import refactoring.service.ContaCSVExporter;
+import refactoring.service.ExportCSVService;
 import refactoring.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +31,7 @@ public class ContaController {
     private ContaRepository contaRepository;
 
     @Autowired
-    private GenericService fileService;
+    EntitiesFactory<Conta> entitiesFactory;
 
     @PostMapping("/criarConta")
     public ResponseEntity<?> salvar(@RequestBody ContaDTO contaDTO) {
@@ -47,8 +50,10 @@ public class ContaController {
 
     @PostMapping("/gerarRelatorioConta")
     public ResponseEntity<FileSystemResource> gerarRelatorioConta(@RequestBody ContaDTOFull contaDTOFull) throws IOException {
-        fileService.setUsuario(Integer.parseInt(contaDTOFull.getUsuario()));
+        ExportCSVService<Conta> fileService = new ExportCSVService<>(Integer.parseInt(contaDTOFull.getUsuario()), entitiesFactory);
         String filename = "contas.csv";
+        fileService.load(Conta.class, filename);
+
 
         FileSystemResource fileSystemResource = new FileSystemResource(new File(filename));
 

@@ -1,10 +1,14 @@
 package refactoring.controller;
 
+import refactoring.config.EntitiesFactory;
 import refactoring.dto.veiculos.VeiculosDTO;
 import refactoring.dto.veiculos.VeiculosDTOFull;
 import refactoring.dto.veiculos.VeiculosRespostaDTO;
+import refactoring.entity.imoveis.Imoveis;
+import refactoring.entity.rendas.Renda;
 import refactoring.entity.veiculos.Veiculos;
 import refactoring.repository.veiculos.VeiculosRepository;
+import refactoring.service.ExportCSVService;
 import refactoring.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +34,9 @@ public class VeiculosController {
 
     @Autowired
     private VeiculosRepository veiculosRepository;
+
+    @Autowired
+    EntitiesFactory<Veiculos> entitiesFactory;
 
     @PostMapping("/criarVeiculo")
     public ResponseEntity<?> salvar(@RequestBody VeiculosDTO veiculosDTO){
@@ -57,9 +64,9 @@ public class VeiculosController {
 
     @PostMapping("/gerarRelatorioVeiculo")
     public ResponseEntity<FileSystemResource> gerarRelatorioVeiculo(@RequestBody VeiculosDTOFull veiculosDTOFull) throws IOException {
+        ExportCSVService<Veiculos> fileService = new ExportCSVService<>(veiculosDTOFull.getUsuario(), entitiesFactory);
         String filename = "veiculos.csv";
-        GenericService genericService = new GenericService();
-        InputStreamResource file = new InputStreamResource(genericService.load(filename));
+        fileService.load(Veiculos.class, filename);
         FileSystemResource fileSystemResource = new FileSystemResource(new File(filename));
 
         // Configura os cabeçalhos da resposta

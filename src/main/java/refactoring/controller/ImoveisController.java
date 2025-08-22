@@ -1,11 +1,14 @@
 package refactoring.controller;
 
+import refactoring.config.EntitiesFactory;
 import refactoring.dto.imoveis.ImoveisAlterarDTO;
 import refactoring.dto.imoveis.ImoveisDTO;
 import refactoring.dto.imoveis.ImoveisDTOFull;
 import refactoring.dto.imoveis.ImoveisRetornoDTO;
+import refactoring.entity.contas.Conta;
 import refactoring.entity.imoveis.Imoveis;
 import refactoring.repository.imoveis.ImoveisRepository;
+import refactoring.service.ExportCSVService;
 import refactoring.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +36,9 @@ public class ImoveisController{
     @Autowired
     private GenericService fileService;
 
+    @Autowired
+    EntitiesFactory<Imoveis> entitiesFactory;
+
     @PostMapping("/criarImovel")
     public ResponseEntity<Imoveis> salvar(@RequestBody ImoveisDTO imoveisDTO){
         Imoveis imoveis = imoveisDTO.parseImoveisDTOToImovel();
@@ -55,9 +61,9 @@ public class ImoveisController{
 
     @PostMapping("/gerarRelatorioImovel")
     public ResponseEntity<FileSystemResource> gerarRelatorioImoveis(@RequestBody ImoveisDTOFull imoveisDTOFull) throws IOException {
-        fileService.setUsuario(Integer.parseInt(String.valueOf(imoveisDTOFull.getUsuario())));
-        String filename = "rendas.csv";
-        InputStreamResource file = new InputStreamResource(fileService.load(filename));
+        ExportCSVService<Imoveis> fileService = new ExportCSVService<>(imoveisDTOFull.getUsuario(), entitiesFactory);
+        String filename = "contas.csv";
+        fileService.load(Imoveis.class, filename);
 
         FileSystemResource fileSystemResource = new FileSystemResource(new File(filename));
 

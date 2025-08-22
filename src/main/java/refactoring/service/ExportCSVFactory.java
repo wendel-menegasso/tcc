@@ -1,6 +1,5 @@
 package refactoring.service;
 
-import com.sun.org.apache.xerces.internal.xs.XSValue;
 import refactoring.entity.contas.Conta;
 import refactoring.entity.despesas.Gastos;
 import refactoring.entity.imoveis.Imoveis;

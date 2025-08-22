@@ -1,12 +1,15 @@
 package refactoring.controller;
 
+import refactoring.config.EntitiesFactory;
 import refactoring.dto.contas.ContaDTOAlterar;
 import refactoring.dto.contas.ContaDTOAlterarFull;
 import refactoring.dto.contas.ContaDTORetorno;
 import refactoring.dto.rendas.*;
+import refactoring.entity.imoveis.Imoveis;
 import refactoring.entity.rendas.Renda;
 import refactoring.repository.contas.ContaRepository;
 import refactoring.repository.rendas.RendasRepository;
+import refactoring.service.ExportCSVService;
 import refactoring.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +39,9 @@ public class RendasController {
 
     @Autowired
     private GenericService genericService;
+
+    @Autowired
+    EntitiesFactory<Renda> entitiesFactory;
 
     @PostMapping("/criarRenda")
     public ResponseEntity<?> salvar(@RequestBody RendasDTO rendasDTO) {
@@ -76,8 +82,9 @@ public class RendasController {
 
     @PostMapping("/gerarRelatorioRenda")
     public ResponseEntity<FileSystemResource> gerarRelatorioRenda(@RequestBody RendaDTOFull rendasDTOFull) throws IOException {
+        ExportCSVService<Renda> fileService = new ExportCSVService<>(Integer.parseInt(rendasDTOFull.getUsuario()), entitiesFactory);
         String filename = "rendas.csv";
-        InputStreamResource file = new InputStreamResource(genericService.load(filename));
+        fileService.load(Renda.class, filename);
 
         FileSystemResource fileSystemResource = new FileSystemResource(new File(filename));
 
