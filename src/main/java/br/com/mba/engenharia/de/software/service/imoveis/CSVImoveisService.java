@@ -2,7 +2,7 @@ package br.com.mba.engenharia.de.software.service.imoveis;
 
 import br.com.mba.engenharia.de.software.entity.imoveis.Imoveis;
 import br.com.mba.engenharia.de.software.output.CSVHelper;
-import br.com.mba.engenharia.de.software.repository.imoveis.ImoveisRepository;
+import refactoring.config.EntitiesFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.ByteArrayInputStream;
@@ -12,7 +12,7 @@ import java.util.List;
 public class CSVImoveisService {
 
     @Autowired
-    ImoveisRepository repository;
+    EntitiesFactory<Imoveis> repository;
 
     private int usuario;
 
@@ -21,7 +21,7 @@ public class CSVImoveisService {
     }
 
     public ByteArrayInputStream load(String filename) throws IOException {
-        List<Imoveis> imoveis = repository.findAll(usuario);
+        List<Imoveis> imoveis = repository.imoveisRepository().findAll(usuario);
 
         ByteArrayInputStream in = CSVHelper.imovelToCSV(imoveis,filename);
         return in;
