@@ -65,14 +65,15 @@ public class ContaController {
                 .body(fileSystemResource);
     }
 
-    @PostMapping("/listarConta")
-    public ResponseEntity<?> listarConta(@PathVariable("usuario") String user) {
+    @GetMapping("/contas/{id}")
+    public ResponseEntity<List<ContaDTORetorno>> listarConta(@PathVariable("id") String user) {
         Integer usuario = Integer.parseInt(user);
         List<Conta> contaList = contaRepository.findAll(usuario);
-        return (ResponseEntity<?>) contaList
+        return new ResponseEntity<>(
+        (contaList
                 .stream()
                 .map(ContaDTORetorno::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())), HttpStatus.OK);
     }
 
     @DeleteMapping("/deletarConta/{id}")

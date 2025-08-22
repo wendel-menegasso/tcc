@@ -24,7 +24,7 @@ public class ExportCSVService<T> extends ExportCSVFactory<T>{
     }
 
     public ByteArrayInputStream load(Class<T> clazz, String filename) throws IOException {
-        CSVExporter<T> exporter = ExportCSVFactory.getExporter(clazz);
+        CSVExporter<T> exporter = ExportCSVFactory.getExport(clazz);
         exporter.setRepository(repository);
         return exporter.export(filename, this.usuario);
     }
